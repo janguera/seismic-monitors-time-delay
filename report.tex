@@ -1,0 +1,96 @@
+% !TEX encoding = MacOSRoman
+\documentclass[12pt,a4paper,english]{article}
+
+% Note that you must choose either Finnish or English here and there in this
+% file.
+% Other options for document class
+  % ,twoside,openright   % If printing on both sides (>80 pages)
+  % ,twocolumn           % Can be used in lab reports, not in theses
+
+% Ensure the correct Pdf size (not needed in all environments)
+\special{papersize=210mm,297mm}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{textcomp}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{numprint}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage{setspace}
+\usepackage{termlist}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+
+%new commands
+\newcommand\todo[1]{{\color{red}!!!TODO: #1}}
+
+
+\author{Jordi Anguera\thanks{Autonomous University of Barcelona, Spain} \and Leevi Annala\thanks{University of Jyväskylä, Finland} \and Stefan Dimitrijevic\thanks{University of Novi Sad, Serbia} \and Patricia Pauli\thanks{Technical University of Darmstadt, Germany} \and Liisa-Ida Sorsa\thanks{Tampere University of Technology, Finland} \and Dimitar Trendafilov\thanks{University of Sofia ''St. Kliment Ohridski'', Bulgaria} \and Christophe Pickard\thanks{University of Grenoble Alpes and Grenoble INP, France}}
+\title{Modeling effect of time delay for large network of seismic monitor} 
+\date{17.7.2018}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{Introduction}
+
+\section{Methods}
+
+We have a network of seismic monitors recording ground vibrations. The monitor records compression and decompression as discrete values -1 and 1, respectively, every second. The GPS coordinate position of each monitor in the network is known (Figure \todo{insert map of monitors}). 
+
+The network of monitors can be modelled as a complete graph \todo{schematic representation of the graph}. The signal of each monitor is cross-correlated with other monitor signals, finally yielding time-delay data between each monitor. The time delay between the monitors comprise information on the real time the signal travels between the monitors, the inaccuracies of the clock (time drift), and other noise affecting the measurement. 
+
+Let $\bm{\delta}_t \in \mathbb{R}^{n}$ be the measured pairwise time delays of the system, $\bm{\Delta_t}$ the actual time delays, and $\mathbf{D}_t$ an error term describing the difference between the actual and measured time delays 
+
+\begin{equation}
+\bm{\delta}_t  = \bm{\Delta}_t + \mathbf{D}_t.
+\label{eq:model}
+\end{equation}
+ 
+Each of the monitors are equipped with a clock which runs independent of others. It is synchronized via GPS system once a month and then runs independently. The drift, $D_i$ in clock $i$ is described by 
+
+\begin{equation}
+D_i(t) = \varepsilon c_i(t) + t_i^0,
+\label{eq:driftone}
+\end{equation}
+
+in which $\varepsilon$ accounts for the (non-linear) drift of the clock, $c_i$ is the clock counter, and $t_i^0$ the reference time at synchronization.
+
+In the case of the complete network, the equation \ref{eq:driftone} becomes
+
+\begin{equation}
+\mathbf{D}_t = \bm{\varepsilon}_t \mathbf{c}_t + \mathbf{t}_0,
+\label{eq:diftvec}
+\end{equation}
+
+in which $\mathbf{D}_t \in \mathbb{R}^{n}$, $\bm{\varepsilon}_t\in\mathbb{R}^{n \times n}$ sparse matrix, and $\mathbf{c}_t$, $\mathbf{t}_0 \in \mathbb{R}^n$. 
+
+Combining Equations \ref{eq:model} and  \ref{eq:diftvec} yields
+
+\begin{equation}
+\bm{\delta}_t  = \bm{\Delta}_t + \bm{\varepsilon}_t \mathbf{c}_t + \mathbf{t}_0. 
+\label{eq:modelwithdrift}
+\end{equation}
+
+The position of each seismic monitor in the network is known. As the monitors are spread across a large area, it is assumed that local tremors are detected by stations that are close by, and therefore the correlations found in the pairwise cross-correlations and time delay data between them have higher likelihood to be linked. Therefore, a weight matrix $\mathbf{A}$ is constructed with a weight measure based on the distance between the stations: the closer the stations are together, the higher the weight assigned to the measurement. The weight elements $a_{ij}$ in the matrix $\mathbf{A}$ are calculated by 
+
+\begin{equation}
+a_{ij} = \frac{1}{r_{ij}},
+\end{equation}
+
+in which $r_{ij}$ is the distance between the stations $i$ and $j$. The values $a_{ij}$ are then normalized to $[0,1]$ to obtain weights. 
+
+\todo{how to incorporate the weight matrix to model}
+
+\end{document}
