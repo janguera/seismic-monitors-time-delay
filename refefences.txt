@@ -1,3 +1,14 @@
 REFERENCES: 
+
 Correction of Ocean-Bottom Seismometer Instrumental Clock Errors Using Ambient Seismic Noise,
 Pierre Gouédard,* Tim Seher, Jeffrey J. McGuire, John A. Collins, and Robert D. van der Hilst
+
+Hayang Kim, Xiaoli Ma, Benjamin Russell Hamilton. Tracking Low-Precision Clocks With Time-Varying
+Drifts Using Kalman Filtering. IEEE/ACM TRANSACTIONS ON NETWORKING, VOL. 20, NO. 1, FEBRUARY 2012
+
+Christoph Sens-Schönfelder. Synchronizing seismic networks with ambient noise. Geophys. J. Int. (2008) 174, 966–970
+
+Enrique Mallada, Xiaoqiao Meng, Michel Hack, Li Zhang, and Ao Tang. Skewless Network Clock Synchronization Without
+Discontinuity: Convergence and Performance. IEEE/ACM TRANSACTIONS ON NETWORKING, VOL. 23, NO. 5, OCTOBER 2015
+
+O. Sename , V. Hovelaque , C. Commault & J. M. Dion. Structured time-delay systems: A graph approach. INT. J. CONTROL, 2001, VOL. 74, NO. 4, 373-386. https://doi.org/10.1080/00207170010010010 
