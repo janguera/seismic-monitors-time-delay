@@ -1,9 +1,9 @@
 import numpy as np
-def graph_denoising(noisy, measure_estimates, epsilon, learning_rate):
+def graph_denoising(noisy, measure_estimates, epsilon, learning_rate, max_iterations):
     t = 0
     W = noisy
     E = np.sum(np.power((graph_measures(W) - measure_estimates), 2))
-    while E > epsilon:
+    while E > epsilon and t < max_iterations:
         measures = graph_measures(W)
         measure_derivatives = graph_measure_derivatives(W)
         measures_minus_estimates_times_derivatives = [
@@ -14,6 +14,8 @@ def graph_denoising(noisy, measure_estimates, epsilon, learning_rate):
         W[W > 1] = 1
         E = np.sum(np.power((graph_measures(W) - measure_estimates), 2))
         t = t + 1
+        if t >= max_iterations:
+            print("The algorithm stopped because of reaching max iterations.")
     return W, t
 
 def graph_measures(W):
