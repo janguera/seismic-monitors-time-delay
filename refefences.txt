@@ -1,4 +1,4 @@
-REFERENCES: 
+﻿REFERENCES: 
 
 Correction of Ocean-Bottom Seismometer Instrumental Clock Errors Using Ambient Seismic Noise,
 Pierre Gouédard,* Tim Seher, Jeffrey J. McGuire, John A. Collins, and Robert D. van der Hilst
@@ -16,3 +16,6 @@ O. Sename , V. Hovelaque , C. Commault & J. M. Dion. Structured time-delay syste
 Weighted network estimation by the use of topological graph metrics
 Loukianos Spyrou and Javier Escudero 
 DOI: 	10.1109/TNSE.2018.2849342
+
+L. Stehly, M. Campillo and N. M. Shapiro; Traveltime measurements from noise correlation: stability and detection of instrumental time-shifts
+
