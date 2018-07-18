@@ -18,10 +18,17 @@ def graph_denoising(noisy, measure_estimates, epsilon, learning_rate):
 
 def graph_measures(W):
     # Fill the graph measures here
-    # return something with the shape of (W,n) where n is the number of measures we are using
-    return np.array([W,W,W])
+    # return a list of length n, where n is the number of measures we are using
+    return np.array([1,2,3])
 
 def graph_measure_derivatives(W):
     # Fill the graph measure derivatives here
     # return something with the shape of (W,n) where n is the number of measures we are using
     return np.array([W, W, W])
+
+a = np.array([[0,0.5],[0.4,0.6]])
+estimates = [1,2,3]
+epsilon = 100
+learning_rate = 0.05
+
+graph_denoising(a, estimates, epsilon, learning_rate)
