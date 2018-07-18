@@ -12,3 +12,7 @@ Enrique Mallada, Xiaoqiao Meng, Michel Hack, Li Zhang, and Ao Tang. Skewless Net
 Discontinuity: Convergence and Performance. IEEE/ACM TRANSACTIONS ON NETWORKING, VOL. 23, NO. 5, OCTOBER 2015
 
 O. Sename , V. Hovelaque , C. Commault & J. M. Dion. Structured time-delay systems: A graph approach. INT. J. CONTROL, 2001, VOL. 74, NO. 4, 373-386. https://doi.org/10.1080/00207170010010010 
+
+Weighted network estimation by the use of topological graph metrics
+Loukianos Spyrou and Javier Escudero 
+DOI: 	10.1109/TNSE.2018.2849342
