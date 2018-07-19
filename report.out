@@ -1,0 +1,10 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Assumptions}{}% 2
+\BOOKMARK [1][-]{section.3}{Data}{}% 3
+\BOOKMARK [1][-]{section.4}{Methods}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Modelling time delay between seismic monitors}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Denoising model}{section.4}% 6
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Definitions}{subsection.4.2}% 7
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Cost function}{subsection.4.2}% 8
+\BOOKMARK [3][-]{subsubsection.4.2.3}{Graph metrics}{subsection.4.2}% 9
+\BOOKMARK [2][-]{subsection.4.3}{Clock drift estimate}{section.4}% 10
