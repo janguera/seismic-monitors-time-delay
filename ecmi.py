@@ -124,3 +124,51 @@ for day in range(ndays):
 plt.plot(n_working)    
 plt.title("Number of working seismic monitors")
 plt.show()
+
+#%% WORKING STATIONS-CONNECTIONS CORRELATION
+
+nconnect_std = []
+nworking_std = []
+
+for day in range(ndays):
+    nconnect_std.append(nconnect[day]/max(nconnect))
+    nworking_std.append(n_working[day]/max(n_working))
+    
+plt.plot(nconnect_std)    
+plt.title("Standarised number of working connections")
+plt.show()
+
+plt.plot(nworking_std)    
+plt.title("Standarised number of working seismic monitors")
+plt.show()
+
+correlation_stations = []
+
+for day in range(ndays):
+    correlation_stations.append(nconnect[day]/n_working[day])
+
+plt.plot(correlation_stations)    
+plt.title("Number of connections per working seismic monitor")
+plt.show()
+
+#%% DAILY dt sum
+
+daily_sum = []
+N_connections = len(stations_connections)
+for hour in range(ndays*24):
+    sum = 0
+    for i in range(N_connections):
+        sum += dt_matrix[i][hour]
+    daily_sum.append(sum)
+    
+daily_avg = []    
+for hour in range(ndays*24):
+    daily_avg.append(daily_sum[hour]/N_connections)
+    
+plt.plot(daily_avg)    
+plt.title("Daily dt average")
+plt.show()
+    
+plt.plot(daily_sum)    
+plt.title("Daily dt sum")
+plt.show()
