@@ -40,17 +40,31 @@
 \maketitle
 
 \begin{abstract}
+Seismic monitoring is used to study the behavior and composition of the underground floor. For earthquake prediction and underground works precise timing and positioning information is needed. Drilling companies use equipments that are linked in a network and are generally connected to a global positioning system for synchronization. However, instruments are not continuously  synchronized and may deviate in time. Hence, the periods to which the vibration of the underground floor are caught might lack accuracy. Consequently, the precise localisation of the events becomes impossible. We have delay measurements and distance data available for an example seismic network and  use it to correct the timing of the data in periods without GPS reception.
 
 \end{abstract}
 
 \section{Introduction}
 
-The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the delay. Continuous GPS synchronization of data is not possible due to the high energy consumption. This work suggests an alternative way to determine clock drift based on the data only.
+In operation of seismic networks high quality of data is required for accurate prediction of seismic events. Precise timing is crucial but continuous GPS synchronization of the stations' internal clocks is not possible due to high energy consumption.
 
-\section{Assumptions}
+The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the delay.  This work suggests an alternative way to determine clock drift based on the data only.
+
+\section{Problem Statement}
+\subsection{Assumptions}
 All the stations have the same orientation.
 The medium the wave is propagating in is homogenous.
+\subsection{Definitions}
+\begin{tabular}{c|l}
+$\Delta_i$ & clock drift at station $i$\\
+$\delta_{ij}$ & Measured delay between station $i$ and station $j$ \\
+$\hat{\delta}_{ij}$ & Actual delay between station $i$ and station $j$ \\
+$\varepsilon_{ij}$ & noise between two stations $i$ and $j$ \\
+$d_{ij}$ & distance
+\end{tabular}
 
+\subsection{Modelling time delay between seismic monitors}
+The network of monitors can be modelled as a complete graph. The signal of each monitor is cross-correlated with other monitor signals, finally yielding time-delay data $\hat{\delta}_{ij}$ between each monitor. The time delay between the monitors comprise information on the real time the signal travels between the monitors $\delta_{ij}$, the inaccuracies of the clock (time drift), and other noise affecting the measurement. The position of each seismic monitor in the network is available that can be used to compute the distances $d_{ij}$ between all stations.
 
 \section{Data}
 
@@ -73,7 +87,7 @@ The stations work independent of each other and are occasionally shut down for s
 \label{fig:workingmonitors}
 \end{figure*}
 
-The compression and decompression data recorded by the stations is retrieved and run through initial data cleaning and filtering procedures. The data is then cross-correlated in one-hour time windows to yield time-delay data of signal between each monitor (Figure \ref{fig:examplesignal}). 
+The compression and decompression data recorded by the stations is retrieved and run through initial data cleaning and filtering procedures. The data is then cross-correlated in one-hour time windows to yield time-delay data of signals between all monitors (Figure \ref{fig:examplesignal}). 
 
 %\begin{figure}[ht]
 %  \begin{center}   
@@ -93,7 +107,7 @@ The compression and decompression data recorded by the stations is retrieved and
 
 
 
-The time delays between each monitor are assumed to depend on the distance between the monitor. The further away the monitors are from each other, the larger the time delay caused by the same event recorded by the monitor. The Figure \ref{fig:histograms} shows an example of time-delay evolution of one monitor station over 24 hours. The distributions  are symmetric because each monitor connection is computed into both directions. The interesting feature of the histograms is how the shape of the distribution changes. 
+The time delays between each monitor are assumed to depend on the distance between the monitor. The further away the monitors are from each other, the larger the time delay caused by the same event recorded by the monitor. The Figure \ref{fig:histograms} shows an example of time-delay evolution of all monitors over 24 hours. The distributions are symmetric with zero mean which implies that the delays at an instant cancel out over the whole area the 73 stations are mounted in. The interesting feature of the histograms is how the shape of the distribution changes slowly over time. However, the mean remains zero.
 
 \begin{figure}[ht]
   \begin{center}   
@@ -101,7 +115,7 @@ The time delays between each monitor are assumed to depend on the distance betwe
   \end{center}
   \caption{Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant.}\label{fig:histograms}
 \end{figure}
-The figure \ref{fig:histograms} shows clearly how the time delays change over time. However, the mean remains zero.
+
 
 We expect the following correlation between the distance of two stations and the delay between them. The further apart the stations, the greater is the delay. Figure \ref{fig:nearfar} shows that the variance of the delays is much higher for a station pair of stations that are far apart.
 
@@ -114,8 +128,6 @@ We expect the following correlation between the distance of two stations and the
 
 \section{Methods}
 
-\subsection{Modelling time delay between seismic monitors}
-The network of monitors can be modelled as a complete graph. The signal of each monitor is cross-correlated with other monitor signals, finally yielding time-delay data between each monitor. The time delay between the monitors comprise information on the real time the signal travels between the monitors, the inaccuracies of the clock (time drift), and other noise affecting the measurement. 
 
 Let $\bm{\hat{\delta}} \in \mathbb{R}^{n\times n}$ be the measured pairwise time delays of the system, $\bm{\delta}$ the actual pairwise time delays, and $\bm{\varepsilon}$ an error term including clock drift of the station's clock and other errors
 
@@ -284,6 +296,9 @@ The explicit solution is hence given by
 \begin{equation}
 \hat{\mathbf{s}} = (\mathbf{G}^T\mathbf{G} + \bm{\Gamma}^T\bm{\Gamma})^{-1}\mathbf{G}^T\mathbf{m}.  
 \end{equation}
+
+\section{Conclusions and Outlook}
+
 
 %% Insert bibliography
 \bibliographystyle{abbrv}  

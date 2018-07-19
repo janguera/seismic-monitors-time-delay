@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.5.3)  19 JUL 2018 16:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.5.3)  19 JUL 2018 17:52
 entering extended mode
 **report.tex
 (report.tex
@@ -1098,83 +1098,83 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 Non-PDF special ignored!{C:/Users/Isi/AppData/Local/MiKTeX/2.9/pdftex/config/pd
-ftex.map}] <InitialStationSet.png, id=61, 865.43324pt x 407.72325pt>
+ftex.map}] [2] <InitialStationSet.png, id=83, 865.43324pt x 407.72325pt>
 File: InitialStationSet.png Graphic file (type png)
 
 <use InitialStationSet.png>
-Package pdftex.def Info: InitialStationSet.png used on input line 61.
+Package pdftex.def Info: InitialStationSet.png used on input line 75.
 (pdftex.def)             Requested size: 390.0pt x 183.74127pt.
 
-<working_connections.png, id=64, 388.45125pt x 265.99374pt>
+<working_connections.png, id=86, 388.45125pt x 265.99374pt>
 File: working_connections.png Graphic file (type png)
 
 <use working_connections.png>
-Package pdftex.def Info: working_connections.png used on input line 70.
+Package pdftex.def Info: working_connections.png used on input line 84.
 (pdftex.def)             Requested size: 187.19833pt x 128.18694pt.
 File: working_connections.png Graphic file (type png)
  <use working_connections.png>
-Package pdftex.def Info: working_connections.png used on input line 71.
+Package pdftex.def Info: working_connections.png used on input line 85.
 (pdftex.def)             Requested size: 187.19833pt x 128.18694pt.
 
-<delayevolutionovertimeforonestation2.png, id=67, 421.575pt x 316.18124pt>
+<delayevolutionovertimeforonestation2.png, id=89, 421.575pt x 316.18124pt>
 File: delayevolutionovertimeforonestation2.png Graphic file (type png)
 
 <use delayevolutionovertimeforonestation2.png>
 Package pdftex.def Info: delayevolutionovertimeforonestation2.png used on input
- line 88.
+ line 102.
 (pdftex.def)             Requested size: 191.10214pt x 143.32716pt.
 
-<delayevolutionovertimeforonestation.png, id=68, 421.575pt x 316.18124pt>
+<delayevolutionovertimeforonestation.png, id=90, 421.575pt x 316.18124pt>
 File: delayevolutionovertimeforonestation.png Graphic file (type png)
 
 <use delayevolutionovertimeforonestation.png>
 Package pdftex.def Info: delayevolutionovertimeforonestation.png used on input 
-line 89.
+line 103.
 (pdftex.def)             Requested size: 191.10214pt x 143.32716pt.
- [2 <./InitialStationSet.png>]
-<hourlydelaydistributionoverallstationsforoneday.png, id=78, 988.44281pt x 532.
+
+<hourlydelaydistributionoverallstationsforoneday.png, id=92, 988.44281pt x 532.
 99126pt>
 File: hourlydelaydistributionoverallstationsforoneday.png Graphic file (type pn
 g)
  <use hourlydelaydistributionoverallstationsforoneday.png>
 Package pdftex.def Info: hourlydelaydistributionoverallstationsforoneday.png us
-ed on input line 100.
+ed on input line 114.
 (pdftex.def)             Requested size: 390.0pt x 210.29745pt.
-
-<Comparisondelayoverrandomdayoffarestandclosestlinks.png, id=81, 705.38531pt x 
-301.8778pt>
+ [3 <./InitialStationSet.png>]
+<Comparisondelayoverrandomdayoffarestandclosestlinks.png, id=102, 705.38531pt x
+ 301.8778pt>
 File: Comparisondelayoverrandomdayoffarestandclosestlinks.png Graphic file (typ
 e png)
  <use Comparisondelayoverrandomdayoffarestandclosestlinks.png>
 Package pdftex.def Info: Comparisondelayoverrandomdayoffarestandclosestlinks.pn
-g used on input line 110.
+g used on input line 124.
 (pdftex.def)             Requested size: 390.0pt x 166.90388pt.
 
-[3 <./working_connections.png>] [4 <./delayevolutionovertimeforonestation2.png 
-(PNG copy)> <./delayevolutionovertimeforonestation.png (PNG copy)>] [5 <./hourl
-ydelaydistributionoverallstationsforoneday.png>] [6 <./Comparisondelayoverrando
-mdayoffarestandclosestlinks.png>] [7] (report.bbl) [8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 292.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 292.
+[4 <./working_connections.png>] [5 <./delayevolutionovertimeforonestation2.png 
+(PNG copy)> <./delayevolutionovertimeforonestation.png (PNG copy)>] [6 <./hourl
+ydelaydistributionoverallstationsforoneday.png>] [7 <./Comparisondelayoverrando
+mdayoffarestandclosestlinks.png>] [8] (report.bbl) [9]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 307.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 307.
  (report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 292.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 292.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 307.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 307.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 7D35F7D1C2716CF8432971050212A7E8;626.
+(rerunfilecheck)             Checksum: FBD80374B8FB3DA915B6EE8CB75147E5;816.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 292.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 307.
  ) 
 Here is how much of TeX's memory you used:
- 19682 strings out of 493671
- 361928 string characters out of 3141427
- 426737 words of memory out of 3000000
- 22625 multiletter control sequences out of 15000+200000
+ 19689 strings out of 493671
+ 362014 string characters out of 3141427
+ 428702 words of memory out of 3000000
+ 22628 multiletter control sequences out of 15000+200000
  28580 words of font info for 82 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 55i,11n,56p,697b,828s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,11n,56p,768b,828s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ec
 ti1200.pk> <C:\Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\d
 pi600\ecrm0800.pk> <C:\Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknap
@@ -1184,27 +1184,28 @@ ur\jknappen\ec\dpi600\ecbx1440.pk> <C:\Users\Isi\AppData\Local\MiKTeX\2.9\fonts
 .9\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm0700.pk> <C:\Users\Isi\AppData\Local\
 MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk> <C:\Users\Isi\AppDat
 a\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1728.pk> <C:\Users\Is
-i\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1095.pk> <C:\
-Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.
-pk> <C:\Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\t
+i\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1095.pk> <C:\
+Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1095.
+pk> <C:\Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\e
 crm1000.pk> <C:\Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\
-dpi600\ecrm1440.pk> <C:\Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jkna
-ppen\ec\dpi600\ecrm2074.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmbx8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmex10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmmi12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmmi8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmmib10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-extra/cmmib8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cms
-y10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8
-.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msb
-m10.pfb>
-Output written on report.pdf (8 pages, 1890143 bytes).
+dpi600\tcrm1000.pk> <C:\Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jkna
+ppen\ec\dpi600\ecrm1440.pk> <C:\Users\Isi\AppData\Local\MiKTeX\2.9\fonts\pk\ljf
+our\jknappen\ec\dpi600\ecrm2074.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmbx8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmex10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmmi12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmmi8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmmib10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cmextra/cmmib8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/sym
+bols/msbm10.pfb>
+Output written on report.pdf (9 pages, 1909792 bytes).
 PDF statistics:
- 532 PDF objects out of 1000 (max. 8388607)
- 44 named destinations out of 1000 (max. 500000)
- 123 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 599 PDF objects out of 1000 (max. 8388607)
+ 48 named destinations out of 1000 (max. 500000)
+ 147 words of extra memory for PDF output out of 10000 (max. 10000000)
 
