@@ -17,12 +17,12 @@
 \usepackage{textcomp}
 \usepackage{listings}
 \usepackage{graphicx}
-%\usepackage{numprint}
+\usepackage{numprint}
 \usepackage{subfigure}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
 \usepackage{setspace}
-%\usepackage{termlist}
+\usepackage{termlist}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -130,7 +130,7 @@ Graph metrics are scalar functions of the weight matrix, $f(\bm{\hat{\delta}}): 
 \item \textbf{Distance}: We want to use the distance measures to denoise the delay measurements. For this purpose, we deisigned a metric, the connection strength of a node i. We normalize the delays and compute the row sum 
 
 \begin{equation}
-f_i (\delta_{ij})= \sum_j{\delta_{ij}}.  
+f_i (\bm{\delta})= \sum_j{\delta_{ij}}.  
 \end{equation}
 
 Thde connection strength can be interpreted as the sum of all normalized delays of all of the links to node i.
