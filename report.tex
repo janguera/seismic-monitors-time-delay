@@ -102,7 +102,7 @@ Each of the monitors are equipped with a clock which runs independent of others.
 
 The position of each seismic monitor in the network is known. As the monitors are spread across a large area, it is assumed that local tremors are detected by stations that are close by, and therefore the correlations found in the pairwise cross-correlations and time delay data between them have higher likelihood to be linked. 
 
-\subsection{Denoising model}
+\subsection{Denoising model}\label{sec:denoising}
 \subsubsection{Definitions}
 The computational denoising model involves weighted network estimation by the use of topological graph metrics, described in detail in \cite{Spyrou2017}. 
 
@@ -150,8 +150,68 @@ The average neighbour degree for node $i$ is given by
 
 \end{enumerate}
 
+\subsection{Clock drift estimate}
 
+The denoising model in section \ref{sec:denoising} computes the denoised estimate of the measurement data $\bm{\hat{\delta}}$. The algorithm is run over a series of time points and an estimate for the clock drift between each station pair is obtained. 
 
+A polynomial fitting algorithm \todo{specify} is run to find an estimate for the trend in noise. The error term in the fitting procedure will account for all the other errors in the system. The trend is considered to be caused by the clock drifts of the two stations. 
+
+The noise, $\varepsilon_{ij}$, between each pair between two stations in the system is modelled with 
+\begin{equation}
+\varepsilon_{ij} = | \Delta_i - \Delta_j | + e_{ij},
+\end{equation}
+
+in which $ | \Delta_i - \Delta_j | $ is the clock drift between two stations $i$ and $j$, and $e_{ij}$ accounts for all other noise in the system in addition to the clock drift. 
+
+The clock errors of individual stations can be written in matrix form 
+
+\begin{equation*}
+\begin{bmatrix}
+1 & -1 & 0 & 0 & \dots & 0 & 0 \\
+1 & 0 & -1 & 0 & \dots & 0 & 0 \\
+1 &  0  & 0 & 0 & \dots & 0  & 0 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+1 &  0  & 0 & 0 & \dots & 0 & -1 \\
+-1 & 1 & 0 & 0 & \dots & 0  & 0 \\
+0 & 1 & -1 & 0 & \dots & 0 & 0 \\
+\hdotsfor{7} \\
+0 & 0 & 0 & \dots & 0& 1 & -1
+\end{bmatrix}
+ \begin{bmatrix}
+\Delta_1 \\ \Delta_2 \\ \Delta_3 \\ \vdots \\ \Delta_{n-1} \\ \Delta_n
+\end{bmatrix}
+ = 
+ \begin{bmatrix}
+ \Delta_1 - \Delta_2 \\ \Delta_1-\Delta_3 \\ \vdots \\ \Delta_1 - \Delta_{n} \\ \Delta_2- \Delta_1 \\ \Delta_2 - \Delta_3 \\ \vdots \\ \Delta_{n-1} - \Delta_n
+ \end{bmatrix}
+= 
+\begin{bmatrix}
+\Delta_{12} \\ \Delta_{13} \\ \vdots \\ \Delta_{1n} \\ \Delta_{21} \\ \Delta_{23} \\ \vdots \\ \Delta_{(n-1)n}
+\end{bmatrix}, 
+\end{equation*}
+
+which represents a classical overdetermined inversion problem of the form $Gm = s$, with $m$ being the unknown model vector and $s$ being the known data \cite{sens2008}. The matrix $G$ has rank 3 because a constant offset can be added to all stations simultaneously without changing the time differences. 
+
+The matrix $G$ is lacking full rank, therefore Tikhonov reqularization is employed to overcome this issue. The ordinary least squares seeks to minimize the sum of squared residuals
+
+\begin{equation}
+\| \mathbf{Gm}-\mathbf{s} \|_2^2.
+\label{eq:leastsquares}
+\end{equation}
+
+When regularisation is added to the Equation \ref{eq:leastsquares}, we obtain
+
+\begin{equation}
+\| \mathbf{Gm}-\mathbf{s} \|_2^2 + \| \bm{\Gamma}\mathbf{m} \|, 
+\label{eq:tikhonov}
+\end{equation}
+
+for some suitable Tikhonov matrix $\bm{\Gamma}$. We choose this matrix as a multiple of the identity matrix $\bm{\Gamma} = \alpha\mathbf{I}$, giving preference to smaller norms. 
+
+The explicit solution is hence given by 
+\begin{equation}
+\hat{\mathbf{s}} = (\mathbf{G}^T\mathbf{G} + \bm{\Gamma}^T\bm{\Gamma})^{-1}\mathbf{G}^T\mathbf{m}.  
+\end{equation}
 
 %% Insert bibliography
 \bibliographystyle{abbrv}  
