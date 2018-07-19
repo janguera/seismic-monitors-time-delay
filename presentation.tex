@@ -1,0 +1,156 @@
+% !TEX encoding = MacOSRoman
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{textcomp}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{numprint}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage{setspace}
+\usepackage{termlist}
+\usepackage{amsmath}
+ 
+\newcommand{\samelineand}{\qquad} 
+ 
+%Information to be included in the title page:
+\title{Analysis of time delay data and clock drift in a network of seismic monitors}
+\author{Jordi Anguera \inst{1} \and 
+Leevi Annala \inst{2} \and 
+Stefan Dimitrijevic \inst{3} \and 
+Patricia Pauli \inst{4} \and 
+Liisa-Ida Sorsa \inst{5} \and 
+Dimitar Trendafilov \inst{6} \and 
+Christophe Pickard \inst{7}}
+
+\institute[XLIM]{\inst{1} Autonomous University of Barcelona, Spain \samelineand 
+	\inst{2}University of Jyväskylä, Finland \and 
+	\inst{3} University of Novi Sad, Serbia \samelineand 
+	\inst{4}Technical University of Darmstadt, Germany \and 
+	\inst{5}Tampere University of Technology, Finland  \and 
+	\inst{6} University of Sofia ''St. Kliment Ohridski'', Bulgaria \and 
+	\inst{7} University of Grenoble Alpes and Grenoble INP, France}
+\date{ECMI Modelling Week, 21 July 2018} 
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+
+\makeatletter
+\makeatother
+
+\section{Problem statement}
+\begin{frame}
+\frametitle{Problem statement}
+\begin{itemize}
+\item Seismic monitoring is used to study the behaviour and composition of the underground floor
+\item Continuous synchronization to the Global Positioning System for accurate timing is not possible 
+\item The instruments' clocks deviate in time causing lack of accuracy in the measurements
+\item A reliable method to correct for the time deviation is required
+\item Real data collected from a network of seismic monitors over time is analyzed
+\item The problem is to discern the time drift of the clock in each monitor from noise and actual data
+\end{itemize}
+\end{frame}
+
+\section{Data}
+
+\begin{frame}
+\frametitle{The network of seismic monitors}
+\includegraphics[width=\textwidth]{InitialStationSet.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{The network of seismic monitors}
+\includegraphics[width=\textwidth]{InitialStationSet_zoom.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Numbers of working stations and connections to stations during one year}
+
+\begin{itemize}
+\item The network consists of 73 seismic monitors
+\item Not all monitors work at all times
+\item If two monitors are working simultaneously, they are connected
+\item Connections are undirected
+\end{itemize}
+
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=\textwidth]{working_monitors.png}
+
+\column{0.5\textwidth}
+\includegraphics[width=\textwidth]{working_connections.png}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Time-delay signal characteristics}
+\begin{itemize}
+\item Data recorded in one second intervals
+\item Time-delay cross-correlation in one-hour intervals
+\item Tracing time-delays recorded by one station over a year
+\item Time delays are computed in both directions (from A $\rightarrow$ B and B $\rightarrow$ A) and are opposite numbers
+\end{itemize}
+
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=\textwidth]{delayevolutionovertimeforonestation2.png}
+
+\column{0.5\textwidth}
+\includegraphics[width=\textwidth]{delayevolutionovertimeforonestation.png}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Histograms showing time delays recorded by all active stations over 24 hours}
+\includegraphics[width=\textwidth]{hourlydelaydistributionoverallstationsforoneday.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Comparison of time delay of the furthest and the closest station pairs}
+\includegraphics[width=\textwidth]{Comparisondelayoverrandomdayoffarestandclosestlinks.png}
+
+\begin{itemize}
+\item Time delays are smaller between stations which are close to each other
+\item The non-linear trace of the data is thought to be caused by the station's non-ideal clock (clock drift)
+\end{itemize}
+\end{frame}
+
+\section{Model}
+
+\begin{frame}
+\frametitle{Clock drift and errors in the data}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Graph approach to model the data}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Signal denoising}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Exctracting clock drift from noise}
+
+\end{frame}
+
+
+\section{Results}
+\begin{frame}
+\frametitle{Results}
+\end{frame}
+
+\section{Conclusion}
+ \begin{frame}
+\frametitle{Conclusion}
+\end{frame}
+ 
+\end{document}
+
