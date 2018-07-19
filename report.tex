@@ -45,7 +45,12 @@
 
 \section{Introduction}
 
-The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the noise. 
+The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the noise. Constant GPS synchronization of data is not possible due to the high energy consumption. This work suggests an alternative way to determine clock drift based on the data only.
+
+\section{Assumptions}
+All the stations have the same orientation.
+The medium the wave is propagating in is homogenous.
+
 
 \section{Data}
 
@@ -70,12 +75,23 @@ The stations work independent of each other and are occasionally shut down for s
 
 The compression and decompression data recorded by the stations is retrieved and run through initial data cleaning and filtering procedures. The data is then cross-correlated in one-hour time windows to yield time-delay data of signal between each monitor (Figure \ref{fig:examplesignal}). 
 
-\begin{figure}[ht]
-  \begin{center}   
-   \includegraphics[width=0.7\textwidth]{delayevolutionovertimeforonestation2.png}
-  \end{center}
-  \caption{The time-delay signal recorded by one station over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}\label{fig:examplesignal}
-\end{figure}
+%\begin{figure}[ht]
+%  \begin{center}   
+%   \includegraphics[width=0.7\textwidth]{delayevolutionovertimeforonestation2.png}
+%  \end{center}
+%  \caption{The time-delay signal recorded by one station over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}\label{fig:examplesignal}
+%\end{figure}
+
+
+\begin{figure*}[ht] 
+  \centering 
+\subfigure[Time Signal.]{\label{fig:workingstations}\includegraphics[width=0.49\linewidth]{delayevolutionovertimeforonestation2.png}}
+\subfigure[Histogram.]{\label{fig:workingconnections}\includegraphics[width=0.49\linewidth]{delayevolutionovertimeforonestation.png}}
+\caption{The time-delay signal recorded between one station pair over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}
+\label{fig:examplesignal}
+\end{figure*}
+
+
 
 The time delays between each monitor are assumed to depend on the distance between the monitor. The further away the monitors are from each other, the larger the time delay caused by the same event recorded by the monitor. The Figure \ref{fig:histograms} shows an example of time-delay evolution of one monitor station over 24 hours. The distributions  are symmetric because each monitor connection is computed into both directions. The interesting feature of the histograms is how the shape of the distribution changes. 
 
@@ -83,8 +99,10 @@ The time delays between each monitor are assumed to depend on the distance betwe
   \begin{center}   
    \includegraphics[width=\textwidth]{hourlydelaydistributionoverallstationsforoneday.png}
   \end{center}
-  \caption{Histograms of time-delays recorded by one station over 24 hours. The figure shows clearly how the time-delays between detected events change over time.}\label{fig:histograms}
+  \caption{Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant.}\label{fig:histograms}
 \end{figure}
+The figure \ref{fig:histograms} shows clearly how the time delays change over time. However, the mean remains zero.
+
 
 \section{Methods}
 
