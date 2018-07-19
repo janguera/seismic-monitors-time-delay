@@ -45,7 +45,7 @@
 
 \section{Introduction}
 
-The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the noise. Constant GPS synchronization of data is not possible due to the high energy consumption. This work suggests an alternative way to determine clock drift based on the data only.
+The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the delay. Continuous GPS synchronization of data is not possible due to the high energy consumption. This work suggests an alternative way to determine clock drift based on the data only.
 
 \section{Assumptions}
 All the stations have the same orientation.
@@ -103,6 +103,14 @@ The time delays between each monitor are assumed to depend on the distance betwe
 \end{figure}
 The figure \ref{fig:histograms} shows clearly how the time delays change over time. However, the mean remains zero.
 
+We expect the following correlation between the distance of two stations and the delay between them. The further apart the stations, the greater is the delay. Figure \ref{fig:nearfar} shows that the variance of the delays is much higher for a station pair of stations that are far apart.
+
+\begin{figure}[ht]
+  \begin{center}   
+   \includegraphics[width=\textwidth]{Comparisondelayoverrandomdayoffarestandclosestlinks.png}
+  \end{center}
+  \caption{Comparison of the delay of the furthest and closest station pairs over 10 days.}\label{fig:nearfar}
+\end{figure}
 
 \section{Methods}
 
@@ -204,14 +212,7 @@ We find the derivative for the gradient descent update step.
 It is a symmetric matrix with ones in the ith row and ith column. The diagonal entries remain zero.
 
 
-We expect the following correlation between the distance of two stations and the delay between them. The further apart the stations, the greater is the delay. Figure \ref{fig:nearfar} shows that the variance of the delays is much higher for a station pair of stations that are far apart.
 
-\begin{figure}[ht]
-  \begin{center}   
-   \includegraphics[width=\textwidth]{Comparisondelayoverrandomdayoffarestandclosestlinks.png}
-  \end{center}
-  \caption{Comparison of the delay of the furthest and closest station pairs over 10 days.}\label{fig:nearfar}
-\end{figure}
 
 
  
