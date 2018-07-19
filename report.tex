@@ -22,7 +22,7 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
 \usepackage{setspace}
-\usepackage{termlist}
+%\usepackage{termlist}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -185,7 +185,16 @@ We find the derivative for the gradient descent update step.
 It is a symmetric matrix with ones in the ith row and ith column. The diagonal entries remain zero.
 
 
-We expect the following correlation between the distance of two stations and the delay between them. The further apart the stations, the greater is the delay.
+We expect the following correlation between the distance of two stations and the delay between them. The further apart the stations, the greater is the delay. Figure \ref{fig:nearfar} shows that the variance of the delays is much higher for a station pair of stations that are far apart.
+
+\begin{figure}[ht]
+  \begin{center}   
+   \includegraphics[width=\textwidth]{Comparisondelayoverrandomdayoffarestandclosestlinks.png}
+  \end{center}
+  \caption{Comparison of the Delay of the Farest and Closest Station Pairs over a Random Day.}\label{fig:nearfar}
+\end{figure}
+
+
  
 \item Average neighbour degree, resilience: 
 
