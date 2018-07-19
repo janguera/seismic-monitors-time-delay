@@ -1,16 +1,18 @@
 import numpy as np
 import pandas as pd
+# import matplotlib.pyplot as plt
 np.set_printoptions(precision=2)
 
 def graph_denoising(noisy, measure_estimates, epsilon, learning_rate, max_iterations):
     t = 0
     # print(np.shape(noisy))
     W = noisy
+    W_0 = noisy - 1
     # print(graph_measures(W))
     E = np.sum(np.power(np.subtract(graph_measures(W), measure_estimates), 2))
     # print(graph_measures(W) - measure_estimates)
     #print(E)
-    while E > epsilon and t < max_iterations:
+    while E > epsilon and t < max_iterations and ((W - W_0) != 0).any():
         measures = graph_measures(W)
         # print("shape of measures " + str(np.shape(measures)))
         measure_derivatives = graph_measure_derivatives(W)
@@ -25,6 +27,7 @@ def graph_denoising(noisy, measure_estimates, epsilon, learning_rate, max_iterat
         # print(measures_minus_estimates_times_derivatives)
         # print(np.shape(measures_minus_estimates_times_derivatives))
         # print(np.shape(np.sum(measures_minus_estimates_times_derivatives, axis=0)))
+        W_0 = W
         W = W - learning_rate * np.sum(measures_minus_estimates_times_derivatives, axis=0)
         # print(np.shape(W))
         W[W < 0] = 0
@@ -33,8 +36,12 @@ def graph_denoising(noisy, measure_estimates, epsilon, learning_rate, max_iterat
         # print(E)
         t = t + 1
         if t >= max_iterations:
-            print("The algorithm stopped because of reaching max. Error at the end was " + str(E))
-    return W, t
+            print("The algorithm stopped because of reaching max iterations. Error at the end was " + str(E)+ ".")
+        if (W - W_0 == 0).all():
+            print("The algorithm has stopped after " + str(t) + " iterations, beacause, the resulting "
+                                                                "matrix stopped changing."
+                                                                " Error at the end was " + str(E)+".")
+    return W, t, E
 
 def graph_measures(W):
     # Fill the graph measures here
@@ -125,8 +132,30 @@ W_t = result
 # W_d = np.array([[0,0.4],[0.8,0.2]]) # distance matrix
 estimates = graph_measures(W_d) #estimates
 epsilon = 1 # This should be quite small
-learning_rate = 0.05 # I have no idea what this should be, we have to try different values
+learning_rate = 0.001 # I have no idea what this should be, we have to try different values
 
-W, t = graph_denoising(W_t, estimates, epsilon, learning_rate, max_iterations=1000000) # ready to run when we get the matrices.
-print(W_t)
-print(W)
+learning_rates = [0.01*i for i in range(1,11)]
+results = [graph_denoising(W_t, estimates, epsilon, learning_rate=i, max_iterations=100000)for i in learning_rates] # ready to run when we get the matrices.
+results_W = np.array([results[i][0] for i in range(0,10)])
+results_t = np.array([results[i][1] for i in range(0,10)])
+results_E = np.array([results[i][2] for i in range(0,10)])
+
+#width = 12
+#height = 12
+#plt.figure(figsize=(width, height))
+#plt.plot(learning_rates, results_E)
+#plt.title("Errors as a function of learning rate.")
+#plt.plot([i for i in range(1,25)], data_2[0][0])
+#plt.ylabel('some numbers')
+#plt.show()
+# W_05, t_05 = graph_denoising(W_t, estimates, epsilon, learning_rate=0.05, max_iterations=1000000)
+# W_1, _t_1 = graph_denoising(W_t, estimates, epsilon, learning_rate=0.01, max_iterations=1000)
+# W_2, _t_2 = graph_denoising(W_t, estimates, epsilon, learning_rate=0.001, max_iterations=10000)
+
+
+# print(W == W_1)
+# print(W==W_2)
+# print(W_1==W_2)
+
+#print(W_t)
+#print(W)
