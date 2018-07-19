@@ -22,7 +22,7 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
 \usepackage{setspace}
-\usepackage{termlist}
+%\usepackage{termlist}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -45,7 +45,12 @@
 
 \section{Introduction}
 
-The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the noise. 
+The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the noise. Constant GPS synchronization of data is not possible due to the high energy consumption. This work suggests an alternative way to determine clock drift based on the data only.
+
+\section{Assumptions}
+All the stations have the same orientation.
+The medium the wave is propagating in is homogenous.
+
 
 \section{Data}
 
@@ -70,12 +75,23 @@ The stations work independent of each other and are occasionally shut down for s
 
 The compression and decompression data recorded by the stations is retrieved and run through initial data cleaning and filtering procedures. The data is then cross-correlated in one-hour time windows to yield time-delay data of signal between each monitor (Figure \ref{fig:examplesignal}). 
 
-\begin{figure}[ht]
-  \begin{center}   
-   \includegraphics[width=0.7\textwidth]{delayevolutionovertimeforonestation2.png}
-  \end{center}
-  \caption{The time-delay signal recorded by one station over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}\label{fig:examplesignal}
-\end{figure}
+%\begin{figure}[ht]
+%  \begin{center}   
+%   \includegraphics[width=0.7\textwidth]{delayevolutionovertimeforonestation2.png}
+%  \end{center}
+%  \caption{The time-delay signal recorded by one station over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}\label{fig:examplesignal}
+%\end{figure}
+
+
+\begin{figure*}[ht] 
+  \centering 
+\subfigure[Time Signal.]{\label{fig:workingstations}\includegraphics[width=0.49\linewidth]{delayevolutionovertimeforonestation2.png}}
+\subfigure[Histogram.]{\label{fig:workingconnections}\includegraphics[width=0.49\linewidth]{delayevolutionovertimeforonestation.png}}
+\caption{The time-delay signal recorded between one station pair over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}
+\label{fig:examplesignal}
+\end{figure*}
+
+
 
 The time delays between each monitor are assumed to depend on the distance between the monitor. The further away the monitors are from each other, the larger the time delay caused by the same event recorded by the monitor. The Figure \ref{fig:histograms} shows an example of time-delay evolution of one monitor station over 24 hours. The distributions  are symmetric because each monitor connection is computed into both directions. The interesting feature of the histograms is how the shape of the distribution changes. 
 
@@ -83,8 +99,10 @@ The time delays between each monitor are assumed to depend on the distance betwe
   \begin{center}   
    \includegraphics[width=\textwidth]{hourlydelaydistributionoverallstationsforoneday.png}
   \end{center}
-  \caption{Histograms of time-delays recorded by one station over 24 hours. The figure shows clearly how the time-delays between detected events change over time.}\label{fig:histograms}
+  \caption{Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant.}\label{fig:histograms}
 \end{figure}
+The figure \ref{fig:histograms} shows clearly how the time delays change over time. However, the mean remains zero.
+
 
 \section{Methods}
 
@@ -127,22 +145,74 @@ where $t$ is the iteration index and $\mu$ the learning rate. For the case of $m
 \subsubsection{Graph metrics}
 Graph metrics are scalar functions of the weight matrix, $f(\bm{\hat{\delta}}): \mathbb{R}^{n \times n}\rightarrow \mathbb{R}$. We choose graph metrics to:
 \begin{enumerate}
-\item \textbf{Distance}: The distance strength of a node $i$ describes the connection strength of that node to all other nodes. The metric is calculated based on the reciprocal of distances of the node to all other nodes, $d _{ij}= 1/r_{ij}$, normalized between $[0,1]$. The higher value corresponds to nodes with short distances to all other nodes. 
+\item \textbf{Distance}: We want to use the distance measures to denoise the delay measurements. For this purpose, we deisigned a metric, the connection strength of a node i. We normalize the delays and compute the row sum 
+
 \begin{equation}
-d_i = \sum{d_{ij}},  
+f_i (\bm{\delta})= \sum_j{\delta_{ij}}.  
 \end{equation}
-with the degree derivative being:
-\begin{equation}
-\frac{\partial d_i}{\partial \bm{\delta}}= \mathbf{R_i}^T,
-\end{equation} 
 
-in which $R_i$ is matrix with ones at column $i$. Since $\mathbf{R}_i$ is non-zero only for column $i$ it can be computed efficiently as 
+Thde connection strength can be interpreted as the sum of all normalized delays of all of the links to node i.
 
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[xscale=0.45, yscale=0.3]
+\begin{scope}[shift={(0,2)}]
+\draw [-,very thick] (5,0) -- (8,4);
+\draw [-,very thick] (14,0) -- (8,4);
+\draw [-,very thick] (8,4) -- (13,5);
+\draw [-,very thick] (8,4) -- (3,8);
+\node[circle,fill,inner sep=2.5pt, label=above:$A$] at (8,4) {} ;
+\node [align=center] at (11,5) {\scriptsize 0.5};
+\node [align=center] at (5,7) {\scriptsize 0.1};
+\node [align=center] at (5.5,2) {\scriptsize 0.7};
+\node [align=center] at (12,2) {\scriptsize 0.2};
+\draw [-,very thick] (15,0) -- (20,4);
+\draw [-,very thick] (20,4) -- (25,4.5);
+\draw [-,very thick] (20,4) -- (16,8);
+\node[circle,fill,inner sep=2.5pt, label=above:$B$] at (20,4) {} ;
+\node [align=center] at (18,7) {\scriptsize 0.3};
+\node [align=center] at (16.5,2) {\scriptsize 0.1};
+\node [align=center] at (23,5) {\scriptsize 0.6};
+
+
+\end{scope}
+\end{tikzpicture}
+\caption{Distance metric.} \label{fig:1}
+\end{figure}
+Figure \ref{fig:1} shows two nodes. Node $A$ has four connections yielding a connection strength $0.1+0.5+0.7+0.6=1.9$ whereas node $B$ only has three connections. Thus, the connection strength is $0.3+0.6+0.1=1$.
+
+
+
+The constants $K_m$ are defined as follows
 \begin{equation}
-\frac{\partial d_i}{\partial \bm{\delta}_i} = \mathbf{1}_n^T, 
-\end{equation} 
- 
-where $\bm{\delta}_i$ is the $i$th column of $\bm{\delta}$
+K_m=f_m(\bm W_d)
+\end{equation}
+It is the connection strength as well. But now we plug in the distance matrix $\bm{W_d}$. The distances are constants and yield a constant $K_m$.
+The weight matrix $\bm{W_d}$ is a function of the distance between node $i$ and node $j$. First, we choose the function to be the reciprocal of the distances of the node to all other nodes, $d _{ij}= 1/r_{ij}$, normalized between $[0,1]$. Higher values correspond to nodes with short distances to all other nodes. Second, we try a metric with weights proportional to the distances, normailzed between $[0,1]$ accordingly. Here, high values correspond to long distances between two stations.
+
+We find the derivative for the gradient descent update step.
+\begin{equation}
+\frac{df_2}{d\bm{\delta}}=\frac{\sum_j\delta_{ij}}{d\bm{\delta}}=
+\begin{bmatrix}
+    0 & 1 & 0 & \dots  & 0 \\
+    1 & 0 & 1 & \dots  & 1 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & 1 & 0 & \dots  & 0
+\end{bmatrix}
+\end{equation}
+It is a symmetric matrix with ones in the ith row and ith column. The diagonal entries remain zero.
+
+
+We expect the following correlation between the distance of two stations and the delay between them. The further apart the stations, the greater is the delay. Figure \ref{fig:nearfar} shows that the variance of the delays is much higher for a station pair of stations that are far apart.
+
+\begin{figure}[ht]
+  \begin{center}   
+   \includegraphics[width=\textwidth]{Comparisondelayoverrandomdayoffarestandclosestlinks.png}
+  \end{center}
+  \caption{Comparison of the Delay of the Farest and Closest Station Pairs over a Random Day.}\label{fig:nearfar}
+\end{figure}
+
+
  
 \item Average neighbour degree, resilience: 
 

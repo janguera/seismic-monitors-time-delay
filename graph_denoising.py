@@ -46,10 +46,7 @@ def graph_denoising(noisy, measure_estimates, epsilon, learning_rate, max_iterat
 def graph_measures(W):
     # Fill the graph measures here
     # return a list of length n, where n is the number of measures we are using
-    measures = []
-    for i in range(len(W)):
-        measures.append(distance_measure(W, i))
-
+    measures = [distance_measure(W, i) for i in range(len(W))]
     return np.array(measures)
 
 def distance_measure(W, i):
@@ -59,7 +56,13 @@ def distance_measure(W, i):
 def graph_measure_derivatives(W):
     # Fill the graph measure derivatives here
     # return something with the shape of (W,n) where n is the number of measures we are using
-    return np.array([np.ones(np.shape(W)) for i in range(len(W))])
+    return np.array([distance_measure_derivative(W, i) for i in range(len(W))])
+
+def distance_measure_derivative(W, i):
+    ret = np.zeros(np.shape(W))
+    ret[i,:] = 1
+    ret[:,1] = 1
+    return ret
 
 ##### determinig the W_d.
 filename_info = 'C:/MyTemp/ECMI_Data/dt/AlpArray/METRICS/2016366_local_pair_dist.txt'
