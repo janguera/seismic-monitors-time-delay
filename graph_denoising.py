@@ -61,7 +61,8 @@ def graph_measure_derivatives(W):
 def distance_measure_derivative(W, i):
     ret = np.zeros(np.shape(W))
     ret[i,:] = 1
-    ret[:,1] = 1
+    ret[:,i] = 1
+    ret[i,i] = 0
     return ret
 
 ##### determinig the W_d.

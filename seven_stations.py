@@ -90,7 +90,8 @@ def calc_seven_stations(filepath):
                     for hour in range(day*24, (day+1)*24):
                         #print(station, hour)
                         seven_dt_matrix[i][hour] = seven_days[day][station][0][hour - day*24]
-                    
+
+    return seven_dt_matrix
 
  
         
