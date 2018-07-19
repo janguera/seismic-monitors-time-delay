@@ -1,5 +1,6 @@
 import h5py
 import os
+import matplotlib.pyplot as plt
 
 ndays = 360
 stations = ['FR.CALF.00.HHZ', 'FR.EILF.00.HHZ', 'FR.ESCA.01.HHZ', 'FR.MON.00.HHZ', 'FR.MVIF.00.HHZ', 'FR.PRIMA.00.HHZ', 'FR.SAOF.00.HHZ']
@@ -25,7 +26,7 @@ for i in range(ndays):
     filename_h5 = file_h5 + '.h5'
     f = h5py.File(filename_h5, 'r')    
     file = list(f.keys())[0]
-    data = list(f[file])    
+    data = list(f[file]) 
     
     os.chdir('/Users/jordianguera/Desktop/ECMI_Data/dt/AlpArray/METRICS')  
     filename_stations = file_h5 + "_local_pair_dist.txt"
@@ -33,17 +34,93 @@ for i in range(ndays):
     with open(filename_stations) as x:
         m = 0
         for line in x:            
-            f = line.split(" ")
+            g = line.split(" ")
             for k in range(rmax):
-                if (f[0] == all_stations[k]):
+                if (g[0] == all_stations[k]):
                     for l in range(rmax):
-                        if (f[1] == all_stations[l]):
-                            available.append(f)
+                        if (g[1] == all_stations[l]):
+                            available.append(g)
                             
                             dt.append(data[m])
 
                             j += 1
-        m += 1      
+            m += 1      
 
     days.append(dt)          
     working_stations.append(available)
+
+#%% BUILD CONNECTIONS ARRAY
+
+stations_connections = []
+
+for i in range(rmax-1):
+    for j in range(i+1, rmax):
+        name = [all_stations[i], all_stations[j]]
+        stations_connections.append(name)
+
+
+#%% ACTIVE STATIONS
+
+active = [None] * ndays
+for i in range(ndays):
+    active[i] = [None] * len(working_stations[i])
+    for j in range(len(working_stations[i])):
+        active[i][j] = [None] * 2
+        active[i][j][0] = working_stations[i][j][0]
+        active[i][j][1] = working_stations[i][j][1]
+        
+#%% BUILD MATRIX        
+
+#Initialise dt_matrix  
+dt_matrix = [None] * len(stations_connections)
+for i in range(len(stations_connections)):
+    dt_matrix[i] = [0] * (24*ndays)
+    
+#Fill dt_matrix
+for day in range(ndays):
+    print(day)
+    for i in range(len(stations_connections)):
+        #print(day, i)
+        for station in range(len(active[day])):
+            if((stations_connections[i][0] == active[day][station][0]) & (stations_connections[i][1] == active[day][station][1])):
+                for hour in range(day*24, (day+1)*24):
+                    #print(station, hour)
+                    dt_matrix[i][hour] = days[day][station][0][hour - day*24]
+   
+#%% SAVE THE dt MATRIX
+
+from scipy import sparse
+import numpy
+
+a = numpy.asarray(dt_matrix)
+CSC_dt = sparse.csc_matrix(a)
+print(CSC_dt)
+sparse.save_npz('CSC_dt.npz', CSC_dt)
+                 
+#%% NUMBER OF WORKING CONNECTIONS
+
+nconnect = []
+for i in range(ndays):
+    nconnect.append(len(working_stations[i]))   
+    #print(len(working_stations[i]))
+plt.plot(nconnect)    
+plt.title("Number of working connections")
+plt.show()
+
+
+#%% WORKING STATIONS
+
+n_working = [None] * ndays
+for day in range(ndays):
+    stations_working = [0] * rmax 
+    for j in range(len(active[day])):
+        for k in range(rmax):
+            if((all_stations[k] == active[day][j][0]) | (all_stations[k] == active[day][j][1])):
+                stations_working[k] = 1
+    n_working[day] = sum(stations_working)
+
+
+
+plt.plot(n_working)    
+plt.title("Number of working seismic monitors")
+plt.show()
