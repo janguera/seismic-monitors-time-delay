@@ -17,10 +17,10 @@
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Data}{1}{section.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Assumptions}{1}{section.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Data}{2}{section.3}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The seven stations chosen as the small test set is shown as green in the southeast part of the area.}}{2}{figure.1}}
 \newlabel{fig:monitornetwork}{{1}{2}{The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The seven stations chosen as the small test set is shown as green in the southeast part of the area}{figure.1}{}}
-\citation{Spyrou2017}
 \newlabel{fig:workingstations}{{2(a)}{3}{Subfigure 2(a)}{subfigure.2.1}{}}
 \newlabel{sub@fig:workingstations}{{(a)}{3}{Subfigure 2(a)\relax }{subfigure.2.1}{}}
 \newlabel{fig:workingconnections}{{2(b)}{3}{Subfigure 2(b)}{subfigure.2.2}{}}
@@ -29,36 +29,35 @@
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {The number of working seismic monitor stations.}}}{3}{figure.2}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {The number of working connections between the stations.}}}{3}{figure.2}}
 \newlabel{fig:workingmonitors}{{2}{3}{Working stations and connections over one year time period. \todo {update figures here}}{figure.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Methods}{3}{section.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Modelling time delay between seismic monitors}{3}{subsection.3.1}}
-\newlabel{eq:model}{{1}{3}{Modelling time delay between seismic monitors}{equation.3.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The time-delay signal recorded by one station over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}}{4}{figure.3}}
-\newlabel{fig:examplesignal}{{3}{4}{The time-delay signal recorded by one station over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day}{figure.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Denoising model}{4}{subsection.3.2}}
-<<<<<<< HEAD
-\newlabel{sec:denoising}{{3.2}{4}{Denoising model}{subsection.3.2}{}}
-=======
->>>>>>> 0f5c5e5bad940afa0f9ec0ce1ecfe0ab99beb515
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Definitions}{4}{subsubsection.3.2.1}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Cost function}{4}{subsubsection.3.2.2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Histograms of time-delays recorded by one station over 24 hours. The figure shows clearly how the time-delays between detected events change over time.}}{5}{figure.4}}
-\newlabel{fig:histograms}{{4}{5}{Histograms of time-delays recorded by one station over 24 hours. The figure shows clearly how the time-delays between detected events change over time}{figure.4}{}}
-\newlabel{eq:updates}{{3}{5}{Cost function}{equation.3.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Graph metrics}{5}{subsubsection.3.2.3}}
-<<<<<<< HEAD
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Clock drift estimate}{6}{subsection.3.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Methods}{3}{section.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Modelling time delay between seismic monitors}{3}{subsection.4.1}}
+\newlabel{eq:model}{{1}{3}{Modelling time delay between seismic monitors}{equation.4.1}{}}
+\citation{Spyrou2017}
+\newlabel{fig:workingstations}{{3(a)}{4}{Subfigure 3(a)}{subfigure.3.1}{}}
+\newlabel{sub@fig:workingstations}{{(a)}{4}{Subfigure 3(a)\relax }{subfigure.3.1}{}}
+\newlabel{fig:workingconnections}{{3(b)}{4}{Subfigure 3(b)}{subfigure.3.2}{}}
+\newlabel{sub@fig:workingconnections}{{(b)}{4}{Subfigure 3(b)\relax }{subfigure.3.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The time-delay signal recorded between one station pair over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}}{4}{figure.3}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Time Signal.}}}{4}{figure.3}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Histogram.}}}{4}{figure.3}}
+\newlabel{fig:examplesignal}{{3}{4}{The time-delay signal recorded between one station pair over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Denoising model}{4}{subsection.4.2}}
+\newlabel{sec:denoising}{{4.2}{4}{Denoising model}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Definitions}{4}{subsubsection.4.2.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant.}}{5}{figure.4}}
+\newlabel{fig:histograms}{{4}{5}{Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Cost function}{5}{subsubsection.4.2.2}}
+\newlabel{eq:updates}{{3}{5}{Cost function}{equation.4.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Graph metrics}{5}{subsubsection.4.2.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Distance metric.}}{6}{figure.5}}
+\newlabel{fig:1}{{5}{6}{Distance metric}{figure.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Comparison of the Delay of the Farest and Closest Station Pairs over a Random Day.}}{7}{figure.6}}
+\newlabel{fig:nearfar}{{6}{7}{Comparison of the Delay of the Farest and Closest Station Pairs over a Random Day}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Clock drift estimate}{7}{subsection.4.3}}
 \citation{sens2008}
 \bibstyle{abbrv}
 \bibdata{references}
 \bibcite{sens2008}{1}
+\newlabel{eq:leastsquares}{{8}{8}{Clock drift estimate}{equation.4.8}{}}
+\newlabel{eq:tikhonov}{{9}{8}{Clock drift estimate}{equation.4.9}{}}
 \bibcite{Spyrou2017}{2}
-\newlabel{eq:leastsquares}{{8}{7}{Clock drift estimate}{equation.3.8}{}}
-\newlabel{eq:tikhonov}{{9}{7}{Clock drift estimate}{equation.3.9}{}}
-=======
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Distance metric.}}{6}{figure.5}}
-\newlabel{fig:1}{{5}{6}{Distance metric}{figure.5}{}}
-\bibstyle{abbrv}
-\bibdata{references}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Comparison of the Delay of the Farest and Closest Station Pairs over a Random Day.}}{7}{figure.6}}
-\newlabel{fig:nearfar}{{6}{7}{Comparison of the Delay of the Farest and Closest Station Pairs over a Random Day}{figure.6}{}}
->>>>>>> 0f5c5e5bad940afa0f9ec0ce1ecfe0ab99beb515
