@@ -1,5 +1,5 @@
 \beamer@sectionintoc {1}{Problem statement}{2}{0}{1}
 \beamer@sectionintoc {2}{Data}{3}{0}{2}
 \beamer@sectionintoc {3}{Model}{9}{0}{3}
-\beamer@sectionintoc {4}{Results}{15}{0}{4}
-\beamer@sectionintoc {5}{Conclusion}{16}{0}{5}
+\beamer@sectionintoc {4}{Results}{13}{0}{4}
+\beamer@sectionintoc {5}{Conclusion}{15}{0}{5}

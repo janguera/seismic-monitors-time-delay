@@ -18,6 +18,7 @@
 \usepackage{bm} 
 \usetikzlibrary{arrows,automata}
 \usepackage{pgf}
+ 
 \newcommand{\samelineand}{\qquad} 
  
 %Information to be included in the title page:
@@ -31,7 +32,7 @@ Dimitar Trendafilov \inst{6} \and
 Christophe Pickard \inst{7}}
 
 \institute[XLIM]{\inst{1} Autonomous University of Barcelona, Spain \samelineand 
-	\inst{2}University of Jyväskylä, Finland \and 
+	\inst{2}University of Jyvaskyla, Finland \and 
 	\inst{3} University of Novi Sad, Serbia \samelineand 
 	\inst{4}Technical University of Darmstadt, Germany \and 
 	\inst{5}Tampere University of Technology, Finland  \and 
@@ -52,7 +53,7 @@ Christophe Pickard \inst{7}}
 \begin{itemize}
 \item Seismic monitoring is used to study the behaviour and composition of the underground floor
 \item There is a time drift in the monitors' clocks, causing inaccuracies in analysis
-\item Continuous synchronization to the Global Positioning System for accurate timing is not possible 
+\item Continuous synchronisation to the Global Positioning System for accurate timing is not possible 
 \item A reliable method to correct the time drift of the clocks' is required
 \end{itemize}
 \end{frame}
@@ -75,7 +76,7 @@ Christophe Pickard \inst{7}}
 \end{frame}
 
 \begin{frame}
-\frametitle{Numbers of working stations and connections to stations during one year}
+\frametitle{Numbers of working stations and connections of stations during one year}
 \begin{itemize}
 \item The maximum of simultaneously working stations is 52 out of 73
 \item The maximum of connections is 1326
@@ -84,10 +85,10 @@ Christophe Pickard \inst{7}}
 
 \begin{columns}
 \column{0.5\textwidth}
-\includegraphics[width=\textwidth]{working_monitors.png}
+\includegraphics[width=\textwidth]{working_monitors-presentation.png}
 
 \column{0.5\textwidth}
-\includegraphics[width=\textwidth]{working_connections.png}
+\includegraphics[width=\textwidth]{working_connections_presentation.png}
 \end{columns}
 \end{frame}
 
@@ -95,9 +96,9 @@ Christophe Pickard \inst{7}}
 \frametitle{Time-delay signal characteristics}
 \begin{itemize}
 \item Data recorded in one second intervals
-\item Time-delay cross-correlation in computed in one-hour intervals
-\item Each connection is computed only once 
-\item Tracing time-delays recorded by one station over a year
+\item Time-delay cross-correlation is computed in one-hour intervals
+%\item Each connection is computed only once 
+\item Recording time is one year
 \end{itemize}
 
 \begin{columns}
@@ -134,9 +135,8 @@ Christophe Pickard \inst{7}}
 \label{eq:model}
 \end{equation}
 
-\item Weighted normalized graphs $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}})$, $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$
-%\item $w_{ij}=f(r_{ij})$
-%\item Values $\hat{\delta}_{ij}$,  $w_{ij}$ are normalized to $[0,1]$
+\item Graphs $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}})$, $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$
+
 \item Metric:
 \begin{equation}
 f_i(\bm{\hat{\delta}})=K_i
@@ -147,37 +147,12 @@ f_i(\bm{\hat{\delta}})=\sum_j\delta_{ij} \quad \text{and} \quad K_i = f_i (\bm{W
 \end{equation}
 
 \end{itemize}
-\end{frame}
 
-\begin{frame}
-<<<<<<< HEAD
-frametitle{Graph approach to model the data}
-\begin{itemize}
-\item The measurements $\bm{\hat{\delta}}$ of time delays between stations
-\begin{equation}
-\bm{\hat{\delta}}  = \bm{\delta} + \bm{\varepsilon}
-\label{eq:model}
-\end{equation}
-
-\item A weighted graph $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}}_t)$
-\item Values $\hat{\delta}_{ij}$ are normalized to $[0,1]$
-\item A normalized distance measure was selected as graph metrics $K_m$
-\begin{equation}
-K_m = f_m (r_i)= \sum_j{r_{ij}}.  
-\end{equation}
-\end{itemize}
 \begin{columns}
-\column{0.5\textwidth}
-blahblah
-\column{0.5\textwidth}
-\resizebox{0.5\textwidth}{!}{
-\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,semithick, scale = 0.5]
-=======
-\begin{figure}[htb]
-\centering
+\column{0.3\textwidth}
+\resizebox{\textwidth}{!}{
 \begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
                     semithick]
->>>>>>> 0cc94ad65fc3cbaef419c266beaa1767da074aaa
   \tikzstyle{every state}=[draw=none]
 
   \node[main node] (1) {1};
@@ -193,15 +168,30 @@ blahblah
         (3) edge node {$w_{34}$} (4);
 \end{tikzpicture}
 }
+\column{0.3\textwidth}
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[draw=none]
+
+  \node[main node] (1) {1};
+  \node[main node] (2) [above right of=1] {2};
+  \node[main node] (4) [below right of=1] {4};
+  \node[main node] (3) [below right of=2] {3};
+
+  \path (1) edge node {$0.3$} (2)
+            edge node [above left] {$0.6$} (3)
+            edge node [below left] {$0.1$} (4);
+\end{tikzpicture}
+}
+\column{0.3\textwidth}
+text here
 \end{columns}
-
-
 
 \end{frame}
 
-
 \begin{frame}
-\frametitle{Signal denoising}
+\frametitle{Signal denoising and exctracting clock drift}
 \begin{itemize}
 \item We specify a cost function $c(\bm{\hat{\delta}})$ measuring the deviation of the metric:
 \begin{equation}
@@ -214,20 +204,13 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 \bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_i e_i(\bm{\hat{\delta}}^t)\frac{df_i(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t}
 \label{eq:updates}
 \end{equation}
-\end{itemize}
-\end{frame}
 
-\begin{frame}
-\frametitle{Extracting clock drift from noise}
-\begin{itemize}
-\item The noise $\varepsilon_{ij}$ between each pair of two stations is modelled with
+\item The noise $\varepsilon_{ij}$ between each pair of two stations is caused by clock drifts $\Delta_i$ and $\Delta_j$, and other errors $e_{ij}$:
+\end{itemize}
 \begin{equation}
-\varepsilon_{ij} = \Delta_i - \Delta_j + e_{ij},
+\varepsilon_{ij} = \Delta_i - \Delta_j + e_{ij}
 \end{equation}
-\quad \quad in which $\Delta_i$ and $\Delta_j$ are the clock drifts of stations $i, j$
-\quad \quad \quad $e_{ij}$ accounts for all other noise in the system
 
-\end{itemize}
 \end{frame}
 
 \begin{frame}%[shrink=20]
@@ -296,13 +279,53 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 
 \section{Results}
 \begin{frame}
-\frametitle{Results}
+\frametitle{Signal - denoised signal - noise}
+\begin{columns}
+\column{0.3\textwidth}
+Full signal from one connection for 10 hours
+
+\vspace{1.8cm}
+
+Denoised signal of the connection
+
+\vspace{1.8cm}
+
+Signal noise
+
+\column{0.6\textwidth}
+\includegraphics[height=0.28\textheight]{noisy-time-delay-data-10-days.png}
+
+\includegraphics[height=0.28\textheight]{denoised-time-delay-data-ten-days.png}
+
+\includegraphics[height=0.28\textheight]{the-noise-ten-days.png}
+
+\end{columns}
+
+\end{frame}
+
+ \begin{frame}
+\frametitle{Clock drifts}
+Figure here
 \end{frame}
 
 \section{Conclusion}
  \begin{frame}
 \frametitle{Conclusion}
+\begin{itemize}
+\item A graph method to recover clock drift in large time-delay network was developed
+\item Clock drifts for the three most influential monitors and five others close by were computed
+\item Clock drift may account for up to 1 \% inaccuracy in timing at each time point
+\item The drift varies over time
+\end{itemize}
+\vspace{0.5cm}
+\textbf{\large{Future work:}}\normalsize 
+\begin{itemize}
+\item A synthetic dataset to verify the effectiveness of the method
+\item Analyze the complete network of monitors
+\item Develop and test other metrics
+\item Carry out sensitivity analysis
+\end{itemize}
 \end{frame}
- 
+
 \end{document}
 
