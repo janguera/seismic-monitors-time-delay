@@ -191,7 +191,7 @@ text here
 \end{frame}
 
 \begin{frame}
-\frametitle{Signal denoising}
+\frametitle{Signal denoising and exctracting clock drift}
 \begin{itemize}
 \item We specify a cost function $c(\bm{\hat{\delta}})$ measuring the deviation of the metric:
 \begin{equation}
@@ -204,20 +204,13 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 \bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_i e_i(\bm{\hat{\delta}}^t)\frac{df_i(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t}
 \label{eq:updates}
 \end{equation}
-\end{itemize}
-\end{frame}
 
-\begin{frame}
-\frametitle{Extracting clock drift from noise}
-\begin{itemize}
-\item The noise $\varepsilon_{ij}$ between each pair of two stations is modelled with
+\item The noise $\varepsilon_{ij}$ between each pair of two stations is caused by clock drifts $\Delta_i$ and $\Delta_j$, and other errors $e_{ij}$:
+\end{itemize}
 \begin{equation}
-\varepsilon_{ij} = \Delta_i - \Delta_j + e_{ij},
+\varepsilon_{ij} = \Delta_i - \Delta_j + e_{ij}
 \end{equation}
-\quad \quad in which $\Delta_i$ and $\Delta_j$ are the clock drifts of stations $i, j$
-\quad \quad \quad $e_{ij}$ accounts for all other noise in the system
 
-\end{itemize}
 \end{frame}
 
 \begin{frame}%[shrink=20]
@@ -292,7 +285,21 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 \section{Conclusion}
  \begin{frame}
 \frametitle{Conclusion}
+\begin{itemize}
+\item A graph method to recover clock drift in large time-delay network was developed
+\item Clock drifts for the three most influential monitors and five others close by were computed
+\item Clock drift may account for up to 1 \% inaccuracy in timing at each time point
+\item The drift varies over time
+\end{itemize}
+\vspace{0.5cm}
+\textbf{\large{Future work:}}\normalsize 
+\begin{itemize}
+\item A synthetic dataset to verify the effectiveness of the method
+\item Analyze the complete network of monitors
+\item Develop and test other metrics
+\item Carry out sensitivity analysis
+\end{itemize}
 \end{frame}
- 
+
 \end{document}
 
