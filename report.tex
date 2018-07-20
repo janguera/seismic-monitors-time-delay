@@ -81,8 +81,8 @@ The stations work independent of each other and are occasionally shut down for s
 
 \begin{figure*}[ht] 
   \centering 
-\subfigure[The number of working seismic monitor stations.]{\label{fig:workingstations}\includegraphics[width=0.48\linewidth]{working_connections.png}}
-\subfigure[The number of working connections between the stations.]{\label{fig:workingconnections}\includegraphics[width=0.48\linewidth]{working_connections.png}}
+\subfigure[The number of working seismic monitor stations.]{\label{fig:workingstations}\includegraphics[width=0.47\linewidth]{working_monitors.png}}
+\subfigure[The number of working connections between the stations.]{\label{fig:workingconnections}\includegraphics[width=0.49\linewidth]{working_connections.png}}
 \caption{Working stations and connections over one year time period. \todo{update figures here}}
 \label{fig:workingmonitors}
 \end{figure*}
@@ -204,16 +204,16 @@ The error is minimized with gradient descent updates on $\bm{\hat{\delta}}$:
 
 where $t$ is the iteration index and $\mu$ the learning rate. %For the case of $m=1$, Equation \ref{eq:updates} describes the traditional single function gradient descent. 
 
-We find the derivative for the gradient descent update step for $i=2$.
+We find the derivative for the gradient descent update step. For $i=2$ it is
 \begin{equation}
-\frac{df_2}{d\bm{\delta}}=\frac{\sum_j\delta_{ij}}{d\bm{\delta}}=
+\frac{df_2}{d\bm{\delta}}=\frac{\sum_j \hat{\delta}_{ij}}{d\bm{\hat{\delta}}}=
 \begin{bmatrix}
     0 & 1 & 0 & \dots  & 0 \\
     1 & 0 & 1 & \dots  & 1 \\
     0 & 1 & 0 & \dots  & 0 \\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
     0 & 1 & 0 & \dots  & 0
-\end{bmatrix}
+\end{bmatrix}.
 \end{equation}
 It is a symmetric matrix with ones in the ith row and ith column. The diagonal entries remain zero.
 
@@ -235,15 +235,16 @@ The clock errors of individual stations can be written in matrix form
 
 \begin{equation*}
 \begin{bmatrix}
-1 & -1 & 0 & 0 & \dots & 0 & 0 \\
-1 & 0 & -1 & 0 & \dots & 0 & 0 \\
-1 &  0  & 0 & 0 & \dots & 0  & 0 \\
-\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
-1 &  0  & 0 & 0 & \dots & 0 & -1 \\
--1 & 1 & 0 & 0 & \dots & 0  & 0 \\
-0 & 1 & -1 & 0 & \dots & 0 & 0 \\
-\hdotsfor{7} \\
-0 & 0 & 0 & \dots & 0& 1 & -1
+1 & -1 & 0 & 0 & \dots  & 0 \\
+1 & 0 & -1 & 0 & \dots  & 0 \\
+1 &  0  & 0 & -1 & \dots   & 0 \\
+\vdots & \vdots & \vdots  & \vdots & \ddots & \vdots \\
+1 &  0  & 0 & 0 & \dots & -1 \\
+0 &  1  & -1 & 0 & \dots & 0 \\
+0 & 1 & 0 & -1 & \dots & 0 \\
+0 & 1 & 0 & 0 & \ddots & 0 \\
+\hdotsfor{6} \\
+0 & 0 & \dots & 0& 1 & -1
 \end{bmatrix}
  \begin{bmatrix}
 \Delta_1 \\ \Delta_2 \\ \Delta_3 \\ \vdots \\ \Delta_{n-1} \\ \Delta_n
@@ -254,11 +255,11 @@ The clock errors of individual stations can be written in matrix form
  \end{bmatrix}
 = 
 \begin{bmatrix}
-\Delta_{12} \\ \Delta_{13} \\ \vdots \\ \Delta_{1n} \\ \Delta_{21} \\ \Delta_{23} \\ \vdots \\ \Delta_{(n-1)n}
+\Delta_{12} \\ \Delta_{13} \\ \vdots \\ \Delta_{1n} \\ \Delta_{23} \\ \Delta_{24} \\ \vdots \\ \Delta_{(n-1)n}
 \end{bmatrix}, 
 \end{equation*}
 
-which represents a classical overdetermined inversion problem of the form $Gm = s$, with $m$ being the unknown model vector and $s$ being the known data \cite{sens2008}. The matrix $G$ has rank 3 because a constant offset can be added to all stations simultaneously without changing the time differences. 
+which represents a classical overdetermined inversion problem of the form $Gm = s$, with $m$ being the unknown model vector and $s$ being the known data \cite{sens2008}. The matrix $G$ has rank because a constant offset can be added to all stations simultaneously without changing the time differences. 
 
 The matrix $G$ is lacking full rank, therefore Tikhonov reqularization is employed to overcome this issue. The ordinary least squares seeks to minimize the sum of squared residuals
 
