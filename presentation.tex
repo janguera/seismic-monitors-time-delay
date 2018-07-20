@@ -10,7 +10,6 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
 \usepackage{setspace}
-\usepackage{termlist}
 \usepackage{amsmath}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -128,22 +127,17 @@ Christophe Pickard \inst{7}}
 \begin{frame}
 \frametitle{Graph approach to model the data}
 \begin{itemize}
-\item The measurements $\bm{\hat{\delta}}$ of time delays between stations
 \begin{equation}
-\bm{\hat{\delta}}  = \bm{\delta} + \bm{\varepsilon}
 \label{eq:model}
 \end{equation}
 
-\item A weighted graph $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}}_t)$
-\item Values $\hat{\delta}_{ij}$ are normalized to $[0,1]$
-\item A normalized distance measure was selected as graph metrics $K_m$
 \begin{equation}
-K_m = f_m (r_i)= \sum_j{r_{ij}}.  
 \end{equation}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
+<<<<<<< HEAD
 frametitle{Graph approach to model the data}
 \begin{itemize}
 \item The measurements $\bm{\hat{\delta}}$ of time delays between stations
@@ -165,6 +159,12 @@ blahblah
 \column{0.5\textwidth}
 \resizebox{0.5\textwidth}{!}{
 \begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,semithick, scale = 0.5]
+=======
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+>>>>>>> 0cc94ad65fc3cbaef419c266beaa1767da074aaa
   \tikzstyle{every state}=[draw=none]
 
   \node[main node] (1) {1};
