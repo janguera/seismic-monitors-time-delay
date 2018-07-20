@@ -59,8 +59,8 @@ The medium the wave is propagating in is homogenous.
 $\Delta_i$ & clock drift at station $i$\\
 $\delta_{ij}$ & Measured delay between station $i$ and station $j$ \\
 $\hat{\delta}_{ij}$ & Actual delay between station $i$ and station $j$ \\
-$\varepsilon_{ij}$ & noise between two stations $i$ and $j$ \\
-$d_{ij}$ & distance
+$\varepsilon_{ij}$ & Noise between two stations $i$ and $j$, including clock drift and ambient noise \\
+$r_{ij}$ & Distance
 \end{tabular}
 
 \subsection{Modelling time delay between seismic monitors}
@@ -190,23 +190,18 @@ Other possible metrics are average neighbor degrees (resilience), transitivity, 
 
 \subsubsection{Cost function}
 We assume to have estimates of $M$ differentiable graph metrics, one for each node $i$, of the original matrix $\bm{\hat{\delta}}$, i.e. $f_i(\bm{\delta}) = K_i$, where $i\in\{ 1,\dots, M \}$, then we can formulate a cost function that measures the deviation of the observed weight matrix's metrics $f_i(\bm{\hat{\delta}})$ to the estimates $K_i$ as: 
-
 \begin{equation}
-c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\delta}})-K_i)^2
+c(\bm{\hat{\delta}}) = \sum_i E_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\delta}})-K_i)^2
 \end{equation}
-
 The error is minimized with gradient descent updates on $\bm{\hat{\delta}}$: 
-
 \begin{equation}
-\bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_i e_i(\bm{\hat{\delta}}^t)\frac{df_i(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t},
+\bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_i E_i(\bm{\hat{\delta}}^t)\frac{df_i(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t},
 \label{eq:updates}
 \end{equation}
-
 where $t$ is the iteration index and $\mu$ the learning rate. %For the case of $m=1$, Equation \ref{eq:updates} describes the traditional single function gradient descent. 
-
 We find the derivative for the gradient descent update step. For $i=2$ it is
 \begin{equation}
-\frac{df_2}{d\bm{\delta}}=\frac{\sum_j \hat{\delta}_{ij}}{d\bm{\hat{\delta}}}=
+\frac{df_2}{d\bm{\delta}}=\frac{\sum_j \hat{\delta}_{2j}}{d\bm{\hat{\delta}}}=
 \begin{bmatrix}
     0 & 1 & 0 & \dots  & 0 \\
     1 & 0 & 1 & \dots  & 1 \\
@@ -215,21 +210,21 @@ We find the derivative for the gradient descent update step. For $i=2$ it is
     0 & 1 & 0 & \dots  & 0
 \end{bmatrix}.
 \end{equation}
-It is a symmetric matrix with ones in the ith row and ith column. The diagonal entries remain zero.
+It is a symmetric matrix with ones in the $i$th row and $i$th column. The diagonal entries remain zero.
 
 
 \subsection{Clock drift estimate}
 
-The denoising model in section \ref{sec:denoising} computes the denoised estimate of the measurement data $\bm{\hat{\delta}}$. The algorithm is run over a series of time points and an estimate for the clock drift between each station pair is obtained. 
+The denoising model in section \ref{sec:denoising} computes the denoised estimate $\bm{\delta}$ of the measurement data $\bm{\hat{\delta}}$. The algorithm is run over a series of time points and an estimate for the clock drift between each station pair is obtained. 
 
 A polynomial fitting algorithm \todo{specify} is run to find an estimate for the trend in noise. The error term in the fitting procedure will account for all the other errors in the system. The trend is considered to be caused by the clock drifts of the two stations. 
 
 The noise, $\varepsilon_{ij}$, between each pair between two stations in the system is modelled with 
 \begin{equation}
-\varepsilon_{ij} = | \Delta_i - \Delta_j | + e_{ij},
+\varepsilon_{ij} =  \Delta_i - \Delta_j  + e_{ij},
 \end{equation}
 
-in which $ | \Delta_i - \Delta_j | $ is the clock drift between two stations $i$ and $j$, and $e_{ij}$ accounts for all other noise in the system in addition to the clock drift. 
+in which $ \Delta_i - \Delta_j $ is the clock drift between two stations $i$ and $j$, and $e_{ij}$ accounts for all other ambient noise in the system in addition to the clock drift. 
 
 The clock errors of individual stations can be written in matrix form 
 
@@ -247,16 +242,16 @@ The clock errors of individual stations can be written in matrix form
 0 & 0 & \dots & 0& 1 & -1
 \end{bmatrix}
  \begin{bmatrix}
-\Delta_1 \\ \Delta_2 \\ \Delta_3 \\ \vdots \\ \Delta_{n-1} \\ \Delta_n
+\Delta_1 \\ \Delta_2 \\ \Delta_3 \\ \Delta_4 \\ \vdots \\ \Delta_k \\ \vdots \\ \Delta_{n-1} \\ \Delta_n
 \end{bmatrix}
  = 
  \begin{bmatrix}
- \Delta_1 - \Delta_2 \\ \Delta_1-\Delta_3 \\ \vdots \\ \Delta_1 - \Delta_{n} \\ \Delta_2- \Delta_1 \\ \Delta_2 - \Delta_3 \\ \vdots \\ \Delta_{n-1} - \Delta_n
+ \Delta_1 - \Delta_2 \\ \Delta_1-\Delta_3 \\ \Delta_1-\Delta_4 \\ \vdots \\ \Delta_1 - \Delta_{n} \\ \Delta_2- \Delta_3 \\ \Delta_2 - \Delta_4 \\ \vdots  \\ \Delta_2-\Delta_k \\ \vdots \\ \Delta_{n-1} - \Delta_n
  \end{bmatrix}
 = 
 \begin{bmatrix}
-\Delta_{12} \\ \Delta_{13} \\ \vdots \\ \Delta_{1n} \\ \Delta_{23} \\ \Delta_{24} \\ \vdots \\ \Delta_{(n-1)n}
-\end{bmatrix}, 
+\Delta_{12} \\ \Delta_{13} \\ \Delta_{14} \\ \vdots \\ \Delta_{1n} \\ \Delta_{23} \\ \Delta_{24} \\ \vdots \\ \Delta_{2k} \\ \vdots \\ \Delta_{(n-1)n}
+\end{bmatrix} , 
 \end{equation*}
 
 which represents a classical overdetermined inversion problem of the form $Gm = s$, with $m$ being the unknown model vector and $s$ being the known data \cite{sens2008}. The matrix $G$ has rank because a constant offset can be added to all stations simultaneously without changing the time differences. 
@@ -282,7 +277,11 @@ The explicit solution is hence given by
 \hat{\mathbf{s}} = (\mathbf{G}^T\mathbf{G} + \bm{\Gamma}^T\bm{\Gamma})^{-1}\mathbf{G}^T\mathbf{m}.  
 \end{equation}
 
+
+
+
 \section{Conclusions and Outlook}
+By analyzing the delay data we clearly showed that it changes over time showing patterns other than only white noise. This is due to clock drift. We used the relation between delay and distances to denoise the data. To get more compelling results other metrics could be used, or even a combination of multiple metrics.
 
 
 %% Insert bibliography
