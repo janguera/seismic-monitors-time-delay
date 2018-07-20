@@ -116,7 +116,30 @@ The Figure \ref{fig:histograms} shows an example of time-delay evolution of all 
 
 \subsection{The most influential stations}
 
-Jordi to describe how he found the most influential stations (SVD) and figures 
+The stations playing a key role in the global deviation of the total graph will be evaluated by the singular value decomposition of the global delays matrix (#NOTATION)$\in\mathbb{R}^{n\times m}, being $n$ the number of edges and $m$ the number of time steps. 
+
+In order to find the index of the eigenvector with the most relative importance by the number of connections (regardless of the observed $\delta t$) the (#NOTATION) matrix was turned binary.
+
+\begin{figure}[ht]
+  \begin{center}   
+   \includegraphics[width=\textwidth]{singular_values.png}
+  \end{center}
+  \caption{Singular values for the binary connection matrix}\label{fig:sing_va}
+\end{figure}
+
+The Figure \ref{fig:sing_va} shows the relative weight of the connections for each of the eigenvalue's index, being the first one the largest one. With that, the next step was to find the connections with the largest relative weight and the limit at which the connections do not have any more influence in the overall $\delta t$, which will be shown in Figure \ref{fig:influence} as a plot of the relative weight of each of the connections using the matrix (#NOTATION) with the measured $\delta t$:
+
+\begin{figure}[ht]
+  \begin{center}   
+   \includegraphics[width=\textwidth]{connections_influence.png}
+  \end{center}
+  \caption{Graph's connections influence}\label{fig:influence}
+\end{figure}
+
+In order to select the group of connections with the largest weight a threshold of $|0.05|$ has been taken, which has resulted in 74 connections among 52 stations. Finally, those stations with the largest number of connections to other stations were reduced to 3 with 34, 21 and 13 connections, while the rest remained with less than 2. 
+
+These 3 stations, along with another group of 5 close stations, were taken in the next section to test the method in a subset of the graph.
+
 
 \section{Methods}
 
