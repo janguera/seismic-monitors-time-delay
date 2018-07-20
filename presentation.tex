@@ -50,11 +50,9 @@ Christophe Pickard \inst{7}}
 \frametitle{Problem statement}
 \begin{itemize}
 \item Seismic monitoring is used to study the behaviour and composition of the underground floor
+\item There is a time drift in the monitors' clocks, causing inaccuracies in analysis
 \item Continuous synchronization to the Global Positioning System for accurate timing is not possible 
-\item The instruments' clocks deviate in time causing lack of accuracy in the measurements
-\item A reliable method to correct for the time deviation is required
-\item Real data collected from a network of seismic monitors over time is analyzed
-\item The problem is to discern the time drift of the clock in each monitor from noise and actual data
+\item A reliable method to correct the time drift of the clocks' is required
 \end{itemize}
 \end{frame}
 
@@ -62,6 +60,11 @@ Christophe Pickard \inst{7}}
 
 \begin{frame}
 \frametitle{The network of seismic monitors}
+\begin{itemize}
+\item The network consists of 73 seismic monitors
+\item For initial analysis, 7 stations are selected
+\end{itemize}
+
 \includegraphics[width=\textwidth]{InitialStationSet.png}
 \end{frame}
 
@@ -72,12 +75,10 @@ Christophe Pickard \inst{7}}
 
 \begin{frame}
 \frametitle{Numbers of working stations and connections to stations during one year}
-
 \begin{itemize}
-\item The network consists of 73 seismic monitors
-\item Not all monitors work at all times
+\item The maximum of simultaneously working stations is 52 out of 73
+\item The maximum of connections is 1326
 \item If two monitors are working simultaneously, they are connected
-\item Connections are undirected
 \end{itemize}
 
 \begin{columns}
@@ -93,17 +94,17 @@ Christophe Pickard \inst{7}}
 \frametitle{Time-delay signal characteristics}
 \begin{itemize}
 \item Data recorded in one second intervals
-\item Time-delay cross-correlation in one-hour intervals
+\item Time-delay cross-correlation in computed in one-hour intervals
+\item Each connection is computed only once 
 \item Tracing time-delays recorded by one station over a year
-\item Time delays are computed in both directions (from A $\rightarrow$ B and B $\rightarrow$ A) and are opposite numbers
 \end{itemize}
 
 \begin{columns}
 \column{0.5\textwidth}
-\includegraphics[width=\textwidth]{delayevolutionovertimeforonestation2.png}
+\includegraphics[width=\textwidth]{delayevolutionovertimeforonestation2_presentation.png}
 
 \column{0.5\textwidth}
-\includegraphics[width=\textwidth]{delayevolutionovertimeforonestation.png}
+\includegraphics[width=\textwidth]{delayevolutionovertimeforonestation_presentation.png}
 \end{columns}
 \end{frame}
 
@@ -114,46 +115,27 @@ Christophe Pickard \inst{7}}
 
 \begin{frame}
 \frametitle{Comparison of time delay of the furthest and the closest station pairs}
-\includegraphics[width=\textwidth]{Comparisondelayoverrandomdayoffarestandclosestlinks.png}
+\includegraphics[width=\textwidth]{Comparisondelayoverrandomdayoffarestandclosestlinks_presentation.png}
 
 \begin{itemize}
 \item Time delays are smaller between stations which are close to each other
-\item The non-linear trace of the data is thought to be caused by the station's non-ideal clock (clock drift)
 \end{itemize}
 \end{frame}
 
 \section{Model}
 
 \begin{frame}
-\frametitle{Clock drift and errors in the data}
+\frametitle{Graph approach to model the data}
 \begin{itemize}
 \item The measurements $\bm{\hat{\delta}}$ of time delays between stations
-\end{itemize}
 \begin{equation}
-\bm{\hat{\delta}}  = \bm{\delta} + \bm{\varepsilon}.
+\bm{\hat{\delta}}  = \bm{\delta} + \bm{\varepsilon}
 \label{eq:model}
 \end{equation}
 
-\begin{itemize}
-\item The error $\varepsilon_{ij}$ is error in time delay between stations $i$ and $j$
-\end{itemize}
-
-\begin{equation}
-\varepsilon_{ij} = | \Delta_i - \Delta_j | + e_{ij},
-\end{equation}
-\quad \quad $\Delta_i$ is the clock drift of station $i$
-
-\quad \quad $e_{ij}$ includes other measurement errors
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Graph approach to model the data}
-\begin{itemize}
 \item A weighted graph $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}}_t)$
-\item Weighted adjacency matrix of time delays $ \bm{\hat{\delta}}_t)$ is symmetric with $\delta_{ii} = 0$
 \item Values $\hat{\delta}_{ij}$ are normalized to $[0,1]$
-\item A normalized (to $[0,1]$) distance measure was selected as graph metrics $K_m$
+\item A normalized distance measure was selected as graph metrics $K_m$
 \begin{equation}
 K_m = f_m (r_i)= \sum_j{r_{ij}}.  
 \end{equation}
@@ -185,17 +167,16 @@ c(\bm{\hat{\delta}}) = \sum_m e_m^2(\bm{\hat{\delta}}) = \sum_m(f_m(\bm{\hat{\de
 \begin{itemize}
 \item The noise $\varepsilon_{ij}$ between each pair of two stations is modelled with
 \begin{equation}
-\varepsilon_{ij} = | \Delta_i - \Delta_j | + e_{ij},
+\varepsilon_{ij} = \Delta_i - \Delta_j + e_{ij},
 \end{equation}
 \quad \quad in which $\Delta_i$ and $\Delta_j$ are the clock drifts of stations $i, j$
-\quad \quad $e_{ij}$ accounts for all other noise in the system
+\quad \quad \quad $e_{ij}$ accounts for all other noise in the system
 
-\item A polynomial curve is fitted to the extracted noise to trace clock drift
 \end{itemize}
 \end{frame}
 
 \begin{frame}%[shrink=20]
-\frametitle{Solvin individual clock drifts (1/2)}
+\frametitle{Solving individual clock drifts (1/2)}
 \begin{itemize}
 \item We have overdetermined inverse problem of the form
 \begin{equation}
