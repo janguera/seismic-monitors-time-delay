@@ -32,7 +32,7 @@ Dimitar Trendafilov \inst{6} \and
 Christophe Pickard \inst{7}}
 
 \institute[XLIM]{\inst{1} Autonomous University of Barcelona, Spain \samelineand 
-	\inst{2}University of Jyväskylä, Finland \and 
+	\inst{2}University of Jyvaskyla, Finland \and 
 	\inst{3} University of Novi Sad, Serbia \samelineand 
 	\inst{4}Technical University of Darmstadt, Germany \and 
 	\inst{5}Tampere University of Technology, Finland  \and 
@@ -135,7 +135,7 @@ Christophe Pickard \inst{7}}
 \label{eq:model}
 \end{equation}
 
-\item Weighted normalized graphs $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}})$, $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$
+\item Graphs $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}})$, $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$
 
 \item Metric:
 \begin{equation}
@@ -147,11 +147,10 @@ f_i(\bm{\hat{\delta}})=\sum_j\delta_{ij} \quad \text{and} \quad K_i = f_i (\bm{W
 \end{equation}
 
 \end{itemize}
-\end{frame}
 
-\begin{frame}
-\begin{figure}[htb]
-\centering
+\begin{columns}
+\column{0.3\textwidth}
+\resizebox{\textwidth}{!}{
 \begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
                     semithick]
   \tikzstyle{every state}=[draw=none]
@@ -168,10 +167,28 @@ f_i(\bm{\hat{\delta}})=\sum_j\delta_{ij} \quad \text{and} \quad K_i = f_i (\bm{W
        		 edge node [above right, pos=0.3] {$w_{24}$} (4)
         (3) edge node {$w_{34}$} (4);
 \end{tikzpicture}
-\end{figure}
+}
+\column{0.3\textwidth}
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[draw=none]
+
+  \node[main node] (1) {1};
+  \node[main node] (2) [above right of=1] {2};
+  \node[main node] (4) [below right of=1] {4};
+  \node[main node] (3) [below right of=2] {3};
+
+  \path (1) edge node {$0.3$} (2)
+            edge node [above left] {$0.6$} (3)
+            edge node [below left] {$0.1$} (4);
+\end{tikzpicture}
+}
+\column{0.3\textwidth}
+text here
+\end{columns}
 
 \end{frame}
-
 
 \begin{frame}
 \frametitle{Signal denoising}
