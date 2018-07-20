@@ -10,6 +10,7 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
 \usepackage{setspace}
+%\usepackage{termlist}
 \usepackage{amsmath}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -127,12 +128,24 @@ Christophe Pickard \inst{7}}
 \begin{frame}
 \frametitle{Graph approach to model the data}
 \begin{itemize}
+\item Measured time delays $\bm{\hat{\delta}}$ between stations:
 \begin{equation}
+\bm{\hat{\delta}}  = \bm{\delta}(t) + \bm{\varepsilon}(t)
 \label{eq:model}
 \end{equation}
 
+\item Weighted normalized graphs $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}})$, $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$
+%\item $w_{ij}=f(r_{ij})$
+%\item Values $\hat{\delta}_{ij}$,  $w_{ij}$ are normalized to $[0,1]$
+\item Metric:
 \begin{equation}
+f_i(\bm{\hat{\delta}})=K_i
 \end{equation}
+with
+\begin{equation}
+f_i(\bm{\hat{\delta}})=\sum_j\delta_{ij} \quad \text{and} \quad K_i = f_i (\bm{W})= \sum_j{w_{ij}}  
+\end{equation}
+
 \end{itemize}
 \end{frame}
 
