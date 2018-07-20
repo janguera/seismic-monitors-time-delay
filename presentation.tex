@@ -16,6 +16,8 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{bm} 
+\usetikzlibrary{arrows,automata}
+\usepackage{pgf}
  
 \newcommand{\samelineand}{\qquad} 
  
@@ -140,6 +142,30 @@ Christophe Pickard \inst{7}}
 K_m = f_m (r_i)= \sum_j{r_{ij}}.  
 \end{equation}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[draw=none]
+
+  \node[main node] (1) {1};
+  \node[main node] (2) [above right of=1] {2};
+  \node[main node] (4) [below right of=1] {4};
+  \node[main node] (3) [below right of=2] {3};
+
+  \path (1) edge node {$w_{12}$} (2)
+            edge node [above left, pos=0.3] {$w_{13}$} (3)
+            edge node [below left] {$w_{14}$} (4)
+        (2) edge node {$w_{23}$} (3)
+       		 edge node [above right, pos=0.3] {$w_{24}$} (4)
+        (3) edge node {$w_{34}$} (4);
+\end{tikzpicture}
+\end{figure}
+
 \end{frame}
 
 
