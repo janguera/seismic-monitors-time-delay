@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.2.23)  20 JUL 2018 12:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.2.23)  20 JUL 2018 15:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1541,7 +1541,7 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 File: InitialStationSet.png Graphic file (type png)
 
 <use InitialStationSet.png>
-Package pdftex.def Info: InitialStationSet.png used on input line 66.
+Package pdftex.def Info: InitialStationSet.png used on input line 69.
 (pdftex.def)             Requested size: 307.28987pt x 144.77075pt.
  [3
 
@@ -1550,7 +1550,7 @@ Package pdftex.def Info: InitialStationSet.png used on input line 66.
 File: InitialStationSet_zoom.png Graphic file (type png)
 
 <use InitialStationSet_zoom.png>
-Package pdftex.def Info: InitialStationSet_zoom.png used on input line 71.
+Package pdftex.def Info: InitialStationSet_zoom.png used on input line 74.
 (pdftex.def)             Requested size: 307.28987pt x 182.55942pt.
  [4
 
@@ -1559,65 +1559,68 @@ Package pdftex.def Info: InitialStationSet_zoom.png used on input line 71.
 File: working_monitors.png Graphic file (type png)
 
 <use working_monitors.png>
-Package pdftex.def Info: working_monitors.png used on input line 90.
+Package pdftex.def Info: working_monitors.png used on input line 91.
 (pdftex.def)             Requested size: 153.64493pt x 109.8084pt.
 
 <working_connections.png, id=148, 388.45125pt x 265.99374pt>
 File: working_connections.png Graphic file (type png)
 
 <use working_connections.png>
-Package pdftex.def Info: working_connections.png used on input line 90.
+Package pdftex.def Info: working_connections.png used on input line 91.
 (pdftex.def)             Requested size: 153.64493pt x 105.21045pt.
  [5
 
  <./working_monitors.png> <./working_connections.png>]
-<delayevolutionovertimeforonestation2.png, id=176, 421.575pt x 316.18124pt>
-File: delayevolutionovertimeforonestation2.png Graphic file (type png)
-
-<use delayevolutionovertimeforonestation2.png>
-Package pdftex.def Info: delayevolutionovertimeforonestation2.png used on input
- line 108.
+<delayevolutionovertimeforonestation2_presentation.png, id=176, 421.575pt x 316
+.18124pt>
+File: delayevolutionovertimeforonestation2_presentation.png Graphic file (type 
+png)
+ <use delayevolutionovertimeforonestation2_presentation.png>
+Package pdftex.def Info: delayevolutionovertimeforonestation2_presentation.png 
+used on input line 109.
 (pdftex.def)             Requested size: 153.64493pt x 115.23392pt.
 
-<delayevolutionovertimeforonestation.png, id=177, 421.575pt x 316.18124pt>
-File: delayevolutionovertimeforonestation.png Graphic file (type png)
-
-<use delayevolutionovertimeforonestation.png>
-Package pdftex.def Info: delayevolutionovertimeforonestation.png used on input 
-line 108.
+<delayevolutionovertimeforonestation_presentation.png, id=177, 421.575pt x 316.
+18124pt>
+File: delayevolutionovertimeforonestation_presentation.png Graphic file (type p
+ng)
+ <use delayevolutionovertimeforonestation_presentation.png>
+Package pdftex.def Info: delayevolutionovertimeforonestation_presentation.png u
+sed on input line 109.
 (pdftex.def)             Requested size: 153.64493pt x 115.23392pt.
  [6
 
- <./delayevolutionovertimeforonestation2.png (PNG copy)> <./delayevolutionovert
-imeforonestation.png (PNG copy)>]
-<hourlydelaydistributionoverallstationsforoneday.png, id=204, 988.44281pt x 532
+ <./delayevolutionovertimeforonestation2_presentation.png (PNG copy)> <./delaye
+volutionovertimeforonestation_presentation.png (PNG copy)>]
+<hourlydelaydistributionoverallstationsforoneday.png, id=203, 988.44281pt x 532
 .99126pt>
 File: hourlydelaydistributionoverallstationsforoneday.png Graphic file (type pn
 g)
  <use hourlydelaydistributionoverallstationsforoneday.png>
 Package pdftex.def Info: hourlydelaydistributionoverallstationsforoneday.png us
-ed on input line 113.
+ed on input line 114.
 (pdftex.def)             Requested size: 307.28987pt x 165.69728pt.
  [7
 
  <./hourlydelaydistributionoverallstationsforoneday.png>]
-<Comparisondelayoverrandomdayoffarestandclosestlinks.png, id=231, 705.38531pt x
- 301.8778pt>
-File: Comparisondelayoverrandomdayoffarestandclosestlinks.png Graphic file (typ
-e png)
- <use Comparisondelayoverrandomdayoffarestandclosestlinks.png>
-Package pdftex.def Info: Comparisondelayoverrandomdayoffarestandclosestlinks.pn
-g used on input line 123.
-(pdftex.def)             Requested size: 307.28987pt x 131.50925pt.
+<Comparisondelayoverrandomdayoffarestandclosestlinks_presentation.png, id=230, 
+1198.4775pt x 456.20438pt>
+File: Comparisondelayoverrandomdayoffarestandclosestlinks_presentation.png Grap
+hic file (type png)
+
+<use Comparisondelayoverrandomdayoffarestandclosestlinks_presentation.png>
+Package pdftex.def Info: Comparisondelayoverrandomdayoffarestandclosestlinks_pr
+esentation.png used on input line 123.
+(pdftex.def)             Requested size: 307.28987pt x 116.96751pt.
 
 [8
 
- <./Comparisondelayoverrandomdayoffarestandclosestlinks.png>] [9
+ <./Comparisondelayoverrandomdayoffarestandclosestlinks_presentation.png (PNG c
+opy)>] [9
 
 ] [10
 
-]
-[11
+] [11
 
 ] [12
 
@@ -1626,8 +1629,6 @@ g used on input line 123.
 ] [14
 
 ] [15
-
-] [16
 
 ]
 \tf@nav=\write6
@@ -1639,11 +1640,11 @@ g used on input line 123.
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 271.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 271.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 252.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 252.
  (./presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 271.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 271.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 252.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 252.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 1DB5D0B3E9DD0189BADDDCDB7DB713B6;218.
 
@@ -1653,10 +1654,10 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 23672 strings out of 492995
- 457524 string characters out of 6132704
+ 23668 strings out of 492995
+ 457684 string characters out of 6132704
  545040 words of memory out of 5000000
- 26639 multiletter control sequences out of 15000+600000
+ 26637 multiletter control sequences out of 15000+600000
  22786 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,14n,59p,805b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1678,10 +1679,10 @@ ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/loc
 al/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local
 /texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/t
 exlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on presentation.pdf (16 pages, 2008213 bytes).
+Output written on presentation.pdf (15 pages, 2038946 bytes).
 PDF statistics:
- 544 PDF objects out of 1000 (max. 8388607)
- 485 compressed objects within 5 object streams
- 42 named destinations out of 1000 (max. 500000)
+ 519 PDF objects out of 1000 (max. 8388607)
+ 461 compressed objects within 5 object streams
+ 40 named destinations out of 1000 (max. 500000)
  123 words of extra memory for PDF output out of 10000 (max. 10000000)
 
