@@ -129,13 +129,13 @@ Christophe Pickard \inst{7}}
 \begin{frame}
 \frametitle{Graph approach to model the data}
 \begin{itemize}
-\item Measured time delays $\bm{\hat{\delta}}$ between stations:
+\item Measured time delays $\bm{\hat{\delta}(t)}$ between stations:
 \begin{equation}
-\bm{\hat{\delta}}  = \bm{\delta}(t) + \bm{\varepsilon}(t)
+\bm{\hat{\delta}(t)}  = \bm{\delta}(t) + \bm{\varepsilon}(t)
 \label{eq:model}
 \end{equation}
 
-\item Graphs $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}})$, $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$
+\item Graphs: $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}})$, $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$
 
 \item Metric:
 \begin{equation}
@@ -218,7 +218,7 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 \begin{itemize}
 \item We have overdetermined inverse problem of the form
 \begin{equation}
-\bm{Gs} = \bm{m}
+\bm{Gs} = \mathbf{m}
 \end{equation}
 
 \footnotesize
@@ -249,7 +249,7 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 \end{equation*}
 \normalsize
 
-\item Matrix $\bm{G}$'s rank is $n-1$
+\item Matrix $\mathbf{G}$'s rank is $n-1$
 \end{itemize}
 \end{frame}
 
@@ -314,14 +314,14 @@ Figure here
 \begin{itemize}
 \item A graph method to recover clock drift in large time-delay network was developed
 \item Clock drifts for the three most influential monitors and five others close by were computed
-\item Clock drift may account for up to 1 \% inaccuracy in timing at each time point
 \item The drift varies over time
+\item Clock drift may account for up to 1 \% inaccuracy in timing at each time point
 \end{itemize}
 \vspace{0.5cm}
 \textbf{\large{Future work:}}\normalsize 
 \begin{itemize}
 \item A synthetic dataset to verify the effectiveness of the method
-\item Analyze the complete network of monitors
+\item Analyse the complete network of monitors
 \item Develop and test other metrics
 \item Carry out sensitivity analysis
 \end{itemize}
