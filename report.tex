@@ -22,7 +22,6 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
 \usepackage{setspace}
-%\usepackage{termlist}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -72,9 +71,9 @@ The data is collected from a network of 73 seismic monitor stations recording gr
 
 \begin{figure}[ht]
   \begin{center}   
-   \includegraphics[width=\textwidth]{InitialStationSet.png}
+   \includegraphics[width=\textwidth]{TestStations_zoom.png}
   \end{center}
-  \caption{The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The seven stations chosen as the small test set is shown as green in the southeast part of the area.}\label{fig:monitornetwork}
+  \caption{The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The eight stations chosen as the small test set is shown as green in the southeast part of the area.}\label{fig:monitornetwork}
 \end{figure}
 
 The stations work independent of each other and are occasionally shut down for some time frame for maintenance, repair or just random events. Just as occasionally they are brought up to measure again.  Therefore, the number of active stations varies over time. The Figure \ref{fig:workingstations} shows the number of working stations, and the Figure \ref{fig:workingconnections} the number of working connections between the monitor stations over one year of measurements. 
@@ -88,14 +87,6 @@ The stations work independent of each other and are occasionally shut down for s
 \end{figure*}
 
 The compression and decompression data recorded by the stations is retrieved and run through initial data cleaning and filtering procedures. The data is then cross-correlated in one-hour time windows to yield time-delay data of signals between all monitors (Figure \ref{fig:examplesignal}). 
-
-%\begin{figure}[ht]
-%  \begin{center}   
-%   \includegraphics[width=0.7\textwidth]{delayevolutionovertimeforonestation2.png}
-%  \end{center}
-%  \caption{The time-delay signal recorded by one station over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}\label{fig:examplesignal}
-%\end{figure}
-
 
 \begin{figure*}[ht] 
   \centering 
@@ -123,9 +114,11 @@ The Figure \ref{fig:histograms} shows an example of time-delay evolution of all 
 \end{figure}
 
 
+\subsection{The most influential stations}
+
+Jordi to describe how he found the most influential stations (SVD) and figures 
 
 \section{Methods}
-
 
 Let $\bm{\hat{\delta}} \in \mathbb{R}^{n\times n}$ be the measured pairwise time delays of the system, $\bm{\delta}$ the actual pairwise time delays, and $\bm{\varepsilon}$ an error term including clock drift of the station's clock and other errors
 
@@ -212,7 +205,6 @@ We find the derivative for the gradient descent update step. For $i=2$ it is
 \end{equation}
 It is a symmetric matrix with ones in the $i$th row and $i$th column. The diagonal entries remain zero.
 
-
 \subsection{Clock drift estimate}
 
 The denoising model in section \ref{sec:denoising} computes the denoised estimate $\bm{\delta}$ of the measurement data $\bm{\hat{\delta}}$. The algorithm is run over a series of time points and an estimate for the clock drift between each station pair is obtained. 
@@ -275,6 +267,16 @@ The explicit solution is hence given by
 \begin{equation}
 \hat{\mathbf{s}} = (\mathbf{G}^T\mathbf{G} + \bm{\Gamma}^T\bm{\Gamma})^{-1}\mathbf{G}^T\mathbf{m}.  
 \end{equation}
+
+\subsection{Algorithm}
+Leevi to plug in pseudo code of the implementation of the method
+
+\section{Results}
+\subsection{Signal denoising}
+
+
+\subsection{Clock deviations}
+
 
 \section{Conclusions and Outlook}
 By analyzing the delay data we clearly showed that it changes over time showing patterns other than only white noise. This is due to clock drift. We used a method of weighted network estimation by the use of
