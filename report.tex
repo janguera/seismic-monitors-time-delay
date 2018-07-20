@@ -142,34 +142,14 @@ The position of each seismic monitor in the network is known. As the monitors ar
 \subsubsection{Definitions}
 The computational denoising model involves weighted network estimation by the use of topological graph metrics, described in detail in \cite{Spyrou2017}. 
 
-We have a weighted graph $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \bf{\hat{\delta}}_t)$ defined by a finite set of nodes $\mathcal{V}$ with $|\mathcal{V}| = n$, a set of edges $\mathcal{E} = \{ (v_i,v_j) \in \mathcal{E} \}$, with $|\mathcal{E}| = n^2-n$ and the weighted adjacency matrix $\bm{\hat{\delta}}$ with $\delta_{ii} = 0$ for all $i$. The matrix $\bm{\hat{\delta}}$  is symmetric and describes the time delays between events in the graph, and is normalized, i.e. $\hat{\delta}_{ij}\in [0,1]$. The adjacency matrix indicates the strength of connection between nodes. Therefore, the shorter the time delay between nodes, the stronger the connection, and higher the value. 
-
-\subsubsection{Cost function}
-We assume to have estimates of $M$ differentiable graph metrics of the original matrix $\bm{\delta}$, i.e. $f_m(\bm{\delta}) = K_m$, where $m\in\{ 1,\dots, M \}$, then we can formulate a cost function that measures the deviation of the observed weight matrix's metrics $f_m(\bm{\hat{\delta}})$ to the estimates $K_m$ as: 
-
-\begin{equation}
-c(\bm{\hat{\delta}}) = \sum_m e_m^2(\bm{\hat{\delta}}) = \sum_m(f_m(\bm{\hat{\delta}})-K_m)^2
-\end{equation}
-
-The error is minimized with gradient descent updates on $\bm{\hat{\delta}}$: 
-
-\begin{equation}
-\bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_m e_m(\bm{\hat{\delta}}^t)\frac{df_m(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t},
-\label{eq:updates}
-\end{equation}
-
-where $t$ is the iteration index and $\mu$ the learning rate. For the case of $m=1$, Equation \ref{eq:updates} describes the traditional single function gradient descent. 
+We have a weighted graph $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \bf{\hat{\delta}}_t)$ defined by a finite set of nodes $\mathcal{V}$ with $|\mathcal{V}| = n$, a set of edges $\mathcal{E} = \{ (v_i,v_j) \in \mathcal{E} \}$, with $|\mathcal{E}| = n^2-n$ and the weighted adjacency matrix $\bm{\hat{\delta}}$ with $\hat{\delta}_{ii} = 0$ for all $i$. The matrix $\bm{\hat{\delta}}$  is symmetric and describes the time delays between events in the graph, and is normalized, i.e. $\hat{\delta}_{ij}\in [0,1]$. The weighted adjacency matrix indicates the strength of connection between nodes. %Therefore, the shorter the time delay between nodes, the stronger the connection, and higher the value. 
 
 \subsubsection{Graph metrics}
-Graph metrics are scalar functions of the weight matrix, $f(\bm{\hat{\delta}}): \mathbb{R}^{n \times n}\rightarrow \mathbb{R}$. We choose graph metrics to:
-\begin{enumerate}
-\item \textbf{Distance}: We want to use the distance measures to denoise the delay measurements. For this purpose, we deisigned a metric, the connection strength of a node i. We normalize the delays and compute the row sum 
-
+Graph metrics are scalar functions of the weight matrix, $f_i(\bm{\hat{\delta}})=K_i: \mathbb{R}^{n \times n}\rightarrow \mathbb{R}$. They quantify a property of a network. We deisigned a metric, the connection strength of a node $i$ that is the row sum of the normalized weighted adjency matrix 
 \begin{equation}
-f_i (\bm{\delta})= \sum_j{\delta_{ij}}.  
+f_i (\bm{\hat{\delta}})= \sum_j{\hat{\delta}_{ij}}.  
 \end{equation}
-
-Thde connection strength can be interpreted as the sum of all normalized delays of all of the links to node i.
+The connection strength can be interpreted as the sum of all normalized delays of all of the links to node i.
 
 \begin{figure}[htb]
 \centering
@@ -191,46 +171,52 @@ Thde connection strength can be interpreted as the sum of all normalized delays 
 \node [align=center] at (18,7) {\scriptsize 0.3};
 \node [align=center] at (16.5,2) {\scriptsize 0.1};
 \node [align=center] at (23,5) {\scriptsize 0.6};
-
-
 \end{scope}
 \end{tikzpicture}
 \caption{Distance metric.} \label{fig:1}
 \end{figure}
-Figure \ref{fig:1} shows two nodes. Node $A$ has four connections yielding a connection strength $0.1+0.5+0.7+0.6=1.9$ whereas node $B$ only has three connections. Thus, the connection strength is $0.3+0.6+0.1=1$.
-
-
-
-The constants $K_m$ are defined as follows
+Figure \ref{fig:1} shows two nodes. Node $A$ has four connections yielding a connection strength $0.1+0.5+0.7+0.6=1.9$ whereas node $B$ only has three connections. Thus, the connection strength is $0.3+0.6+0.1=1$. Next, we look at the $K_i$. Since we have the distance measurements available and expect a correlation between the delays and distances, we want to use this information to denoise the delay measurements and define
 \begin{equation}
-K_m=f_m(\bm W_d)
+K_i=f_i(\bm W_d).
 \end{equation}
-It is the connection strength as well. But now we plug in the distance matrix $\bm{W_d}$. The distances are constants and yield a constant $K_m$.
-The weight matrix $\bm{W_d}$ is a function of the distance between node $i$ and node $j$. First, we choose the function to be the reciprocal of the distances of the node to all other nodes, $d _{ij}= 1/r_{ij}$, normalized between $[0,1]$. Higher values correspond to nodes with short distances to all other nodes. Second, we try a metric with weights proportional to the distances, normailzed between $[0,1]$ accordingly. Here, high values correspond to long distances between two stations.
+It is the connection strength as well. But here we plug in the distance matrix $\bm{W_d}$. The distances are constants and yield constants $K_i$.
+The weight matrix $\bm{W_d}$ is a function of the distance between node $i$ and node $j$.
+\begin{enumerate}
+\item First, we choose the function to be the reciprocal of the distances of the node to all other nodes, $w_{ij}= 1/r_{ij}$, normalized between $[0,1]$. Higher values correspond to nodes with short distances to all other nodes.
+\item Second, we try a metric with weights proportional to the distances ($w_{ij} \propto r_{ij}$), normailzed between $[0,1]$ accordingly. Here, high values correspond to long distances between two stations.
+\end{enumerate}
+Other possible metrics are average neighbor degrees (resilience), transitivity, or a clustering coefficient. The analysis based on these metrics is beyond scope of this work.  
 
-We find the derivative for the gradient descent update step.
+
+\subsubsection{Cost function}
+We assume to have estimates of $M$ differentiable graph metrics, one for each node $i$, of the original matrix $\bm{\hat{\delta}}$, i.e. $f_i(\bm{\delta}) = K_i$, where $i\in\{ 1,\dots, M \}$, then we can formulate a cost function that measures the deviation of the observed weight matrix's metrics $f_i(\bm{\hat{\delta}})$ to the estimates $K_i$ as: 
+
+\begin{equation}
+c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\delta}})-K_i)^2
+\end{equation}
+
+The error is minimized with gradient descent updates on $\bm{\hat{\delta}}$: 
+
+\begin{equation}
+\bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_i e_i(\bm{\hat{\delta}}^t)\frac{df_i(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t},
+\label{eq:updates}
+\end{equation}
+
+where $t$ is the iteration index and $\mu$ the learning rate. %For the case of $m=1$, Equation \ref{eq:updates} describes the traditional single function gradient descent. 
+
+We find the derivative for the gradient descent update step for $i=2$.
 \begin{equation}
 \frac{df_2}{d\bm{\delta}}=\frac{\sum_j\delta_{ij}}{d\bm{\delta}}=
 \begin{bmatrix}
     0 & 1 & 0 & \dots  & 0 \\
     1 & 0 & 1 & \dots  & 1 \\
-    0 & 1 & 0 & \dots  & 1 \\
+    0 & 1 & 0 & \dots  & 0 \\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
     0 & 1 & 0 & \dots  & 0
 \end{bmatrix}
 \end{equation}
 It is a symmetric matrix with ones in the ith row and ith column. The diagonal entries remain zero.
 
-
-
-
-
- 
-\item Average neighbour degree, resilience: 
-
-The average neighbour degree for node $i$ is given by
-
-\end{enumerate}
 
 \subsection{Clock drift estimate}
 

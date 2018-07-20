@@ -12,6 +12,10 @@
 \usepackage{setspace}
 \usepackage{termlist}
 \usepackage{amsmath}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm} 
  
 \newcommand{\samelineand}{\qquad} 
  
@@ -122,25 +126,136 @@ Christophe Pickard \inst{7}}
 
 \begin{frame}
 \frametitle{Clock drift and errors in the data}
+\begin{itemize}
+\item The measurements $\bm{\hat{\delta}}$ of time delays between stations
+\end{itemize}
+\begin{equation}
+\bm{\hat{\delta}}  = \bm{\delta} + \bm{\varepsilon}.
+\label{eq:model}
+\end{equation}
 
+\begin{itemize}
+\item The error $\varepsilon_{ij}$ is error in time delay between stations $i$ and $j$
+\end{itemize}
+
+\begin{equation}
+\varepsilon_{ij} = | \Delta_i - \Delta_j | + e_{ij},
+\end{equation}
+\quad \quad $\Delta_i$ is the clock drift of station $i$
+
+\quad \quad $e_{ij}$ includes other measurement errors
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Graph approach to model the data}
-
+\begin{itemize}
+\item A weighted graph $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}}_t)$
+\item Weighted adjacency matrix of time delays $ \bm{\hat{\delta}}_t)$ is symmetric with $\delta_{ii} = 0$
+\item Values $\hat{\delta}_{ij}$ are normalized to $[0,1]$
+\item A normalized (to $[0,1]$) distance measure was selected as graph metrics $K_m$
+\begin{equation}
+K_m = f_m (r_i)= \sum_j{r_{ij}}.  
+\end{equation}
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}
 \frametitle{Signal denoising}
+\begin{itemize}
+\item We specify a cost function $c(\bm{\hat{\delta}})$ measuring the deviation from the observed weight matrix's metrics $f_m(\bm{\hat{\delta}})$ to the estimates of the distance metrics $K_m$
 
+
+\begin{equation}
+c(\bm{\hat{\delta}}) = \sum_m e_m^2(\bm{\hat{\delta}}) = \sum_m(f_m(\bm{\hat{\delta}})-K_m)^2
+\end{equation}
+
+\item Error is minimized with gradient descent updates on $\bm{\hat{\delta}}$: 
+
+\begin{equation}
+\bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_m e_m(\bm{\hat{\delta}}^t)\frac{df_m(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t},
+\label{eq:updates}
+\end{equation}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Exctracting clock drift from noise}
+\begin{itemize}
+\item The noise $\varepsilon_{ij}$ between each pair of two stations is modelled with
+\begin{equation}
+\varepsilon_{ij} = | \Delta_i - \Delta_j | + e_{ij},
+\end{equation}
+\quad \quad in which $\Delta_i$ and $\Delta_j$ are the clock drifts of stations $i, j$
+\quad \quad $e_{ij}$ accounts for all other noise in the system
 
+\item A polynomial curve is fitted to the extracted noise to trace clock drift
+\end{itemize}
 \end{frame}
 
+\begin{frame}%[shrink=20]
+\frametitle{Solvin individual clock drifts (1/2)}
+\begin{itemize}
+\item We have overdetermined inverse problem of the form
+\begin{equation}
+Gm = s
+\end{equation}
+
+\footnotesize
+\begin{equation*}
+\begin{bmatrix}
+1 & -1 & 0 & 0 & \dots & 0 & 0 \\
+1 & 0 & -1 & 0 & \dots & 0 & 0 \\
+1 &  0  & 0 & 0 & \dots & 0  & 0 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+1 &  0  & 0 & 0 & \dots & 0 & -1 \\
+-1 & 1 & 0 & 0 & \dots & 0  & 0 \\
+0 & 1 & -1 & 0 & \dots & 0 & 0 \\
+\hdotsfor{7} \\
+0 & 0 & 0 & \dots & 0& 1 & -1
+\end{bmatrix}
+ \begin{bmatrix}
+\Delta_1 \\ \Delta_2 \\ \Delta_3 \\ \vdots \\ \Delta_{n-1} \\ \Delta_n
+\end{bmatrix}
+ = 
+ \begin{bmatrix}
+ \Delta_1 - \Delta_2 \\ \Delta_1-\Delta_3 \\ \vdots \\ \Delta_1 - \Delta_{n} \\ \Delta_2- \Delta_1 \\ \Delta_2 - \Delta_3 \\ \vdots \\ \Delta_{n-1} - \Delta_n
+ \end{bmatrix}
+= 
+\begin{bmatrix}
+\Delta_{12} \\ \Delta_{13} \\ \vdots \\ \Delta_{1n} \\ \Delta_{21} \\ \Delta_{23} \\ \vdots \\ \Delta_{(n-1)n}
+\end{bmatrix} 
+\end{equation*}
+\normalsize
+
+\item Matrix $G$ rank is 3 $\rightarrow$ regularization required
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solving individual clock drifts 1/2}
+\begin{itemize}
+\item Ordinary least squares regression
+\begin{equation}
+\| \mathbf{Gm}-\mathbf{s} \|_2^2.
+\label{eq:leastsquares}
+\end{equation}
+
+\item Tikhonov regularization is employed
+\begin{equation}
+\| \mathbf{Gm}-\mathbf{s} \|_2^2 + \| \bm{\Gamma}\mathbf{m} \|_2^2, 
+\label{eq:tikhonov}
+\end{equation}
+\quad \quad for some suitable Tikhonov matrix $\bm{\Gamma} = \alpha\mathbf{I}$
+\item The explicit solution is hence given by
+\begin{equation}
+\hat{\mathbf{s}} = (\mathbf{G}^T\mathbf{G} + \bm{\Gamma}^T\bm{\Gamma})^{-1}\mathbf{G}^T\mathbf{m}.  
+\end{equation}
+
+\end{itemize}
+
+\end{frame}
 
 \section{Results}
 \begin{frame}
