@@ -53,8 +53,8 @@ Christophe Pickard \inst{7}}
 \begin{itemize}
 \item Seismic monitoring is used to study the behaviour and composition of the underground floor
 \item There is a time drift in the monitors' clocks, causing inaccuracies in analysis
-\item Continuous synchronization to the Global Positioning System for accurate timing is not possible 
-\item A reliable method to correct the time drift of the clocks' is required
+\item Continuous synchronisation to the Global Positioning System for accurate timing is not possible 
+\item A reliable method to correct the time drift of the clocks is required
 \end{itemize}
 \end{frame}
 
@@ -78,8 +78,8 @@ Christophe Pickard \inst{7}}
 \begin{frame}
 \frametitle{Numbers of working stations and connections to stations during one year}
 \begin{itemize}
-\item The maximum of simultaneously working stations is 52 out of 73
-\item The maximum of connections is 1326
+\item The maximum number of simultaneously working stations is 52 out of 73
+\item The maximum number of active connections is 1326
 \item If two monitors are working simultaneously, they are connected
 \end{itemize}
 
@@ -95,10 +95,10 @@ Christophe Pickard \inst{7}}
 \begin{frame}
 \frametitle{Time-delay signal characteristics}
 \begin{itemize}
-\item Data recorded in one second intervals
-\item Time-delay cross-correlation in computed in one-hour intervals
-\item Each connection is computed only once 
-\item Tracing time-delays recorded by one station over a year
+\item Data is recorded in one second intervals
+\item Time-delay cross-correlation is computed in one-hour intervals
+\item Recording period is one year
+%\item Each connection is computed only once 
 \end{itemize}
 
 \begin{columns}
@@ -129,9 +129,9 @@ Christophe Pickard \inst{7}}
 \begin{frame}
 \frametitle{Graph approach to model the data}
 \begin{itemize}
-\item Measured time delays $\bm{\hat{\delta}(t)}$ between stations:
+\item Measured time delays $\bm{\hat{\delta}}(t)$ between stations:
 \begin{equation}
-\bm{\hat{\delta}(t)}  = \bm{\delta}(t) + \bm{\varepsilon}(t)
+\bm{\hat{\delta}}(t)  = \bm{\delta}(t) + \bm{\varepsilon}(t)
 \label{eq:model}
 \end{equation}
 
@@ -139,11 +139,11 @@ Christophe Pickard \inst{7}}
 
 \item Metric:
 \begin{equation}
-f_i(\bm{\hat{\delta}})=K_i
+f_i(\bm{X})=K_i
 \end{equation}
 with
 \begin{equation}
-f_i(\bm{\hat{\delta}})=\sum_j\delta_{ij} \quad \text{and} \quad K_i = f_i (\bm{W})= \sum_j{w_{ij}}  
+f_i(\bm{\hat{\delta}})=\sum_j\hat{\delta}_{ij} \quad \text{and} \quad K_i = f_i (\bm{W})= \sum_j{w_{ij}}  
 \end{equation}
 
 \end{itemize}
@@ -185,7 +185,9 @@ f_i(\bm{\hat{\delta}})=\sum_j\delta_{ij} \quad \text{and} \quad K_i = f_i (\bm{W
 \end{tikzpicture}
 }
 \column{0.3\textwidth}
-text here
+%\begin{itemize}
+normalised weights between $[0,1]$
+%\end{itemize}
 \end{columns}
 
 \end{frame}
@@ -201,11 +203,11 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 \item Error is minimized with gradient descent updates on $\bm{\hat{\delta}}$: 
 
 \begin{equation}
-\bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_i e_i(\bm{\hat{\delta}}^t)\frac{df_i(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t}
+\bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_i E_i(\bm{\hat{\delta}}^t)\frac{df_i(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t}
 \label{eq:updates}
 \end{equation}
 
-\item The noise $\varepsilon_{ij}$ between each pair of two stations is caused by clock drifts $\Delta_i$ and $\Delta_j$, and other errors $e_{ij}$:
+\item The noise $\varepsilon_{ij}$ between each pair of two stations is caused by clock drifts $\Delta_i$ and $\Delta_j$, and other errors $E_{ij}$:
 \end{itemize}
 \begin{equation}
 \varepsilon_{ij} = \Delta_i - \Delta_j + e_{ij}
@@ -282,15 +284,15 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 \frametitle{Signal - denoised signal - noise}
 \begin{columns}
 \column{0.3\textwidth}
-Full signal from one connection for 10 hours
+Delay signal $\bm{\hat{\delta}}$ of one connection for 10 days
 
 \vspace{1.8cm}
 
-Denoised signal of the connection
+Denoised signal $\bm{\delta}$ of the connection
 
 \vspace{1.8cm}
 
-Signal noise
+Signal noise $\bm{\varepsilon}$
 
 \column{0.6\textwidth}
 \includegraphics[height=0.28\textheight]{noisy-time-delay-data-10-days.png}
@@ -313,7 +315,7 @@ Signal noise
 \frametitle{Conclusion}
 \begin{itemize}
 \item A graph method to recover clock drift in large time-delay network was developed
-\item Clock drifts for the three most influential monitors and five others close by were computed
+\item Clock drifts for the three most influential monitors and five others close-by were computed
 \item The drift varies over time
 \item Clock drift may account for up to 1 \% inaccuracy in timing at each time point
 \end{itemize}
