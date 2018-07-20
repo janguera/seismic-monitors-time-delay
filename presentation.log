@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.2.23)  20 JUL 2018 11:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.2.23)  20 JUL 2018 12:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1621,12 +1621,7 @@ g used on input line 123.
 
 ] [12
 
-]
-Overfull \hbox (16.5882pt too wide) detected at line 234
-[] [] \OT1/cmss/m/n/9 = [] = []
- []
-
-[13
+] [13
 
 ] [14
 
@@ -1644,11 +1639,11 @@ Overfull \hbox (16.5882pt too wide) detected at line 234
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 271.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 271.
  (./presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 271.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 271.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 1DB5D0B3E9DD0189BADDDCDB7DB713B6;218.
 
@@ -1660,7 +1655,7 @@ LaTeX Font Warning: Size substitutions with differences
 Here is how much of TeX's memory you used:
  23672 strings out of 492995
  457524 string characters out of 6132704
- 542040 words of memory out of 5000000
+ 545040 words of memory out of 5000000
  26639 multiletter control sequences out of 15000+600000
  22786 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1683,7 +1678,7 @@ ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/loc
 al/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local
 /texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/t
 exlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on presentation.pdf (16 pages, 2007955 bytes).
+Output written on presentation.pdf (16 pages, 2008213 bytes).
 PDF statistics:
  544 PDF objects out of 1000 (max. 8388607)
  485 compressed objects within 5 object streams
