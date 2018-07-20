@@ -33,7 +33,7 @@ def calc_seven_stations(filepath):
         os.chdir(filepath + '/ECMI_Data/dt/AlpArray')
         filename_h5 = file_h5 + '.h5'
         f = h5py.File(filename_h5, 'r')
-        file = list(f.keys())[0]
+        file = list(f.keys())[2]
         data = list(f[file])
 
         os.chdir(filepath + '/ECMI_Data/dt/AlpArray/METRICS')
