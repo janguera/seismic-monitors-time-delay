@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.5.3)  20 JUL 2018 11:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.5.3)  20 JUL 2018 12:32
 entering extended mode
 **report.tex
 (report.tex
@@ -1086,7 +1086,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 Non-PDF special ignored!{C:/Users/Isi/AppData/Local/MiKTeX/2.9/pdftex/config/pd
-ftex.map}] [2] <InitialStationSet.png, id=83, 865.43324pt x 407.72325pt>
+ftex.map}]
+Overfull \hbox (34.60022pt too wide) in paragraph at lines 58--65
+[] 
+ []
+
+[2] <InitialStationSet.png, id=83, 865.43324pt x 407.72325pt>
 File: InitialStationSet.png Graphic file (type png)
 
 <use InitialStationSet.png>
@@ -1146,20 +1151,20 @@ vertimeforonestation2.png (PNG copy)> <./delayevolutionovertimeforonestation.pn
 g (PNG copy)>] [6 <./Comparisondelayoverrandomdayoffarestandclosestlinks.png>] 
 [7 <./hourlydelaydistributionoverallstationsforoneday.png>] [8] (report.bbl) [9
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 292.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 292.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 289.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 289.
 
 (report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 292.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 292.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 289.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 289.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: AD9CC88CFA24DE2EAFD92ADEB700E4A0;816.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 292.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 289.
  ) 
 Here is how much of TeX's memory you used:
  19694 strings out of 493671
  362133 string characters out of 3141427
- 428663 words of memory out of 3000000
+ 429663 words of memory out of 3000000
  22632 multiletter control sequences out of 15000+200000
  28580 words of font info for 82 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
@@ -1192,7 +1197,7 @@ fonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/
 cm/cmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/sym
 bols/msbm10.pfb>
-Output written on report.pdf (9 pages, 1924671 bytes).
+Output written on report.pdf (9 pages, 1925474 bytes).
 PDF statistics:
  600 PDF objects out of 1000 (max. 8388607)
  48 named destinations out of 1000 (max. 500000)
