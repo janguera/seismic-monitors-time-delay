@@ -83,7 +83,7 @@ The stations work independent of each other and are occasionally shut down for s
   \centering 
 \subfigure[The number of working seismic monitor stations.]{\label{fig:workingstations}\includegraphics[width=0.47\linewidth]{working_monitors.png}}
 \subfigure[The number of working connections between the stations.]{\label{fig:workingconnections}\includegraphics[width=0.49\linewidth]{working_connections.png}}
-\caption{Working stations and connections over one year time period. \todo{update figures here}}
+\caption{Working stations and connections over one year time period. }
 \label{fig:workingmonitors}
 \end{figure*}
 
@@ -254,9 +254,8 @@ The clock errors of individual stations can be written in matrix form
 \end{bmatrix} , 
 \end{equation*}
 
-which represents a classical overdetermined inversion problem of the form $Gm = s$, with $m$ being the unknown model vector and $s$ being the known data \cite{sens2008}. The matrix $G$ has rank because a constant offset can be added to all stations simultaneously without changing the time differences. 
-
-The matrix $G$ is lacking full rank, therefore Tikhonov reqularization is employed to overcome this issue. The ordinary least squares seeks to minimize the sum of squared residuals
+which represents a classical overdetermined inversion problem of the form $\mathbf{Gm} = \mathbf{s}$, with $m$ being the unknown model vector and $s$ being the known data \cite{sens2008}. The matrix $\mathbf{G}$ has rank $n-1$ because a constant offset can be added to all stations simultaneously without changing the time differences.
+Hence it is lacking full rank, therefore Tikhonov reqularization is employed to overcome this issue. The ordinary least squares seeks to minimize the sum of squared residuals
 
 \begin{equation}
 \| \mathbf{Gm}-\mathbf{s} \|_2^2.
@@ -277,12 +276,9 @@ The explicit solution is hence given by
 \hat{\mathbf{s}} = (\mathbf{G}^T\mathbf{G} + \bm{\Gamma}^T\bm{\Gamma})^{-1}\mathbf{G}^T\mathbf{m}.  
 \end{equation}
 
-
-
-
 \section{Conclusions and Outlook}
-By analyzing the delay data we clearly showed that it changes over time showing patterns other than only white noise. This is due to clock drift. We used the relation between delay and distances to denoise the data. To get more compelling results other metrics could be used, or even a combination of multiple metrics.
-
+By analyzing the delay data we clearly showed that it changes over time showing patterns other than only white noise. This is due to clock drift. We used a method of weighted network estimation by the use of
+topological graph metrics exploiting the relation between delay and distances to denoise the data. The method is robust to temporarily disconnected stations that are only included as they are only included in the calculations when they are active. Hence, the algorithm can be run for on larger networks. The algorithm produced denoised delays we could deduce clock drifts from. Due to missing validation data we cannot make conclusions on the quality of our estimates. The algorithm could either be run on synthetic data where the results are known or on data sets that include continuous GPS synchronized data. To get more compelling results other metrics could be used, or even a combination of multiple metrics.
 
 %% Insert bibliography
 \bibliographystyle{abbrv}  
