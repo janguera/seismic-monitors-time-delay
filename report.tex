@@ -54,20 +54,21 @@ The purpose of this work is to analyze noise in a large network of seismic monit
 All the stations have the same orientation.
 The medium the wave is propagating in is homogenous.
 \subsection{Definitions}
-\begin{tabular}{c|l}
+\begin{tabular}{c| p{11cm}}
 $\Delta_i$ & clock drift at station $i$\\
 $\delta_{ij}$ & Measured delay between station $i$ and station $j$ \\
 $\hat{\delta}_{ij}$ & Actual delay between station $i$ and station $j$ \\
 $\varepsilon_{ij}$ & Noise between two stations $i$ and $j$, including clock drift and ambient noise \\
-$r_{ij}$ & Distance
+$r_{ij}$ & Distance between stations \\
+$w_{ij}$ & adjacency matrix element, weight between two nodes
 \end{tabular}
 
 \subsection{Modelling time delay between seismic monitors}
-The network of monitors can be modelled as a complete graph. The signal of each monitor is cross-correlated with other monitor signals, finally yielding time-delay data $\hat{\delta}_{ij}$ between each monitor. The time delay between the monitors comprise information on the real time the signal travels between the monitors $\delta_{ij}$, the inaccuracies of the clock (time drift), and other noise affecting the measurement. The position of each seismic monitor in the network is available that can be used to compute the distances $d_{ij}$ between all stations.
+The network of monitors can be modelled as a complete graph. The signal of each monitor is cross-correlated with other monitor signals, finally yielding time-delay data $\hat{\delta}_{ij}$ between each monitor. The time delay between the monitors comprise information on the real time the signal travels between the monitors $\delta_{ij}$, the inaccuracies of the clock (time drift), and other noise affecting the measurement. The position of each seismic monitor in the network is available that can be used to compute the distances $r_{ij}$ between all stations.
 
 \section{Data}
 
-The data is collected from a network of 73 seismic monitor stations recording ground vibrations in the Southeast region of France. Their average distance is $166$km. The GPS coordinate position of each station in the network is known (Figure \ref{fig:monitornetwork}) and they each contain a clock which is synchronized to the GPS once a month. The seismic monitor sensor records compression and decompression as discrete values -1 and 1, respectively, every second. The sensor responds to any event in the area, be it an earthquake, tremor from road traffic, airplane or any other pressure wave which travels in the ground.
+The data is collected from a network of 73 seismic monitor stations recording ground vibrations in the Southeast region of France. The average distance between two monitors in the network is $166$ km. The GPS coordinate position of each station in the network is known (Figure \ref{fig:monitornetwork}) and they each contain a clock which is synchronized to the GPS once a month. The seismic monitor sensor records compression and decompression as discrete values -1 and 1, respectively, every second. The sensor responds to any event in the area, be it an earthquake, tremor from road traffic, airplane or any other pressure wave which travels in the ground.
 
 \begin{figure}[ht]
   \begin{center}   
@@ -76,7 +77,7 @@ The data is collected from a network of 73 seismic monitor stations recording gr
   \caption{The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The eight stations chosen as the small test set is shown as green in the southeast part of the area.}\label{fig:monitornetwork}
 \end{figure}
 
-The stations work independent of each other and are occasionally shut down for some time frame for maintenance, repair or just random events. Just as occasionally they are brought up to measure again.  Therefore, the number of active stations varies over time. The Figure \ref{fig:workingstations} shows the number of working stations, and the Figure \ref{fig:workingconnections} the number of working connections between the monitor stations over one year of measurements. 
+The stations work independent of each other and are occasionally shut down for some time frame for maintenance, repair or just random events. Just as occasionally they are brought back up to continue measuring.  Therefore, the number of active stations varies over time. The Figure \ref{fig:workingstations} shows the number of working stations, and the Figure \ref{fig:workingconnections} the number of working connections between the monitor stations over one year of measurements. 
 
 \begin{figure*}[ht] 
   \centering 
@@ -96,7 +97,8 @@ The compression and decompression data recorded by the stations is retrieved and
 \label{fig:examplesignal}
 \end{figure*}
 
-The time delays between each monitor are assumed to depend on the distance between the monitor. The further away the monitors are from each other, the larger the time delay caused by the same event recorded by the monitor. Figure \ref{fig:nearfar} shows the time signal of the station pairs that are closest and furthest apart over a time frame of 10 days. One can see that the variance of the delays is much higher for the stations that are far apart. 
+The time delays between each monitor are assumed to depend on the distance between the monitor. The further away the monitors are from each other, the larger the time delay caused by the same event recorded by the monitor. Figure \ref{fig:nearfar} shows the time signal of the station pairs that are closest and furthest apart over a time frame of 10 days supporting this assumption. One can see that the variance of the delays is much higher for the stations that are far apart. 
+
 \begin{figure}[ht]
   \begin{center}   
    \includegraphics[width=\textwidth]{Comparisondelayoverrandomdayoffarestandclosestlinks.png}
@@ -116,30 +118,23 @@ The Figure \ref{fig:histograms} shows an example of time-delay evolution of all 
 
 \subsection{The most influential stations}
 
-The stations playing a key role in the global deviation of the total graph will be evaluated by the singular value decomposition of the global delays matrix (#NOTATION)$\in\mathbb{R}^{n\times m}, being $n$ the number of edges and $m$ the number of time steps. 
+The stations playing a key role in the global deviation of the total graph will be evaluated by the singular value decomposition of the global delays matrix $\bm{\hat{\delta}} \in\mathbb{R}^{n\times m}$, where $n$ is the number of edges and $m$ the number of time steps. \todo{check the notation for the number of edges and time steps}
 
-In order to find the index of the eigenvector with the most relative importance by the number of connections (regardless of the observed $\delta t$) the (#NOTATION) matrix was turned binary.
+In order to find the index of the eigenvector with the most relative importance by the number of connections (regardless of the observed time delays) the time delay matrix $\bm{\hat{\delta}}$ was turned binary.
 
-\begin{figure}[ht]
-  \begin{center}   
-   \includegraphics[width=\textwidth]{singular_values.png}
-  \end{center}
-  \caption{Singular values for the binary connection matrix}\label{fig:sing_va}
+\begin{figure}[ht] 
+  \centering 
+\subfigure[Singular values for the binary connection matrix.]{\includegraphics[width=0.49\linewidth]{singular_values.png} \label{fig:sing_va}}
+\subfigure[Influences of connections.]{\includegraphics[width=0.49\linewidth]{connections_influence.png}\label{fig:influence}}
+\caption{Determining the influences of connections.}
+\label{fig:connectioninfluence}
 \end{figure}
 
-The Figure \ref{fig:sing_va} shows the relative weight of the connections for each of the eigenvalue's index, being the first one the largest one. With that, the next step was to find the connections with the largest relative weight and the limit at which the connections do not have any more influence in the overall $\delta t$, which will be shown in Figure \ref{fig:influence} as a plot of the relative weight of each of the connections using the matrix (#NOTATION) with the measured $\delta t$:
+The Figure \ref{fig:sing_va} shows the relative weight of the connections for each of the eigenvalue's index, the first one being the largest one. With that, the next step was to find the connections with the largest relative weight and the limit at which the connections do not have any more influence in the overall time delay, which will be shown in Figure \ref{fig:influence} as a plot of the relative weight of each of the connections using the matrix $\bm{\hat{\delta}}$ with the measured time delays.
 
-\begin{figure}[ht]
-  \begin{center}   
-   \includegraphics[width=\textwidth]{connections_influence.png}
-  \end{center}
-  \caption{Graph's connections influence}\label{fig:influence}
-\end{figure}
+In order to select the group of connections with the largest weight a threshold of $|0.05|$ was taken, which resulted in 74 connections among 52 active stations. Finally, three stations with the largest numbers of connections (34, 21, and 13) were identified. The remaining stations had only two connections or less. 
 
-In order to select the group of connections with the largest weight a threshold of $|0.05|$ has been taken, which has resulted in 74 connections among 52 stations. Finally, those stations with the largest number of connections to other stations were reduced to 3 with 34, 21 and 13 connections, while the rest remained with less than 2. 
-
-These 3 stations, along with another group of 5 close stations, were taken in the next section to test the method in a subset of the graph.
-
+These three stations were identified as the most influential stations, along with another group of five nearby these three stations stations, were taken as a small test set of stations to evaluate the methods developed in this work. 
 
 \section{Methods}
 
@@ -150,71 +145,119 @@ Let $\bm{\hat{\delta}} \in \mathbb{R}^{n\times n}$ be the measured pairwise time
 \label{eq:model}
 \end{equation}
  
-Each of the monitors are equipped with a clock which runs independent of others. It is synchronized via GPS system once a month and then runs independently. The drift, $\varepsilon_i$ in clock $i$ is caused by variation in the clocks oscillator.  
+Each of the monitors are equipped with a clock which runs independent of others. It is synchronized via GPS system once a month and then runs independently. The inaccuracy in timing events at a station is caused by variations in the clocks' oscillators which oscillation may not be idea, they might respond to outside events and the oscillations are also affected by earthquakes. 
 
 The position of each seismic monitor in the network is known. As the monitors are spread across a large area, it is assumed that local tremors are detected by stations that are close by, and therefore the correlations found in the pairwise cross-correlations and time delay data between them have higher likelihood to be linked. 
 
-\subsection{Denoising model}\label{sec:denoising}
+\subsection{The graph denoising model}\label{sec:denoising}
 \subsubsection{Definitions}
-The computational denoising model involves weighted network estimation by the use of topological graph metrics, described in detail in \cite{Spyrou2017}. 
+The computational denoising model developed in this work involves weighted network estimation by the use of topological graph metrics, described in detail in \cite{Spyrou2017}. 
 
-We have a weighted graph $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \bf{\hat{\delta}}_t)$ defined by a finite set of nodes $\mathcal{V}$ with $|\mathcal{V}| = n$, a set of edges $\mathcal{E} = \{ (v_i,v_j) \in \mathcal{E} \}$, with $|\mathcal{E}| = n^2-n$ and the weighted adjacency matrix $\bm{\hat{\delta}}$ with $\hat{\delta}_{ii} = 0$ for all $i$. The matrix $\bm{\hat{\delta}}$  is symmetric and describes the time delays between events in the graph, and is normalized, i.e. $\hat{\delta}_{ij}\in [0,1]$. The weighted adjacency matrix indicates the strength of connection between nodes. %Therefore, the shorter the time delay between nodes, the stronger the connection, and higher the value. 
+The monitor network constitutes a weighted graph $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}}_t)$ defined by a finite set of nodes $\mathcal{V}$ with $|\mathcal{V}| = n$, a set of edges $\mathcal{E} = \{ (v_i,v_j) \in \mathcal{E} \}$, with $\max |\mathcal{E}| = n^2-n$ and the weighted adjacency matrix $\bm{\hat{\delta}}$ with $\hat{\delta}_{ii} = 0$ for all $i$ based on the measured time delays between stations. The matrix $\bm{\hat{\delta}}$  is symmetric and describes the time delays between events in the graph, and is normalized, i.e. $\hat{\delta}_{ij}\in [0,1]$. The weighted adjacency matrix indicates the strength of connection between nodes.
+
+The network also specifies another weighted graph $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$, which sets of nodes and edges are the same as those of $\mathcal{G}_{\delta}$, but the adjacency weight matrix $W$ is based on the physical distances between the station pairs. Also these weights are normalized between $[0,1]$.
+
+\begin{figure*}[ht] 
+  \centering
+\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[draw=none]
+  \node[main node] (1) {1};
+  \node[main node] (2) [above right of=1] {2};
+  \node[main node] (4) [below right of=1] {4};
+  \node[main node] (3) [below right of=2] {3};
+  \path (1) edge node {$w_{12}$} (2)
+            edge node [above left, pos=0.3] {$w_{13}$} (3)
+            edge node [below left] {$w_{14}$} (4)
+        (2) edge node {$w_{23}$} (3)
+       		 edge node [above right, pos=0.3] {$w_{24}$} (4)
+        (3) edge node {$w_{34}$} (4);
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[draw=none]
+  \node[main node] (1) {1};
+  \node[main node] (2) [above right of=1] {2};
+  \node[main node] (4) [below right of=1] {4};
+  \node[main node] (3) [below right of=2] {3};
+
+  \path (1) edge node {$0.3$} (2)
+            edge node [above left] {$0.6$} (3)
+            edge node [below left] {$0.1$} (4);
+\end{tikzpicture}
+\caption{Minimal example to help understand the computation of graph metrics.}
+\label{fig:graphmetrics}
+\end{figure*}
 
 \subsubsection{Graph metrics}
-Graph metrics are scalar functions of the weight matrix, $f_i(\bm{\hat{\delta}})=K_i: \mathbb{R}^{n \times n}\rightarrow \mathbb{R}$. They quantify a property of a network. We deisigned a metric, the connection strength of a node $i$ that is the row sum of the normalized weighted adjency matrix 
+Graph metrics are scalar functions of the weight matrix $X$ of a graph 
 \begin{equation}
-f_i (\bm{\hat{\delta}})= \sum_j{\hat{\delta}_{ij}}.  
+f_i(\bm{X})=K_i
+\label{eq:metrics}
 \end{equation}
-The connection strength can be interpreted as the sum of all normalized delays of all of the links to node i.
 
-\begin{figure}[htb]
-\centering
-\begin{tikzpicture}[xscale=0.45, yscale=0.3]
-\begin{scope}[shift={(0,2)}]
-\draw [-,very thick] (5,0) -- (8,4);
-\draw [-,very thick] (14,0) -- (8,4);
-\draw [-,very thick] (8,4) -- (13,5);
-\draw [-,very thick] (8,4) -- (3,8);
-\node[circle,fill,inner sep=2.5pt, label=above:$A$] at (8,4) {} ;
-\node [align=center] at (11,5) {\scriptsize 0.5};
-\node [align=center] at (5,7) {\scriptsize 0.1};
-\node [align=center] at (5.5,2) {\scriptsize 0.7};
-\node [align=center] at (12,2) {\scriptsize 0.2};
-\draw [-,very thick] (15,0) -- (20,4);
-\draw [-,very thick] (20,4) -- (25,4.5);
-\draw [-,very thick] (20,4) -- (16,8);
-\node[circle,fill,inner sep=2.5pt, label=above:$B$] at (20,4) {} ;
-\node [align=center] at (18,7) {\scriptsize 0.3};
-\node [align=center] at (16.5,2) {\scriptsize 0.1};
-\node [align=center] at (23,5) {\scriptsize 0.6};
-\end{scope}
-\end{tikzpicture}
-\caption{Distance metric.} \label{fig:1}
-\end{figure}
-Figure \ref{fig:1} shows two nodes. Node $A$ has four connections yielding a connection strength $0.1+0.5+0.7+0.6=1.9$ whereas node $B$ only has three connections. Thus, the connection strength is $0.3+0.6+0.1=1$. Next, we look at the $K_i$. Since we have the distance measurements available and expect a correlation between the delays and distances, we want to use this information to denoise the delay measurements and define
+They quantify a property of the network. In this work, the metrics involve time delays ($\delta_{ij}$) or the physical distances ($r$) between stations. The connection strength of a node $i$ that is the row sum of the normalized weighted adjacency matrix: 
+\begin{align}
+f_i(\bm{\hat{\delta}})&=\sum_j\hat{\delta}_{ij} \quad \quad \quad \quad \quad \text{for }  \mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}}_t) \\
+K_i &= f_i (\bm{W})= \sum_j{w_{ij}}  \quad \text{for }  \mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bf{W}).
+\end{align}
+
+The connection strength can be interpreted as the sum of all normalized delays of all of the connections to node i.
+
+%
+% The below is the earlier version of the distance metric
+%\begin{figure}[htb]
+%\centering
+%\begin{tikzpicture}[xscale=0.45, yscale=0.3]
+%\begin{scope}[shift={(0,2)}]
+%\draw [-,very thick] (5,0) -- (8,4);
+%\draw [-,very thick] (14,0) -- (8,4);
+%\draw [-,very thick] (8,4) -- (13,5);
+%\draw [-,very thick] (8,4) -- (3,8);
+%\node[circle,fill,inner sep=2.5pt, label=above:$A$] at (8,4) {} ;
+%\node [align=center] at (11,5) {\scriptsize 0.5};
+%\node [align=center] at (5,7) {\scriptsize 0.1};
+%\node [align=center] at (5.5,2) {\scriptsize 0.7};
+%\node [align=center] at (12,2) {\scriptsize 0.2};
+%\draw [-,very thick] (15,0) -- (20,4);
+%\draw [-,very thick] (20,4) -- (25,4.5);
+%\draw [-,very thick] (20,4) -- (16,8);
+%\node[circle,fill,inner sep=2.5pt, label=above:$B$] at (20,4) {} ;
+%\node [align=center] at (18,7) {\scriptsize 0.3};
+%\node [align=center] at (16.5,2) {\scriptsize 0.1};
+%\node [align=center] at (23,5) {\scriptsize 0.6};
+%\end{scope}
+%\end{tikzpicture}
+%\caption{Distance metric.} \label{fig:1}
+%\end{figure}
+
+Figure \ref{fig:graphmetrics} shows a minimal example of how the metric is computed. The node $1$ has three connections yielding a connection strength $w_{12} + w_{13} + w_{14} = 0.1+0.3+0.6=1.0$. The other nodes and their connection strengths are computed similarly. 
+
+Next, we look at the $K_i$. Since we have the distance measurements available and expect a correlation between the delays and distances, we want to use this information to denoise the delay measurements and define
 \begin{equation}
-K_i=f_i(\bm W_d).
+K_i=f_i(\bf{W}).
 \end{equation}
-It is the connection strength as well. But here we plug in the distance matrix $\bm{W_d}$. The distances are constants and yield constants $K_i$.
-The weight matrix $\bm{W_d}$ is a function of the distance between node $i$ and node $j$.
+It is the connection strength as well. But here we plug in the distance matrix $\bf{W}$. The distances are constants and yield constant $K_i$.
+The weight matrix $\bf{W}$ is a function of the distance between node $i$ and node $j$.
 \begin{enumerate}
 \item First, we choose the function to be the reciprocal of the distances of the node to all other nodes, $w_{ij}= 1/r_{ij}$, normalized between $[0,1]$. Higher values correspond to nodes with short distances to all other nodes.
 \item Second, we try a metric with weights proportional to the distances ($w_{ij} \propto r_{ij}$), normailzed between $[0,1]$ accordingly. Here, high values correspond to long distances between two stations.
 \end{enumerate}
-Other possible metrics are average neighbor degrees (resilience), transitivity, or a clustering coefficient. The analysis based on these metrics is beyond scope of this work.  
+Other possible metrics are average neighbor degrees (resilience), transitivity, or a clustering coefficient. The analysis based on these metrics is beyond the scope of this work.  
 
 
 \subsubsection{Cost function}
-We assume to have estimates of $M$ differentiable graph metrics, one for each node $i$, of the original matrix $\bm{\hat{\delta}}$, i.e. $f_i(\bm{\delta}) = K_i$, where $i\in\{ 1,\dots, M \}$, then we can formulate a cost function that measures the deviation of the observed weight matrix's metrics $f_i(\bm{\hat{\delta}})$ to the estimates $K_i$ as: 
+We assume to have estimates of $M$ differentiable graph metrics, one for each node $i$, of the original matrix $\bm{\hat{\delta}}$, i.e. $f_i(\bm{\hat{\delta}}) = K_i$, where $i\in\{ 1,\dots, M \}$, then we can formulate a cost function that measures the deviation of the observed weight matrix's metrics $f_i(\bm{\hat{\delta}})$ to the estimates $K_i$ as: 
 \begin{equation}
-c(\bm{\hat{\delta}}) = \sum_i E_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\delta}})-K_i)^2
+c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\delta}})-K_i)^2
 \end{equation}
 The error is minimized with gradient descent updates on $\bm{\hat{\delta}}$: 
 \begin{equation}
-\bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_i E_i(\bm{\hat{\delta}}^t)\frac{df_i(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t},
+\bm{\hat{\delta}}^{(k+1)} = \bm{\hat{\delta}}^k-\mu\sum_i E_i(\bm{\hat{\delta}}^k)\frac{df_i(\bm{\hat{\delta}}^k)}{d\bm{\hat{\delta}}^k},
 \label{eq:updates}
 \end{equation}
-where $t$ is the iteration index and $\mu$ the learning rate. %For the case of $m=1$, Equation \ref{eq:updates} describes the traditional single function gradient descent. 
+where $k$ is the iteration index and $\mu$ the learning rate. %For the case of $m=1$, Equation \ref{eq:updates} describes the traditional single function gradient descent. 
 We find the derivative for the gradient descent update step. For $i=2$ it is
 \begin{equation}
 \frac{df_2}{d\bm{\delta}}=\frac{\sum_j \hat{\delta}_{2j}}{d\bm{\hat{\delta}}}=
@@ -230,16 +273,12 @@ It is a symmetric matrix with ones in the $i$th row and $i$th column. The diagon
 
 \subsection{Clock drift estimate}
 
-The denoising model in section \ref{sec:denoising} computes the denoised estimate $\bm{\delta}$ of the measurement data $\bm{\hat{\delta}}$. The algorithm is run over a series of time points and an estimate for the clock drift between each station pair is obtained. 
+The denoising model in section \ref{sec:denoising} computes the denoised estimate $\bm{\delta}$ of the measurement data $\bm{\hat{\delta}}$. The algorithm is run over a series of time points and an estimate for the clock drift $\Delta_{ij}$ between each station pair is obtained. 
 
-A polynomial fitting algorithm \todo{specify} is run to find an estimate for the trend in noise. The error term in the fitting procedure will account for all the other errors in the system. The trend is considered to be caused by the clock drifts of the two stations. 
-
-The noise, $\varepsilon_{ij}$, between each pair between two stations in the system is modelled with 
+The noise, $\varepsilon_{ij}$, between each pair between two stations in the system is caused by clock drifts $\Delta_i$ and $\Delta_j$, and other ambient errors $E_{ij}$
 \begin{equation}
-\varepsilon_{ij} =  \Delta_i - \Delta_j  + e_{ij},
+\varepsilon_{ij} =  \Delta_i - \Delta_j  + E_{ij}.
 \end{equation}
-
-in which $ \Delta_i - \Delta_j $ is the clock drift between two stations $i$ and $j$, and $e_{ij}$ accounts for all other ambient noise in the system in addition to the clock drift. 
 
 The clock errors of individual stations can be written in matrix form 
 
@@ -269,18 +308,25 @@ The clock errors of individual stations can be written in matrix form
 \end{bmatrix} , 
 \end{equation*}
 
-which represents a classical overdetermined inversion problem of the form $\mathbf{Gm} = \mathbf{s}$, with $m$ being the unknown model vector and $s$ being the known data \cite{sens2008}. The matrix $\mathbf{G}$ has rank $n-1$ because a constant offset can be added to all stations simultaneously without changing the time differences.
-Hence it is lacking full rank, therefore Tikhonov reqularization is employed to overcome this issue. The ordinary least squares seeks to minimize the sum of squared residuals
+which can be written more compactly as
 
 \begin{equation}
-\| \mathbf{Gm}-\mathbf{s} \|_2^2.
+\mathbf{Gs} = \mathbf{m}
+\end{equation}
+
+where $s$ is the unknown model vector and $m$ the known data \cite{sens2008}. The matrix $\mathbf{G}$ has rank $n-1$, meaning that it is lacking full rank. 
+
+This represents a classical overdetermined inversion problem which can be solved by ordinary least squares regression after Tikhonov reqularization. The ordinary least squares seeks to minimize the sum of squared residuals
+
+\begin{equation}
+\| \mathbf{Gs}-\mathbf{m} \|_2^2.
 \label{eq:leastsquares}
 \end{equation}
 
-When regularisation is added to the Equation \ref{eq:leastsquares}, we obtain
+When Tikhonov regularisation is added to the Equation \ref{eq:leastsquares}, we obtain
 
 \begin{equation}
-\| \mathbf{Gm}-\mathbf{s} \|_2^2 + \| \bm{\Gamma}\mathbf{m} \|, 
+\| \mathbf{Gs}-\mathbf{m} \|_2^2 + \| \bm{\Gamma}\mathbf{s} \|_2^2,
 \label{eq:tikhonov}
 \end{equation}
 

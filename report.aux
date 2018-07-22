@@ -24,7 +24,6 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3}Data}{2}{section.3}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The eight stations chosen as the small test set is shown as green in the southeast part of the area.}}{3}{figure.1}}
 \newlabel{fig:monitornetwork}{{1}{3}{The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The eight stations chosen as the small test set is shown as green in the southeast part of the area}{figure.1}{}}
-\citation{Spyrou2017}
 \newlabel{fig:workingstations}{{2(a)}{4}{Subfigure 2(a)}{subfigure.2.1}{}}
 \newlabel{sub@fig:workingstations}{{(a)}{4}{Subfigure 2(a)\relax }{subfigure.2.1}{}}
 \newlabel{fig:workingconnections}{{2(b)}{4}{Subfigure 2(b)}{subfigure.2.2}{}}
@@ -34,34 +33,44 @@
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {The number of working connections between the stations.}}}{4}{figure.2}}
 \newlabel{fig:workingmonitors}{{2}{4}{Working stations and connections over one year time period}{figure.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}The most influential stations}{4}{subsection.3.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Methods}{4}{section.4}}
-\newlabel{eq:model}{{1}{4}{Methods}{equation.4.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The time-delay signal recorded between one station pair over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}}{5}{figure.3}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Time Signal.}}}{5}{figure.3}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Histogram.}}}{5}{figure.3}}
 \newlabel{fig:examplesignal}{{3}{5}{The time-delay signal recorded between one station pair over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day}{figure.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Denoising model}{5}{subsection.4.1}}
-\newlabel{sec:denoising}{{4.1}{5}{Denoising model}{subsection.4.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Definitions}{5}{subsubsection.4.1.1}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Graph metrics}{5}{subsubsection.4.1.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Methods}{5}{section.4}}
+\newlabel{eq:model}{{1}{5}{Methods}{equation.4.1}{}}
+\citation{Spyrou2017}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparison of the delay of the furthest and closest station pairs over 10 days.}}{6}{figure.4}}
 \newlabel{fig:nearfar}{{4}{6}{Comparison of the delay of the furthest and closest station pairs over 10 days}{figure.4}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Cost function}{6}{subsubsection.4.1.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}The graph denoising model}{6}{subsection.4.1}}
+\newlabel{sec:denoising}{{4.1}{6}{The graph denoising model}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Definitions}{6}{subsubsection.4.1.1}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant.}}{7}{figure.5}}
 \newlabel{fig:histograms}{{5}{7}{Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant}{figure.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Distance metric.}}{7}{figure.6}}
-\newlabel{fig:1}{{6}{7}{Distance metric}{figure.6}{}}
-\newlabel{eq:updates}{{5}{7}{Cost function}{equation.4.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Graph metrics}{7}{subsubsection.4.1.2}}
+\newlabel{eq:metrics}{{2}{7}{Graph metrics}{equation.4.2}{}}
+\newlabel{fig:sing_va}{{6(a)}{8}{Subfigure 6(a)}{subfigure.6.1}{}}
+\newlabel{sub@fig:sing_va}{{(a)}{8}{Subfigure 6(a)\relax }{subfigure.6.1}{}}
+\newlabel{fig:influence}{{6(b)}{8}{Subfigure 6(b)}{subfigure.6.2}{}}
+\newlabel{sub@fig:influence}{{(b)}{8}{Subfigure 6(b)\relax }{subfigure.6.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Determining the influences of connections.}}{8}{figure.6}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Singular values for the binary connection matrix.}}}{8}{figure.6}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Influences of connections.}}}{8}{figure.6}}
+\newlabel{fig:connectioninfluence}{{6}{8}{Determining the influences of connections}{figure.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Example of graph and graph metrics }}{8}{figure.7}}
+\newlabel{fig:graphmetrics}{{7}{8}{Example of graph and graph metrics}{figure.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Cost function}{9}{subsubsection.4.1.3}}
+\newlabel{eq:updates}{{7}{9}{Cost function}{equation.4.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Clock drift estimate}{9}{subsection.4.2}}
 \citation{sens2008}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Clock drift estimate}{8}{subsection.4.2}}
-\newlabel{eq:leastsquares}{{8}{9}{Clock drift estimate}{equation.4.8}{}}
-\newlabel{eq:tikhonov}{{9}{9}{Clock drift estimate}{equation.4.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Algorithm}{9}{subsection.4.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{9}{section.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Signal denoising}{9}{subsection.5.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Clock deviations}{9}{subsection.5.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusions and Outlook}{9}{section.6}}
+\newlabel{eq:leastsquares}{{11}{10}{Clock drift estimate}{equation.4.11}{}}
+\newlabel{eq:tikhonov}{{12}{10}{Clock drift estimate}{equation.4.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Algorithm}{10}{subsection.4.3}}
 \bibstyle{abbrv}
 \bibdata{references}
 \bibcite{sens2008}{1}
 \bibcite{Spyrou2017}{2}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{11}{section.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Signal denoising}{11}{subsection.5.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Clock deviations}{11}{subsection.5.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusions and Outlook}{11}{section.6}}
