@@ -1,6 +1,7 @@
 import h5py
 import os
 import matplotlib.pyplot as plt
+import numpy as np
 
 ndays = 360
 stations = ['FR.CALF.00.HHZ', 'FR.EILF.00.HHZ', 'FR.ESCA.01.HHZ', 'FR.MON.00.HHZ', 'FR.MVIF.00.HHZ', 'FR.PRIMA.00.HHZ', 'FR.SAOF.00.HHZ']
@@ -25,7 +26,7 @@ for i in range(ndays):
     os.chdir('/Users/jordianguera/Desktop/ECMI_Data/dt/AlpArray')
     filename_h5 = file_h5 + '.h5'
     f = h5py.File(filename_h5, 'r')    
-    file = list(f.keys())[0]
+    file = list(f.keys())[2]
     data = list(f[file]) 
     
     os.chdir('/Users/jordianguera/Desktop/ECMI_Data/dt/AlpArray/METRICS')  
@@ -78,11 +79,10 @@ for i in range(len(stations_connections)):
     
 #Fill dt_matrix
 for day in range(ndays):
-    print(day)
     for i in range(len(stations_connections)):
         #print(day, i)
         for station in range(len(active[day])):
-            if((stations_connections[i][0] == active[day][station][0]) & (stations_connections[i][1] == active[day][station][1])):
+            if(((stations_connections[i][0] == active[day][station][0]) & (stations_connections[i][1] == active[day][station][1]) | (stations_connections[i][1] == active[day][station][0]) & (stations_connections[i][0] == active[day][station][1]))):
                 for hour in range(day*24, (day+1)*24):
                     #print(station, hour)
                     dt_matrix[i][hour] = days[day][station][0][hour - day*24]
@@ -90,11 +90,9 @@ for day in range(ndays):
 #%% SAVE THE dt MATRIX
 
 from scipy import sparse
-import numpy
 
-a = numpy.asarray(dt_matrix)
-CSC_dt = sparse.csc_matrix(a)
-print(CSC_dt)
+dt_np_matrix = np.asarray(dt_matrix)
+CSC_dt = sparse.csc_matrix(dt_np_matrix)
 sparse.save_npz('CSC_dt.npz', CSC_dt)
                  
 #%% NUMBER OF WORKING CONNECTIONS
@@ -103,26 +101,30 @@ nconnect = []
 for i in range(ndays):
     nconnect.append(len(working_stations[i]))   
     #print(len(working_stations[i]))
+    
 plt.plot(nconnect)    
-plt.title("Number of working connections")
+plt.title("Number of working connections", fontsize=14)
+plt.xlabel('Day', fontsize=12)
+plt.ylabel('Connections', fontsize=12)
 plt.show()
 
+#%% NUMBER OF WORKING STATIONS
 
-#%% WORKING STATIONS
-
-n_working = [None] * ndays
+n_working = []
 for day in range(ndays):
     stations_working = [0] * rmax 
     for j in range(len(active[day])):
         for k in range(rmax):
             if((all_stations[k] == active[day][j][0]) | (all_stations[k] == active[day][j][1])):
                 stations_working[k] = 1
-    n_working[day] = sum(stations_working)
+    n_working.append(np.sum(stations_working))
 
 
 
 plt.plot(n_working)    
-plt.title("Number of working seismic monitors")
+plt.title("Number of working seismic monitors", fontsize=14)
+plt.xlabel('Day', fontsize=12)
+plt.ylabel('Active monitors', fontsize=12)
 plt.show()
 
 #%% WORKING STATIONS-CONNECTIONS CORRELATION
@@ -148,9 +150,10 @@ for day in range(ndays):
     correlation_stations.append(nconnect[day]/n_working[day])
 
 plt.plot(correlation_stations)    
-plt.title("Number of connections per working seismic monitor")
+plt.title("Average daily connections per working seismic monitor", fontsize=14)
+plt.xlabel('Day', fontsize=12)
+plt.ylabel('Connections per monitor', fontsize=12)
 plt.show()
-
 #%% DAILY dt sum
 
 daily_sum = []
@@ -163,8 +166,9 @@ for hour in range(ndays*24):
     
 daily_avg = []    
 for hour in range(ndays*24):
-    daily_avg.append(daily_sum[hour]/N_connections)
-    
+    daily_avg.append(daily_sum[hour]/active)
+
+plt.figure(figsize=(20,10))    
 plt.plot(daily_avg)    
 plt.title("Daily dt average")
 plt.show()
@@ -172,3 +176,128 @@ plt.show()
 plt.plot(daily_sum)    
 plt.title("Daily dt sum")
 plt.show()
+
+#%% SINGULAR VALUE DECOMPOSITION
+
+#Here we can see that the relative importance of connections within a day is more 
+#or less the same within the active ones
+
+#Day 1
+day = 0
+day1_matrix = [None] * len(working_stations[day])
+
+for i in range(len(working_stations[day])):
+    day1_matrix[i] = [None] * 24
+    for j in range(24):
+        day1_matrix[i][j] = dt_matrix[i][j]
+
+s1 = np.linalg.svd(day1_matrix, full_matrices=True, compute_uv=False)
+
+#Day 179
+day = 180
+day2_matrix = [None] * len(working_stations[day])
+
+for i in range(len(working_stations[day])):
+    day2_matrix[i] = [None] * 24
+    for j in range(24):
+        day2_matrix[i][j] = dt_matrix[i][j+day]
+
+s2 = np.linalg.svd(day2_matrix, full_matrices=True, compute_uv=False)
+
+#Day 280
+day = 279
+day3_matrix = [None] * len(working_stations[day])
+
+for i in range(len(working_stations[day])):
+    day3_matrix[i] = [None] * 24
+    for j in range(24):
+        day3_matrix[i][j] = dt_matrix[i][j+day]
+
+s3 = np.linalg.svd(day3_matrix, full_matrices=True, compute_uv=False)
+
+plt.plot(s1)
+plt.plot(s2)
+plt.plot(s3)
+plt.show()
+
+
+#Binary full matrix - we will identify the index of the eigenvector which has the 
+#most relative importance (only by number of connections) - we do this because we 
+#couln't come up with a conclusion on a daily basis, so we take the whole data
+
+binary_matrix = [0] * len(stations_connections)
+
+for i in range(len(stations_connections)):
+    binary_matrix[i] = [0] * (24*ndays)
+    for j in range(24*ndays):
+        if(dt_matrix[i][j] > 0):
+            binary_matrix[i][j] = 1
+            
+u_bin, s_bin, v_bin = np.linalg.svd(binary_matrix, full_matrices=True, compute_uv=True)
+
+plt.title("Singular values for the binary connection matrix", fontsize=14)
+plt.xlabel('Eigenvector\'s index', fontsize=12)
+plt.ylabel('Relative weight', fontsize=12)
+plt.plot(s_bin)
+plt.show()
+
+plt.title("Singular values for the binary connection matrix", fontsize=14)
+plt.xlabel('Eigenvector\'s index', fontsize=12)
+plt.ylabel('Relative weight', fontsize=12)
+plt.plot(v_bin[0])
+plt.show()
+
+#Once we know the index for which the eigenvector is the most important we will plot 
+#the relative weight by number of connections to see what connections have the largest
+#relative weight and what is the limit at which the connections don't have any more influence 
+
+
+u, s, v = np.linalg.svd(dt_matrix, full_matrices=True, compute_uv=True)
+
+plt.title("Graph's connections influence",fontsize=16)
+plt.xlabel('Number of connections', fontsize=12)
+plt.ylabel('Relative weight', fontsize=12)
+plt.plot(u[0])
+plt.show()
+
+#%% FINDING THE MOST IMPORTANT STATIONS
+
+#Most influent connections
+
+u_np = np.array(u[0])
+
+sort_index = np.argsort(u_np)
+u_sorted = []
+for i in range(len(u_np)):
+    u_sorted.append(u_np[sort_index[i]])
+
+plt.plot(u_sorted)
+
+#We set a certain threshold to detect the most influentiable connections
+threshold = 0.05
+important_connections = []
+for i in range(len(u_np)):
+    if ((u_sorted[i] <= -threshold) | (u_sorted[i] >= threshold)):
+        important_connections.append(sort_index[i])
+        
+imp_conn_names = []
+for i in range(len(important_connections)):
+    imp_conn_names.append(stations_connections[important_connections[i]][0])
+    imp_conn_names.append(stations_connections[important_connections[i]][1])
+
+#Here we identify the stations with the most influentiable connections         
+unique_stations = list(set(imp_conn_names))
+
+count = [0] * len(unique_stations)
+for i in range(len(unique_stations)):
+    for j in range(len(imp_conn_names)):
+        if (unique_stations[i] == imp_conn_names[j]):
+            count[i] += 1
+print(count[42])        
+print(unique_stations[6])        
+print(unique_stations[20])        
+print(unique_stations[42])        
+
+sort_unique_stations = list(np.sort(count))
+print(sort_unique_stations[0])    
+    
