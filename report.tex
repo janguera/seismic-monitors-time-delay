@@ -16,6 +16,7 @@ paper=a4paper]{geometry}
 \usepackage{subfigure}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
+\usepackage[]{algorithm2e}
 
 \usepackage{amsfonts, amsmath, amssymb}
 \usepackage{mathtools}
@@ -352,7 +353,7 @@ The clock errors of individual stations can be written in matrix form
 
 which can be written more compactly as
 
-\begin{equation}
+\begin{equation}\label{eq:Gs=m}
 \mathbf{Gs} = \mathbf{m}
 \end{equation}
 
@@ -380,7 +381,40 @@ The explicit solution is hence given by
 \end{equation}
 
 \subsection{Algorithm}
-Leevi to plug in pseudo code of the implementation of the method
+The graph denoising algorithm by \cite{Spyrou2017} is described in algorithm \ref{alg:graph denoising}. 
+\begin{algorithm}[H]
+	\KwData{Noisy data $W_e$, \\calculated estimates for graph metrics $K_m$,\\ learning rate $\mu$, \\maximum error $\epsilon$}
+	\KwResult{Denoised data $\hat{W}$}
+	initialization: $t = 0$, $W_0 = W_e$, $E = \sum_{m}(f_m(W_0) - K_m)^2$\\
+	\While{$E > \epsilon$}{
+		$W_{(t+1)} = W_t - \mu\sum_{m}(f_m(W_t) - K_m)\frac{df_m(W_t)}{dW_t}$\\
+		\If{$w_{i,j} < 0$}{
+			$w_{i,j} = 0$
+		}
+		\If{$w_{i,j} > 1$}{
+			$w_{i,j} = 1$
+		}
+		$E = \sum_{m}(f_m(W_{t+1}) - K_m)^2$\\
+		$t = t+1$
+	}
+	$\hat{W} = W_t$
+	\caption{Graph denoising algorithm.}
+	\label{alg:graph denoising}
+\end{algorithm}
+
+The algorithm for obtaining the time delays for the measuring stations during time $t$ is described in algorithm \ref{alg:delay calculation}.
+
+\begin{algorithm}[H]
+	\KwData{measured time delays $\hat{\delta}$, \\calculated estimates for graph metrics $K_m$,\\ learning rate $\mu$, \\maximum error $\epsilon$, \\
+	Tikhonov regularisation constant $\alpha$}
+	\KwResult{Clock drifts $\Delta$}
+	get $\delta$ by denoising the matrix $\hat{\delta}$ using algorithm \ref{alg:graph denoising} with four first input parameters\\
+	get the errors between the stations by $\hat{\delta} - \delta$\\
+	arrange the error matrix to match $m$ from equation \ref{eq:Gs=m}\\
+	$\Delta = (G^TG + \alpha^2I^TI)^{-1}G^Tm,$ where $G$ and $m$ come from equation \ref{eq:Gs=m}, and $I$ is identity matrix of the size of $G^TG$. 
+	\caption{Clock drift calculation.}
+ 	\label{alg:delay calculation}
+\end{algorithm}
 
 \section{Results}
 \subsection{Signal denoising}
