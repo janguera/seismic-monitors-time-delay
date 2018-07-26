@@ -1,47 +1,89 @@
-% !TEX encoding = MacOSRoman
-\documentclass[12pt,a4paper,english]{article}
-
-% Note that you must choose either Finnish or English here and there in this
-% file.
-% Other options for document class
-  % ,twoside,openright   % If printing on both sides (>80 pages)
-  % ,twocolumn           % Can be used in lab reports, not in theses
-
-% Ensure the correct Pdf size (not needed in all environments)
-\special{papersize=210mm,297mm}
+\documentclass[12pt, sumlimits, intlimits]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[english]{babel}
 \usepackage{hyperref}
-\usepackage{amsfonts}
-\usepackage{textcomp}
-\usepackage{listings}
+\usepackage{lmodern, microtype}
+\usepackage[top=3.5cm, bottom=2cm, right=2cm, left=3.5cm,
+paper=a4paper]{geometry}
+\usepackage[margin=2cm]{caption}
+\usepackage{booktabs}
 \usepackage{graphicx}
-\usepackage{numprint}
+\usepackage{etoolbox}
+\usepackage{color}
+\usepackage{bm}
 \usepackage{subfigure}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
-\usepackage{setspace}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{bm}
 
-%new commands
+\usepackage{amsfonts, amsmath, amssymb}
+\usepackage{mathtools}
+\newcommand \yesnumber{\addtocounter{equation}{1}\tag \theequation}
+
+\usepackage{listings}
+\lstset{basicstyle=\footnotesize\ttfamily, tabsize=2}
+
+\usepackage[backend=bibtex, style=authoryear]{biblatex}
+\addbibresource{refs.bib}
+\addbibresource{references.bib}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2.5ex}
+\pagenumbering{arabic}
+\thispagestyle{empty}
 \newcommand\todo[1]{{\color{red}!!!TODO: #1}}
-\DeclareMathOperator{\tr}{\mathrm{tr}}
-
-\author{Jordi Anguera\thanks{Autonomous University of Barcelona, Spain} \and Leevi Annala\thanks{University of Jyväskylä, Finland} \and Stefan Dimitrijevic\thanks{University of Novi Sad, Serbia} \and Patricia Pauli\thanks{Technical University of Darmstadt, Germany} \and Liisa-Ida Sorsa\thanks{Tampere University of Technology, Finland} \and Dimitar Trendafilov\thanks{University of Sofia ''St. Kliment Ohridski'', Bulgaria} \and Christophe Picard\thanks{University of Grenoble Alpes and Grenoble INP, France}}
-\title{Modeling effect of time delay for large network of seismic monitor} 
-\date{17.7.2018}
-
 \begin{document}
-\maketitle
+
+\includegraphics[width=8cm]{ecmi-logo.png}
+
+ECMI Modeling Week 2018 \\*
+University of Novi Sad, Faculty of Technical Sciences
+
+\begin{center}
+\vspace{2.0cm}
+{\Large{\textbf{\MakeUppercase{Modeling effect of time delay for large network of seismic monitor}}}}
+
+\vspace{\stretch{0.01}}
+
+Christophe Picard University of Grenoble Alpes and Grenoble INP, France
+
+\vspace{\stretch{0.01}}
+\iffalse
+\author{\thanks{} \and } \and  \and  \and 
+\title{} 
+
+\fi
+
+\begin{tabular}{rl}
+Jordi Anguera & Autonomous University of Barcelona, Spain \\
+Leevi Annala & University of Jyväskylä, Finland \\
+Stefan Dimitrijevic & University of Novi Sad, Serbia \\
+Patricia Pauli & Technical University of Darmstadt, Germany \\
+Liisa-Ida Sorsa & Tampere University of Technology, Finland \\ 
+Dimitar Trendafilov & University of Sofia ''St. Kliment Ohridski'', Bulgaria
+
+\end{tabular}
 
 \begin{abstract}
-Seismic monitoring is used to study the behavior and composition of the underground floor. For earthquake prediction and underground works precise timing and positioning information is needed. Drilling companies use equipments that are linked in a network and are generally connected to a global positioning system for synchronization. However, instruments are not continuously  synchronized and may deviate in time. Hence, the periods to which the vibration of the underground floor are caught might lack accuracy. Consequently, the precise localisation of the events becomes impossible. We have delay measurements and distance data available for an example seismic network and  use it to correct the timing of the data in periods without GPS reception.
-
+	Seismic monitoring is used to study the behavior and composition of the underground floor. For earthquake prediction and underground works precise timing and positioning information is needed. Drilling companies use equipments that are linked in a network and are generally connected to a global positioning system for synchronization. However, instruments are not continuously  synchronized and may deviate in time. Hence, the periods to which the vibration of the underground floor are caught might lack accuracy. Consequently, the precise localisation of the events becomes impossible. We have delay measurements and distance data available for an example seismic network and  use it to correct the timing of the data in periods without GPS reception.
+	
 \end{abstract}
+\todo{Abstract was not in the original model, but it's stupid to not have one}
+\vspace{\stretch{0.5}}
+
+
+\today \todo{ CHANGE THIS TO THE DATE WHEN ITS READY}
+
+\end{center}
+
+\vspace{\stretch{0.15}}
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
 
 \section{Introduction}
 
@@ -55,12 +97,12 @@ All the stations have the same orientation.
 The medium the wave is propagating in is homogenous.
 \subsection{Definitions}
 \begin{tabular}{c| p{11cm}}
-$\Delta_i$ & clock drift at station $i$\\
-$\delta_{ij}$ & Measured delay between station $i$ and station $j$ \\
-$\hat{\delta}_{ij}$ & Actual delay between station $i$ and station $j$ \\
-$\varepsilon_{ij}$ & Noise between two stations $i$ and $j$, including clock drift and ambient noise \\
-$r_{ij}$ & Distance between stations \\
-$w_{ij}$ & adjacency matrix element, weight between two nodes
+	$\Delta_i$ & clock drift at station $i$\\
+	$\delta_{ij}$ & Measured delay between station $i$ and station $j$ \\
+	$\hat{\delta}_{ij}$ & Actual delay between station $i$ and station $j$ \\
+	$\varepsilon_{ij}$ & Noise between two stations $i$ and $j$, including clock drift and ambient noise \\
+	$r_{ij}$ & Distance between stations \\
+	$w_{ij}$ & adjacency matrix element, weight between two nodes
 \end{tabular}
 
 \subsection{Modelling time delay between seismic monitors}
@@ -71,48 +113,48 @@ The network of monitors can be modelled as a complete graph. The signal of each 
 The data is collected from a network of 73 seismic monitor stations recording ground vibrations in the Southeast region of France. The average distance between two monitors in the network is $166$ km. The GPS coordinate position of each station in the network is known (Figure \ref{fig:monitornetwork}) and they each contain a clock which is synchronized to the GPS once a month. The seismic monitor sensor records compression and decompression as discrete values -1 and 1, respectively, every second. The sensor responds to any event in the area, be it an earthquake, tremor from road traffic, airplane or any other pressure wave which travels in the ground.
 
 \begin{figure}[ht]
-  \begin{center}   
-   \includegraphics[width=\textwidth]{TestStations_zoom.png}
-  \end{center}
-  \caption{The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The eight stations chosen as the small test set is shown as green in the southeast part of the area.}\label{fig:monitornetwork}
+	\begin{center}   
+		\includegraphics[width=\textwidth]{TestStations_zoom.png}
+	\end{center}
+	\caption{The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The eight stations chosen as the small test set is shown as green in the southeast part of the area.}\label{fig:monitornetwork}
 \end{figure}
 
 The stations work independent of each other and are occasionally shut down for some time frame for maintenance, repair or just random events. Just as occasionally they are brought back up to continue measuring.  Therefore, the number of active stations varies over time. The Figure \ref{fig:workingstations} shows the number of working stations, and the Figure \ref{fig:workingconnections} the number of working connections between the monitor stations over one year of measurements. 
 
 \begin{figure*}[ht] 
-  \centering 
-\subfigure[The number of working seismic monitor stations.]{\label{fig:workingstations}\includegraphics[width=0.47\linewidth]{working_monitors.png}}
-\subfigure[The number of working connections between the stations.]{\label{fig:workingconnections}\includegraphics[width=0.49\linewidth]{working_connections.png}}
-\caption{Working stations and connections over one year time period. }
-\label{fig:workingmonitors}
+	\centering 
+	\subfigure[The number of working seismic monitor stations.]{\label{fig:workingstations}\includegraphics[width=0.47\linewidth]{working_monitors.png}}
+	\subfigure[The number of working connections between the stations.]{\label{fig:workingconnections}\includegraphics[width=0.49\linewidth]{working_connections.png}}
+	\caption{Working stations and connections over one year time period. }
+	\label{fig:workingmonitors}
 \end{figure*}
 
 The compression and decompression data recorded by the stations is retrieved and run through initial data cleaning and filtering procedures. The data is then cross-correlated in one-hour time windows to yield time-delay data of signals between all monitors (Figure \ref{fig:examplesignal}). 
 
 \begin{figure*}[ht] 
-  \centering 
-\subfigure[Time Signal.]{\includegraphics[width=0.49\linewidth]{delayevolutionovertimeforonestation2.png}}
-\subfigure[Histogram.]{\includegraphics[width=0.49\linewidth]{delayevolutionovertimeforonestation.png}}
-\caption{The time-delay signal recorded between one station pair over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}
-\label{fig:examplesignal}
+	\centering 
+	\subfigure[Time Signal.]{\includegraphics[width=0.49\linewidth]{delayevolutionovertimeforonestation2.png}}
+	\subfigure[Histogram.]{\includegraphics[width=0.49\linewidth]{delayevolutionovertimeforonestation.png}}
+	\caption{The time-delay signal recorded between one station pair over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}
+	\label{fig:examplesignal}
 \end{figure*}
 
 The time delays between each monitor are assumed to depend on the distance between the monitor. The further away the monitors are from each other, the larger the time delay caused by the same event recorded by the monitor. Figure \ref{fig:nearfar} shows the time signal of the station pairs that are closest and furthest apart over a time frame of 10 days supporting this assumption. One can see that the variance of the delays is much higher for the stations that are far apart. 
 
 \begin{figure}[ht]
-  \begin{center}   
-   \includegraphics[width=\textwidth]{Comparisondelayoverrandomdayoffarestandclosestlinks.png}
-  \end{center}
-  \caption{Comparison of the delay of the furthest and closest station pairs over 10 days.}\label{fig:nearfar}
+	\begin{center}   
+		\includegraphics[width=\textwidth]{Comparisondelayoverrandomdayoffarestandclosestlinks.png}
+	\end{center}
+	\caption{Comparison of the delay of the furthest and closest station pairs over 10 days.}\label{fig:nearfar}
 \end{figure}
 
 The Figure \ref{fig:histograms} shows an example of time-delay evolution of all monitors over 24 hours. The distributions are symmetric with zero mean which implies that the delays at an instant cancel out over the whole area the 73 stations are mounted in. The interesting feature of the histograms is how the shape of the distribution changes slowly over time. However, the mean remains zero.
 
 \begin{figure}[ht]
-  \begin{center}   
-   \includegraphics[width=\textwidth]{hourlydelaydistributionoverallstationsforoneday.png}
-  \end{center}
-  \caption{Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant.}\label{fig:histograms}
+	\begin{center}   
+		\includegraphics[width=\textwidth]{hourlydelaydistributionoverallstationsforoneday.png}
+	\end{center}
+	\caption{Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant.}\label{fig:histograms}
 \end{figure}
 
 
@@ -123,11 +165,11 @@ The stations playing a key role in the global deviation of the total graph will 
 In order to find the index of the eigenvector with the most relative importance by the number of connections (regardless of the observed time delays) the time delay matrix $\bm{\hat{\delta}}$ was turned binary.
 
 \begin{figure}[ht] 
-  \centering 
-\subfigure[Singular values for the binary connection matrix.]{\includegraphics[width=0.49\linewidth]{singular_values.png} \label{fig:sing_va}}
-\subfigure[Influences of connections.]{\includegraphics[width=0.49\linewidth]{connections_influence.png}\label{fig:influence}}
-\caption{Determining the influences of connections.}
-\label{fig:connectioninfluence}
+	\centering 
+	\subfigure[Singular values for the binary connection matrix.]{\includegraphics[width=0.49\linewidth]{singular_values.png} \label{fig:sing_va}}
+	\subfigure[Influences of connections.]{\includegraphics[width=0.49\linewidth]{connections_influence.png}\label{fig:influence}}
+	\caption{Determining the influences of connections.}
+	\label{fig:connectioninfluence}
 \end{figure}
 
 The Figure \ref{fig:sing_va} shows the relative weight of the connections for each of the eigenvalue's index, the first one being the largest one. With that, the next step was to find the connections with the largest relative weight and the limit at which the connections do not have any more influence in the overall time delay, which will be shown in Figure \ref{fig:influence} as a plot of the relative weight of each of the connections using the matrix $\bm{\hat{\delta}}$ with the measured time delays.
@@ -144,7 +186,7 @@ Let $\bm{\hat{\delta}} \in \mathbb{R}^{n\times n}$ be the measured pairwise time
 \bm{\hat{\delta}}  = \bm{\delta} + \bm{\varepsilon}.
 \label{eq:model}
 \end{equation}
- 
+
 Each of the monitors are equipped with a clock which runs independent of others. It is synchronized via GPS system once a month and then runs independently. The inaccuracy in timing events at a station is caused by variations in the clocks' oscillators which oscillation may not be idea, they might respond to outside events and the oscillations are also affected by earthquakes. 
 
 The position of each seismic monitor in the network is known. As the monitors are spread across a large area, it is assumed that local tremors are detected by stations that are close by, and therefore the correlations found in the pairwise cross-correlations and time delay data between them have higher likelihood to be linked. 
@@ -158,36 +200,36 @@ The monitor network constitutes a weighted graph $\mathcal{G}_{\delta} = (\mathc
 The network also specifies another weighted graph $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$, which sets of nodes and edges are the same as those of $\mathcal{G}_{\delta}$, but the adjacency weight matrix $W$ is based on the physical distances between the station pairs. Also these weights are normalized between $[0,1]$.
 
 \begin{figure*}[ht] 
-  \centering
-\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
-                    semithick]
-  \tikzstyle{every state}=[draw=none]
-  \node[main node] (1) {1};
-  \node[main node] (2) [above right of=1] {2};
-  \node[main node] (4) [below right of=1] {4};
-  \node[main node] (3) [below right of=2] {3};
-  \path (1) edge node {$w_{12}$} (2)
-            edge node [above left, pos=0.3] {$w_{13}$} (3)
-            edge node [below left] {$w_{14}$} (4)
-        (2) edge node {$w_{23}$} (3)
-       		 edge node [above right, pos=0.3] {$w_{24}$} (4)
-        (3) edge node {$w_{34}$} (4);
-\end{tikzpicture}
-\qquad
-\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
-                    semithick]
-  \tikzstyle{every state}=[draw=none]
-  \node[main node] (1) {1};
-  \node[main node] (2) [above right of=1] {2};
-  \node[main node] (4) [below right of=1] {4};
-  \node[main node] (3) [below right of=2] {3};
-
-  \path (1) edge node {$0.3$} (2)
-            edge node [above left] {$0.6$} (3)
-            edge node [below left] {$0.1$} (4);
-\end{tikzpicture}
-\caption{Minimal example to help understand the computation of graph metrics.}
-\label{fig:graphmetrics}
+	\centering
+	\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+	semithick]
+	\tikzstyle{every state}=[draw=none]
+	\node[main node] (1) {1};
+	\node[main node] (2) [above right of=1] {2};
+	\node[main node] (4) [below right of=1] {4};
+	\node[main node] (3) [below right of=2] {3};
+	\path (1) edge node {$w_{12}$} (2)
+	edge node [above left, pos=0.3] {$w_{13}$} (3)
+	edge node [below left] {$w_{14}$} (4)
+	(2) edge node {$w_{23}$} (3)
+	edge node [above right, pos=0.3] {$w_{24}$} (4)
+	(3) edge node {$w_{34}$} (4);
+	\end{tikzpicture}
+	\qquad
+	\begin{tikzpicture}[main node/.style={circle,draw,font=\sffamily\Large\bfseries},>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+	semithick]
+	\tikzstyle{every state}=[draw=none]
+	\node[main node] (1) {1};
+	\node[main node] (2) [above right of=1] {2};
+	\node[main node] (4) [below right of=1] {4};
+	\node[main node] (3) [below right of=2] {3};
+	
+	\path (1) edge node {$0.3$} (2)
+	edge node [above left] {$0.6$} (3)
+	edge node [below left] {$0.1$} (4);
+	\end{tikzpicture}
+	\caption{Minimal example to help understand the computation of graph metrics.}
+	\label{fig:graphmetrics}
 \end{figure*}
 
 \subsubsection{Graph metrics}
@@ -241,8 +283,8 @@ K_i=f_i(\bf{W}).
 It is the connection strength as well. But here we plug in the distance matrix $\bf{W}$. The distances are constants and yield constant $K_i$.
 The weight matrix $\bf{W}$ is a function of the distance between node $i$ and node $j$.
 \begin{enumerate}
-\item First, we choose the function to be the reciprocal of the distances of the node to all other nodes, $w_{ij}= 1/r_{ij}$, normalized between $[0,1]$. Higher values correspond to nodes with short distances to all other nodes.
-\item Second, we try a metric with weights proportional to the distances ($w_{ij} \propto r_{ij}$), normailzed between $[0,1]$ accordingly. Here, high values correspond to long distances between two stations.
+	\item First, we choose the function to be the reciprocal of the distances of the node to all other nodes, $w_{ij}= 1/r_{ij}$, normalized between $[0,1]$. Higher values correspond to nodes with short distances to all other nodes.
+	\item Second, we try a metric with weights proportional to the distances ($w_{ij} \propto r_{ij}$), normailzed between $[0,1]$ accordingly. Here, high values correspond to long distances between two stations.
 \end{enumerate}
 Other possible metrics are average neighbor degrees (resilience), transitivity, or a clustering coefficient. The analysis based on these metrics is beyond the scope of this work.  
 
@@ -262,11 +304,11 @@ We find the derivative for the gradient descent update step. For $i=2$ it is
 \begin{equation}
 \frac{df_2}{d\bm{\delta}}=\frac{\sum_j \hat{\delta}_{2j}}{d\bm{\hat{\delta}}}=
 \begin{bmatrix}
-    0 & 1 & 0 & \dots  & 0 \\
-    1 & 0 & 1 & \dots  & 1 \\
-    0 & 1 & 0 & \dots  & 0 \\
-    \vdots & \vdots & \vdots & \ddots & \vdots \\
-    0 & 1 & 0 & \dots  & 0
+0 & 1 & 0 & \dots  & 0 \\
+1 & 0 & 1 & \dots  & 1 \\
+0 & 1 & 0 & \dots  & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 1 & 0 & \dots  & 0
 \end{bmatrix}.
 \end{equation}
 It is a symmetric matrix with ones in the $i$th row and $i$th column. The diagonal entries remain zero.
@@ -295,13 +337,13 @@ The clock errors of individual stations can be written in matrix form
 \hdotsfor{6} \\
 0 & 0 & \dots & 0& 1 & -1
 \end{bmatrix}
- \begin{bmatrix}
+\begin{bmatrix}
 \Delta_1 \\ \Delta_2 \\ \Delta_3 \\ \Delta_4 \\ \vdots \\ \Delta_k \\ \vdots \\ \Delta_{n-1} \\ \Delta_n
 \end{bmatrix}
- = 
- \begin{bmatrix}
- \Delta_1 - \Delta_2 \\ \Delta_1-\Delta_3 \\ \Delta_1-\Delta_4 \\ \vdots \\ \Delta_1 - \Delta_{n} \\ \Delta_2- \Delta_3 \\ \Delta_2 - \Delta_4 \\ \vdots  \\ \Delta_2-\Delta_k \\ \vdots \\ \Delta_{n-1} - \Delta_n
- \end{bmatrix}
+= 
+\begin{bmatrix}
+\Delta_1 - \Delta_2 \\ \Delta_1-\Delta_3 \\ \Delta_1-\Delta_4 \\ \vdots \\ \Delta_1 - \Delta_{n} \\ \Delta_2- \Delta_3 \\ \Delta_2 - \Delta_4 \\ \vdots  \\ \Delta_2-\Delta_k \\ \vdots \\ \Delta_{n-1} - \Delta_n
+\end{bmatrix}
 = 
 \begin{bmatrix}
 \Delta_{12} \\ \Delta_{13} \\ \Delta_{14} \\ \vdots \\ \Delta_{1n} \\ \Delta_{23} \\ \Delta_{24} \\ \vdots \\ \Delta_{2k} \\ \vdots \\ \Delta_{(n-1)n}
@@ -352,7 +394,36 @@ By analyzing the delay data we clearly showed that it changes over time showing 
 topological graph metrics exploiting the relation between delay and distances to denoise the data. The method is robust to temporarily disconnected stations that are only included as they are only included in the calculations when they are active. Hence, the algorithm can be run for on larger networks. The algorithm produced denoised delays we could deduce clock drifts from. Due to missing validation data we cannot make conclusions on the quality of our estimates. The algorithm could either be run on synthetic data where the results are known or on data sets that include continuous GPS synchronized data. To get more compelling results other metrics could be used, or even a combination of multiple metrics.
 
 %% Insert bibliography
-\bibliographystyle{abbrv}  
-\bibliography{references}   
+
+\section{Group work dynamics}
+
+The student group should write an assessment of the group work dynamics
+(including both the Modeling Week time itself and the time/workload afterwards,
+spent on writing the report itself). In particular, you should at least answer
+to the following questions:
+\begin{itemize}
+\item How did you plan the work?
+\item How was the work distributed between the partners?
+\item What was beneficial or challenging about the group work?
+\end{itemize}
+
+\section{Instructor's assessment}
+
+Every instructor is asked to add a brief (1--2 paragraph) summary of how the
+group has performed through the week, especially with respect to the problem's
+initial goals and the actual achievements. Here is also the place to report
+possible total or part-time absences of the students during the group work
+hours --- these can be also reported by the fellow group mates.
+
+\clearpage
+
+\thispagestyle{empty}
+\addcontentsline{toc}{section}{References}
+
+% Possible references should be included in Harvard (author and year) style.
+
+\printbibliography
+%\bibliographystyle{abbrv}  
+%\bibliography{references}   
 
 \end{document}
