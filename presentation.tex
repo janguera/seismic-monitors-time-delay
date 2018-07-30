@@ -203,7 +203,7 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 \item Error is minimized with gradient descent updates on $\bm{\hat{\delta}}$: 
 
 \begin{equation}
-\bm{\hat{\delta}}^{(t+1)} = \bm{\hat{\delta}}^t-\mu\sum_i E_i(\bm{\hat{\delta}}^t)\frac{df_i(\bm{\hat{\delta}}^t)}{d\bm{\hat{\delta}}^t}
+\bm{\hat{\delta}}^{(k+1)} = \bm{\hat{\delta}}^k-\mu\sum_i E_i(\bm{\hat{\delta}}^k)\frac{df_i(\bm{\hat{\delta}}^k)}{d\bm{\hat{\delta}}^k}
 \label{eq:updates}
 \end{equation}
 
@@ -286,11 +286,11 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 \column{0.3\textwidth}
 Delay signal $\bm{\hat{\delta}}$ of one connection for 10 days
 
-\vspace{1.8cm}
+\vspace{1.5cm}
 
 Denoised signal $\bm{\delta}$ of the connection
 
-\vspace{1.8cm}
+\vspace{1.5cm}
 
 Signal noise $\bm{\varepsilon}$
 
