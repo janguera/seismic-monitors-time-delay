@@ -88,9 +88,9 @@ Dimitar Trendafilov & University of Sofia ''St. Kliment Ohridski'', Bulgaria
 
 \section{Introduction}
 
-In operation of seismic networks high quality of data is required for accurate prediction of seismic events. Precise timing is crucial but continuous GPS synchronization of the stations' internal clocks is not possible due to high energy consumption.
+In operation of seismic networks high quality of data is required for accurate prediction of seismic events. Precise timing is crucial but continuous GPS synchronization of the stations' internal clocks is not possible due to high energy consumption. This is why we need to detect time drifts differently in times of disconnection from the GPS in order to continuously guarantee reliable data.
 
-The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the delay.  This work suggests an alternative way to determine clock drift based on the data only.
+The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the delay.  This work suggests a way to determine clock drift based on the data only. For that, we use the information contained in the distance data to clear the delay data from clock drifts.
 
 \section{Problem Statement}
 \subsection{Assumptions}
@@ -103,11 +103,11 @@ The medium the wave is propagating in is homogenous.
 	$\hat{\delta}_{ij}$ & Actual delay between station $i$ and station $j$ \\
 	$\varepsilon_{ij}$ & Noise between two stations $i$ and $j$, including clock drift and ambient noise \\
 	$r_{ij}$ & Distance between stations \\
-	$w_{ij}$ & adjacency matrix element, weight between two nodes
+	$w_{ij}$ & Adjacency matrix element, weight between two nodes
 \end{tabular}
 
 \subsection{Modelling time delay between seismic monitors}
-The network of monitors can be modelled as a complete graph. The signal of each monitor is cross-correlated with other monitor signals, finally yielding time-delay data $\hat{\delta}_{ij}$ between each monitor. The time delay between the monitors comprise information on the real time the signal travels between the monitors $\delta_{ij}$, the inaccuracies of the clock (time drift), and other noise affecting the measurement. The position of each seismic monitor in the network is available that can be used to compute the distances $r_{ij}$ between all stations.
+The network of monitors can be modelled as a complete graph. The signal of each monitor is cross-correlated with other monitor signals, finally yielding time-delay data $\hat{\delta}_{ij}$ between each monitor. The time delay between the monitors comprise information on the real time the seismic wave travels between the monitors $\delta_{ij}$, the inaccuracies of the clock (time drift), and other noise affecting the measurement. The position of each seismic monitor in the network is available that can be used to compute the distances $r_{ij}$ between all stations.
 
 \section{Data}
 
@@ -140,7 +140,7 @@ The compression and decompression data recorded by the stations is retrieved and
 	\label{fig:examplesignal}
 \end{figure*}
 
-The time delays between each monitor are assumed to depend on the distance between the monitor. The further away the monitors are from each other, the larger the time delay caused by the same event recorded by the monitor. Figure \ref{fig:nearfar} shows the time signal of the station pairs that are closest and furthest apart over a time frame of 10 days supporting this assumption. One can see that the variance of the delays is much higher for the stations that are far apart. 
+The time delays between monitors are assumed to depend on the distance between the those same monitors. The further away the monitors are from each other, the longer the time a seismic wave travels from one station to  another. The time the wave travels corresponds to the actual delay and is the lion share of the measured delay between stations. Noise and clock drift are of a lower in order of magnitude. Figure \ref{fig:nearfar} shows the time signal of the station pairs that are closest and furthest apart over a time frame of 10 days supporting this assumption. One can see that the variance of the delays is much higher for the stations that are far apart. However the seismic events occur randamly.
 
 \begin{figure}[ht]
 	\begin{center}   
@@ -198,7 +198,7 @@ The computational denoising model developed in this work involves weighted netwo
 
 The monitor network constitutes a weighted graph $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}}_t)$ defined by a finite set of nodes $\mathcal{V}$ with $|\mathcal{V}| = n$, a set of edges $\mathcal{E} = \{ (v_i,v_j) \in \mathcal{E} \}$, with $\max |\mathcal{E}| = n^2-n$ and the weighted adjacency matrix $\bm{\hat{\delta}}$ with $\hat{\delta}_{ii} = 0$ for all $i$ based on the measured time delays between stations. The matrix $\bm{\hat{\delta}}$  is symmetric and describes the time delays between events in the graph, and is normalized, i.e. $\hat{\delta}_{ij}\in [0,1]$. The weighted adjacency matrix indicates the strength of connection between nodes.
 
-The network also specifies another weighted graph $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$, which sets of nodes and edges are the same as those of $\mathcal{G}_{\delta}$, but the adjacency weight matrix $W$ is based on the physical distances between the station pairs. Also these weights are normalized between $[0,1]$.
+The network also specifies another weighted graph $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$, which sets of nodes and edges are the same as those of $\mathcal{G}_{\delta}$, but the adjacency weight matrix $\bm{W}$ is based on the physical distances between the station pairs. Also these weights are normalized between $[0,1]$.
 
 \begin{figure*}[ht] 
 	\centering
@@ -234,16 +234,16 @@ The network also specifies another weighted graph $\mathcal{G}_r = (\mathcal{V},
 \end{figure*}
 
 \subsubsection{Graph metrics}
-Graph metrics are scalar functions of the weight matrix $X$ of a graph 
+Graph metrics are scalar functions of the weight matrix $\bm{X}$ of a graph 
 \begin{equation}
 f_i(\bm{X})=K_i
 \label{eq:metrics}
 \end{equation}
 
-They quantify a property of the network. In this work, the metrics involve time delays ($\delta_{ij}$) or the physical distances ($r$) between stations. The connection strength of a node $i$ that is the row sum of the normalized weighted adjacency matrix: 
+They quantify a property of the network. In this work, the metrics involve time delays ($\delta_{ij}$) or the physical distances ($r_{ij}$) between stations. The connection strength of a node $i$ that is the row sum of the normalized weighted adjacency matrix: 
 \begin{align}
 f_i(\bm{\hat{\delta}})&=\sum_j\hat{\delta}_{ij} \quad \quad \quad \quad \quad \text{for }  \mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}}_t) \\
-K_i &= f_i (\bm{W})= \sum_j{w_{ij}}  \quad \text{for }  \mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bf{W}).
+K_i &= f_i (\bm{W})= \sum_j{w_{ij}}  \quad \text{for }  \mathcal{G}_{r} = (\mathcal{V}, \mathcal{E}, \bf{W}).
 \end{align}
 
 The connection strength can be interpreted as the sum of all normalized delays of all of the connections to node i.
@@ -297,7 +297,7 @@ c(\bm{\hat{\delta}}) = \sum_i e_i^2(\bm{\hat{\delta}}) = \sum_i(f_i(\bm{\hat{\de
 \end{equation}
 The error is minimized with gradient descent updates on $\bm{\hat{\delta}}$: 
 \begin{equation}
-\bm{\hat{\delta}}^{(k+1)} = \bm{\hat{\delta}}^k-\mu\sum_i E_i(\bm{\hat{\delta}}^k)\frac{df_i(\bm{\hat{\delta}}^k)}{d\bm{\hat{\delta}}^k},
+\bm{\hat{\delta}}^{(k+1)} = \bm{\hat{\delta}}^k-\mu\sum_i e_i(\bm{\hat{\delta}}^k)\frac{df_i(\bm{\hat{\delta}}^k)}{d\bm{\hat{\delta}}^k},
 \label{eq:updates}
 \end{equation}
 where $k$ is the iteration index and $\mu$ the learning rate. %For the case of $m=1$, Equation \ref{eq:updates} describes the traditional single function gradient descent. 
@@ -322,6 +322,8 @@ The noise, $\varepsilon_{ij}$, between each pair between two stations in the sys
 \begin{equation}
 \varepsilon_{ij} =  \Delta_i - \Delta_j  + E_{ij}.
 \end{equation}
+The unwanted ambient noise $E_{ij}$ is assumed to be white noise that can be cancelled out by interpolation of the total noise.
+
 
 The clock errors of individual stations can be written in matrix form 
 
@@ -404,10 +406,12 @@ The graph denoising algorithm by \cite{Spyrou2017} is described in algorithm \re
 
 The algorithm for obtaining the time delays for the measuring stations during time $t$ is described in algorithm \ref{alg:delay calculation}.
 
+\todo{ckeck inputs in algorithm 2. Shouldnt it be $\varepsilon$ only and the metrics belong in the other algorithm?}
+
 \begin{algorithm}[H]
-	\KwData{measured time delays $\hat{\delta}$, \\calculated estimates for graph metrics $K_m$,\\ learning rate $\mu$, \\maximum error $\epsilon$, \\
+	\KwData{ measured time delays $\hat{\delta}$, \\calculated estimates for graph metrics $K_m$,\\ learning rate $\mu$, \\maximum error $\epsilon$, \\
 	Tikhonov regularisation constant $\alpha$}
-	\KwResult{Clock drifts $\Delta$}
+	\KwResult{Clock drifts $\Delta_i$}
 	get $\delta$ by denoising the matrix $\hat{\delta}$ using algorithm \ref{alg:graph denoising} with four first input parameters\\
 	get the errors between the stations by $\hat{\delta} - \delta$\\
 	arrange the error matrix to match $m$ from equation \ref{eq:Gs=m}\\
@@ -440,6 +444,10 @@ to the following questions:
 \item How was the work distributed between the partners?
 \item What was beneficial or challenging about the group work?
 \end{itemize}
+
+Christophe gave us a more detailed presentation of the problem in the first group work session. After this, we asked questions and started a first discussion. From then on Christophe left the work and work distribution to us. We started by all absorbing the problem individually reading papers. The same afternoon we used the blackboard to discuss our ideas and find a feasible starting point for our work. Christophe had given us some assumptions and questions. The second day we decided to sit closer together in a circle and be closer to the blackboard that we kept using throughout the whole week to brainstorm ideas. 
+We let everyone individually decide what they wanted to work on and sometimes asked aorund what everyone was currently working on to have a good overview and avoid that anything was left aside or the same thing was done twice. One subteam works on the methods and deveelopped the applied metrics, others analyzed the data and performed single value decomposition.
+Some team members had more experience in group works than others and everyone had different backgrounds. This was an advantage in terms of the various view points and abilities we had as a group. However, communication was sometimes difficult as we didn't know what to expect from each other.
 
 \section{Instructor's assessment}
 
