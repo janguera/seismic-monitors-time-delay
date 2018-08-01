@@ -384,6 +384,7 @@ The explicit solution is hence given by
 
 \subsection{Algorithm}
 The graph denoising algorithm by \cite{Spyrou2017} is described in algorithm \ref{alg:graph denoising}. 
+
 \begin{algorithm}[H]
 	\KwData{Noisy data $W_e$, \\calculated estimates for graph metrics $K_m$,\\ learning rate $\mu$, \\maximum error $\epsilon$}
 	\KwResult{Denoised data $\hat{W}$}
@@ -406,6 +407,7 @@ The graph denoising algorithm by \cite{Spyrou2017} is described in algorithm \re
 
 The algorithm for obtaining the time delays for the measuring stations during time $t$ is described in algorithm \ref{alg:delay calculation}.
 
+\iffalse
 \todo{ckeck inputs in algorithm 2. Shouldnt it be $\varepsilon$ only and the metrics belong in the other algorithm?}
 
 \begin{algorithm}[H]
@@ -418,6 +420,18 @@ The algorithm for obtaining the time delays for the measuring stations during ti
 	$\Delta = (G^TG + \alpha^2I^TI)^{-1}G^Tm,$ where $G$ and $m$ come from equation \ref{eq:Gs=m}, and $I$ is identity matrix of the size of $G^TG$. 
 	\caption{Clock drift calculation.}
  	\label{alg:delay calculation}
+\end{algorithm}
+\fi
+\begin{algorithm}[H]
+	\KwData{Results from algorithm \ref{alg:graph denoising}, $\delta$, \\
+		measured time delays, $\hat{\delta}$, and\\
+		Tikhonov regularisation constant, $\alpha$.}
+	\KwResult{Clock drifts $\Delta_i$}
+	get the error matrix $\varepsilon$ between the stations by $\hat{\delta} - \delta$.\\
+	arrange the error matrix $\varepsilon$ to match $m$ from equation  \ref{eq:Gs=m} and call it $m$.\\
+	$\Delta = (G^TG + \alpha^2I^TI)^{-1}G^Tm,$ where $G$ comes from equation \ref{eq:Gs=m}, and $I$ is identity matrix of the size of $G^TG$. 
+	\caption{Clock drift calculation.}
+	\label{alg:delay calculation}
 \end{algorithm}
 
 \section{Results}
