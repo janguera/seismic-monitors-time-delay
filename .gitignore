@@ -1,0 +1,17 @@
+report_official*
+triangulation_stuff.py
+read_data.py
+.idea
+.ipynb_checkpoints
+.refefences.txt.un~
+Data Battles.ipynb
+__pycache__
+refs.bib
+*.aux 
+*.bbl 
+*.blg 
+*.log 
+*.out 
+*.run.xml 
+*.synctex.gz 
+*-blx.bib
