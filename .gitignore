@@ -15,3 +15,4 @@ refs.bib
 *.run.xml 
 *.synctex.gz 
 *-blx.bib
+*.toc
