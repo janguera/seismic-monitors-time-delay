@@ -1,6 +1,6 @@
 report_official*
-triangulation_stuff.py
-read_data.py
+python_files/triangulation_stuff.py
+python_files/read_data.py
 .idea
 .ipynb_checkpoints
 .refefences.txt.un~
