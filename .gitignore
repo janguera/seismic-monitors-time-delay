@@ -1,4 +1,4 @@
-report_official*
+report/report_official*
 python_files/triangulation_stuff.py
 python_files/read_data.py
 .idea
