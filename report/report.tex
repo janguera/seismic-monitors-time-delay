@@ -26,8 +26,8 @@ paper=a4paper]{geometry}
 \lstset{basicstyle=\footnotesize\ttfamily, tabsize=2}
 
 \usepackage[backend=bibtex, style=authoryear]{biblatex}
-\addbibresource{refs.bib}
-\addbibresource{references.bib}
+%\addbibresource{refs.bib}
+\addbibresource{../references.bib}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2.5ex}
@@ -36,7 +36,7 @@ paper=a4paper]{geometry}
 \newcommand\todo[1]{{\color{red}!!!TODO: #1}}
 \begin{document}
 
-\includegraphics[width=8cm]{figures/ecmi-logo.png}
+\includegraphics[width=8cm]{../figures/ecmi-logo.png}
 
 ECMI Modeling Week 2018 \\*
 University of Novi Sad, Faculty of Technical Sciences
@@ -115,7 +115,7 @@ The data is collected from a network of 73 seismic monitor stations recording gr
 
 \begin{figure}[ht]
 	\begin{center}   
-		\includegraphics[width=\textwidth]{figures/TestStations_zoom.png}
+		\includegraphics[width=\textwidth]{../figures/TestStations_zoom.png}
 	\end{center}
 	\caption{The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The eight stations chosen as the small test set is shown as green in the southeast part of the area.}\label{fig:monitornetwork}
 \end{figure}
@@ -124,8 +124,8 @@ The stations work independent of each other and are occasionally shut down for s
 
 \begin{figure*}[ht] 
 	\centering 
-	\subfigure[The number of working seismic monitor stations.]{\label{fig:workingstations}\includegraphics[width=0.47\linewidth]{figures/working_monitors.png}}
-	\subfigure[The number of working connections between the stations.]{\label{fig:workingconnections}\includegraphics[width=0.49\linewidth]{figures/working_connections.png}}
+	\subfigure[The number of working seismic monitor stations.]{\label{fig:workingstations}\includegraphics[width=0.47\linewidth]{../figures/working_monitors.png}}
+	\subfigure[The number of working connections between the stations.]{\label{fig:workingconnections}\includegraphics[width=0.49\linewidth]{../figures/working_connections.png}}
 	\caption{Working stations and connections over one year time period. }
 	\label{fig:workingmonitors}
 \end{figure*}
@@ -134,8 +134,8 @@ The compression and decompression data recorded by the stations is retrieved and
 
 \begin{figure*}[ht] 
 	\centering 
-	\subfigure[Time Signal.]{\includegraphics[width=0.49\linewidth]{figures/delayevolutionovertimeforonestation2.png}}
-	\subfigure[Histogram.]{\includegraphics[width=0.49\linewidth]{figures/delayevolutionovertimeforonestation.png}}
+	\subfigure[Time Signal.]{\includegraphics[width=0.49\linewidth]{../figures/delayevolutionovertimeforonestation2.png}}
+	\subfigure[Histogram.]{\includegraphics[width=0.49\linewidth]{../figures/delayevolutionovertimeforonestation.png}}
 	\caption{The time-delay signal recorded between one station pair over a year. The time delay is computed in one-hour windows, yielding 24 time-delay values over a day.}
 	\label{fig:examplesignal}
 \end{figure*}
@@ -144,7 +144,7 @@ The time delays between monitors are assumed to depend on the distance between t
 
 \begin{figure}[ht]
 	\begin{center}   
-		\includegraphics[width=\textwidth]{figures/Comparisondelayoverrandomdayoffarestandclosestlinks.png}
+		\includegraphics[width=\textwidth]{../figures/Comparisondelayoverrandomdayoffarestandclosestlinks.png}
 	\end{center}
 	\caption{Comparison of the delay of the furthest and closest station pairs over 10 days.}\label{fig:nearfar}
 \end{figure}
@@ -153,7 +153,7 @@ The Figure \ref{fig:histograms} shows an example of time-delay evolution of all 
 
 \begin{figure}[ht]
 	\begin{center}   
-		\includegraphics[width=\textwidth]{figures/hourlydelaydistributionoverallstationsforoneday.png}
+		\includegraphics[width=\textwidth]{../figures/hourlydelaydistributionoverallstationsforoneday.png}
 	\end{center}
 	\caption{Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant.}\label{fig:histograms}
 \end{figure}
@@ -167,8 +167,8 @@ In order to find the index of the eigenvector with the most relative importance 
 
 \begin{figure}[ht] 
 	\centering 
-	\subfigure[Singular values for the binary connection matrix.]{\includegraphics[width=0.49\linewidth]{figures/singular_values.png} \label{fig:sing_va}}
-	\subfigure[Influences of connections.]{\includegraphics[width=0.49\linewidth]{figures/connections_influence.png}\label{fig:influence}}
+	\subfigure[Singular values for the binary connection matrix.]{\includegraphics[width=0.49\linewidth]{../figures/singular_values.png} \label{fig:sing_va}}
+	\subfigure[Influences of connections.]{\includegraphics[width=0.49\linewidth]{../figures/connections_influence.png}\label{fig:influence}}
 	\caption{Determining the influences of connections.}
 	\label{fig:connectioninfluence}
 \end{figure}
