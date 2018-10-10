@@ -43,7 +43,7 @@ University of Novi Sad, Faculty of Technical Sciences
 
 \begin{center}
 \vspace{2.0cm}
-{\Large{\textbf{\MakeUppercase{Modeling effect of time delay for large network of seismic monitor}}}}
+{\Large{\textbf{\MakeUppercase{The effect of clock drift on time delay data in a large network of seismic monitors}}}}
 
 \vspace{\stretch{0.01}}
 
@@ -67,14 +67,13 @@ Dimitar Trendafilov & University of Sofia ''St. Kliment Ohridski'', Bulgaria
 \end{tabular}
 
 \begin{abstract}
-	Seismic monitoring is used to study the behavior and composition of the underground floor. For earthquake prediction and underground works precise timing and positioning information is needed. Drilling companies use equipments that are linked in a network and are generally connected to a global positioning system for synchronization. However, instruments are not continuously  synchronized and may deviate in time. Hence, the periods to which the vibration of the underground floor are caught might lack accuracy. Consequently, the precise localisation of the events becomes impossible. We have delay measurements and distance data available for an example seismic network and  use it to correct the timing of the data in periods without GPS reception.
+	Seismic monitoring is used to study the behavior and composition of the underground floor. For earthquake prediction and underground works precise timing and positioning information is needed. Drilling companies use equipments that are linked in a network and are generally connected to a global positioning system for synchronization. However, instruments are not continuously  synchronized and their internal clocks may deviate in time. Hence, the periods to which the vibration of the underground floor are caught are inherently inaccurate due to inaccuracies in timing of the event. Consequently, the precise localisation of the events becomes impossible. In this study, we have time delay measurements and distance data of a seismic monitor network and we use it to investigate the time drift in each of the seismic monitor station clocks.
 	
 \end{abstract}
-\todo{Abstract was not in the original model, but it's stupid to not have one}
 \vspace{\stretch{0.5}}
 
 
-\today \todo{ CHANGE THIS TO THE DATE WHEN ITS READY}
+\today \todo{ CHANGE THIS TO THE DATE REPORT COMPLETED DATE}
 
 \end{center}
 
@@ -93,9 +92,7 @@ In operation of seismic networks high quality of data is required for accurate p
 The purpose of this work is to analyze noise in a large network of seismic monitors and to extract clock drift from the delay.  This work suggests a way to determine clock drift based on the data only. For that, we use the information contained in the distance data to clear the delay data from clock drifts.
 
 \section{Problem Statement}
-\subsection{Assumptions}
-All the stations have the same orientation.
-The medium the wave is propagating in is homogenous.
+
 \subsection{Definitions}
 \begin{tabular}{c| p{11cm}}
 	$\Delta_i$ & clock drift at station $i$\\
@@ -115,14 +112,14 @@ The data is collected from a network of 73 seismic monitor stations recording gr
 
 \begin{figure}[ht]
 	\begin{center}   
-		\includegraphics[width=\textwidth]{../figures/TestStations_zoom.png}
+		\includegraphics[width=0.6\textwidth]{../figures/TestStations_zoom.png}
 	\end{center}
 	\caption{The network of seismic monitors are located in the Southeast France, mostly in the regions of Provence-Alpes-C\^{o}te d'Azur and Rh\^{o}ne-Alpes. The eight stations chosen as the small test set is shown as green in the southeast part of the area.}\label{fig:monitornetwork}
 \end{figure}
 
 The stations work independent of each other and are occasionally shut down for some time frame for maintenance, repair or just random events. Just as occasionally they are brought back up to continue measuring.  Therefore, the number of active stations varies over time. The Figure \ref{fig:workingstations} shows the number of working stations, and the Figure \ref{fig:workingconnections} the number of working connections between the monitor stations over one year of measurements. 
 
-\begin{figure*}[ht] 
+\begin{figure*}[!ht] 
 	\centering 
 	\subfigure[The number of working seismic monitor stations.]{\label{fig:workingstations}\includegraphics[width=0.47\linewidth]{../figures/working_monitors.png}}
 	\subfigure[The number of working connections between the stations.]{\label{fig:workingconnections}\includegraphics[width=0.49\linewidth]{../figures/working_connections.png}}
@@ -130,9 +127,7 @@ The stations work independent of each other and are occasionally shut down for s
 	\label{fig:workingmonitors}
 \end{figure*}
 
-The compression and decompression data recorded by the stations is retrieved and run through initial data cleaning and filtering procedures. The data is then cross-correlated in one-hour time windows to yield time-delay data of signals between all monitors (Figure \ref{fig:examplesignal}). 
-
-\begin{figure*}[ht] 
+\begin{figure*}[!ht] 
 	\centering 
 	\subfigure[Time Signal.]{\includegraphics[width=0.49\linewidth]{../figures/delayevolutionovertimeforonestation2.png}}
 	\subfigure[Histogram.]{\includegraphics[width=0.49\linewidth]{../figures/delayevolutionovertimeforonestation.png}}
@@ -140,16 +135,16 @@ The compression and decompression data recorded by the stations is retrieved and
 	\label{fig:examplesignal}
 \end{figure*}
 
-The time delays between monitors are assumed to depend on the distance between the those same monitors. The further away the monitors are from each other, the longer the time a seismic wave travels from one station to  another. The time the wave travels corresponds to the actual delay and is the lion share of the measured delay between stations. Noise and clock drift are of a lower in order of magnitude. Figure \ref{fig:nearfar} shows the time signal of the station pairs that are closest and furthest apart over a time frame of 10 days supporting this assumption. One can see that the variance of the delays is much higher for the stations that are far apart. However the seismic events occur randamly.
+The compression and decompression data recorded by the stations is retrieved and run through initial data cleaning and filtering procedures. The data is then cross-correlated in one-hour time windows to yield time-delay data of signals between all monitors (Figure \ref{fig:examplesignal}). 
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\begin{center}   
 		\includegraphics[width=\textwidth]{../figures/Comparisondelayoverrandomdayoffarestandclosestlinks.png}
 	\end{center}
 	\caption{Comparison of the delay of the furthest and closest station pairs over 10 days.}\label{fig:nearfar}
 \end{figure}
 
-The Figure \ref{fig:histograms} shows an example of time-delay evolution of all monitors over 24 hours. The distributions are symmetric with zero mean which implies that the delays at an instant cancel out over the whole area the 73 stations are mounted in. The interesting feature of the histograms is how the shape of the distribution changes slowly over time. However, the mean remains zero.
+The time delays between monitors are assumed to depend on the distance between the those same monitors. The further away the monitors are from each other, the longer the time a seismic wave travels from one station to  another. The time the wave travels corresponds to the actual delay and is the lion share of the measured delay between stations. Noise and clock drift are of a lower in order of magnitude. Figure \ref{fig:nearfar} shows the time signal of the station pairs that are closest and furthest apart over a time frame of 10 days supporting this assumption. One can see that the variance of the delays is much higher for the stations that are far apart. However the seismic events occur randamly.
 
 \begin{figure}[ht]
 	\begin{center}   
@@ -158,10 +153,12 @@ The Figure \ref{fig:histograms} shows an example of time-delay evolution of all 
 	\caption{Histograms of time delays of all active stations recorded over 24 hours. The histogram shows how many connections have a particular delay at the instant.}\label{fig:histograms}
 \end{figure}
 
+The Figure \ref{fig:histograms} shows an example of time-delay evolution of all monitors over 24 hours. The distributions are symmetric with zero mean which implies that the delays at an instant cancel out over the whole area the 73 stations are mounted in. The interesting feature of the histograms is how the shape of the distribution changes slowly over time. However, the mean remains zero.
+
 
 \subsection{The most influential stations}
 
-The stations playing a key role in the global deviation of the total graph will be evaluated by the singular value decomposition of the global delays matrix $\bm{\hat{\delta}} \in\mathbb{R}^{n\times m}$, where $n$ is the number of edges and $m$ the number of time steps. \todo{check the notation for the number of edges and time steps}
+The stations playing a key role in the global deviation of the total graph will be evaluated by the singular value decomposition of the global delays matrix $\bm{\hat{\delta}} \in\mathbb{R}^{n\times m}$, where $n$ is the number of edges and $m$ the number of time steps.
 
 In order to find the index of the eigenvector with the most relative importance by the number of connections (regardless of the observed time delays) the time delay matrix $\bm{\hat{\delta}}$ was turned binary.
 
@@ -196,7 +193,7 @@ The position of each seismic monitor in the network is known. As the monitors ar
 \subsubsection{Definitions}
 The computational denoising model developed in this work involves weighted network estimation by the use of topological graph metrics, described in detail in \cite{Spyrou2017}. 
 
-The monitor network constitutes a weighted graph $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}}_t)$ defined by a finite set of nodes $\mathcal{V}$ with $|\mathcal{V}| = n$, a set of edges $\mathcal{E} = \{ (v_i,v_j) \in \mathcal{E} \}$, with $\max |\mathcal{E}| = n^2-n$ and the weighted adjacency matrix $\bm{\hat{\delta}}$ with $\hat{\delta}_{ii} = 0$ for all $i$ based on the measured time delays between stations. The matrix $\bm{\hat{\delta}}$  is symmetric and describes the time delays between events in the graph, and is normalized, i.e. $\hat{\delta}_{ij}\in [0,1]$. The weighted adjacency matrix indicates the strength of connection between nodes.
+The monitor network constitutes a weighted graph $\mathcal{G}_{\delta} = (\mathcal{V}, \mathcal{E}, \bm{\hat{\delta}}_t)$ defined by a finite set of nodes $\mathcal{V}$ with $|\mathcal{V}| = n$, a set of edges $\mathcal{E} = \{ (v_i,v_j) \in \mathcal{V} \}$, with $\max |\mathcal{E}| = n^2-n$ and the weighted adjacency matrix $\bm{\hat{\delta}}$ with $\hat{\delta}_{ii} = 0$ for all $i$ based on the measured time delays between stations. The matrix $\bm{\hat{\delta}}$  is symmetric and describes the time delays between events in the graph, and is normalized, i.e. $\hat{\delta}_{ij}\in [0,1]$. The weighted adjacency matrix indicates the strength of connection between nodes.
 
 The network also specifies another weighted graph $\mathcal{G}_r = (\mathcal{V}, \mathcal{E}, \bm{W})$, which sets of nodes and edges are the same as those of $\mathcal{G}_{\delta}$, but the adjacency weight matrix $\bm{W}$ is based on the physical distances between the station pairs. Also these weights are normalized between $[0,1]$.
 
@@ -383,7 +380,7 @@ The explicit solution is hence given by
 \end{equation}
 
 \subsection{Algorithm}
-The graph denoising algorithm by \cite{Spyrou2017} is described in algorithm \ref{alg:graph denoising}. 
+The graph denoising algorithm by \cite{Spyrou2017} is described in algorithm \ref{alg:graphdenoising}. 
 
 \begin{algorithm}[H]
 	\KwData{Noisy data $W_e$, \\calculated estimates for graph metrics $K_m$,\\ learning rate $\mu$, \\maximum error $\epsilon$}
@@ -402,10 +399,10 @@ The graph denoising algorithm by \cite{Spyrou2017} is described in algorithm \re
 	}
 	$\hat{W} = W_t$
 	\caption{Graph denoising algorithm.}
-	\label{alg:graph denoising}
+	\label{alg:graphdenoising}
 \end{algorithm}
 
-The algorithm for obtaining the time delays for the measuring stations during time $t$ is described in algorithm \ref{alg:delay calculation}.
+The algorithm for obtaining the time delays for the measuring stations during time $t$ is described in algorithm \ref{alg:driftcalculation}.
 
 \iffalse
 \todo{ckeck inputs in algorithm 2. Shouldnt it be $\varepsilon$ only and the metrics belong in the other algorithm?}
@@ -419,11 +416,11 @@ The algorithm for obtaining the time delays for the measuring stations during ti
 	arrange the error matrix to match $m$ from equation \ref{eq:Gs=m}\\
 	$\Delta = (G^TG + \alpha^2I^TI)^{-1}G^Tm,$ where $G$ and $m$ come from equation \ref{eq:Gs=m}, and $I$ is identity matrix of the size of $G^TG$. 
 	\caption{Clock drift calculation.}
- 	\label{alg:delay calculation}
+ 	\label{alg:delaycalculation}
 \end{algorithm}
 \fi
 \begin{algorithm}[H]
-	\KwData{Results from algorithm \ref{alg:graph denoising}, $\delta$, \\
+	\KwData{Results from algorithm \ref{alg:graphdenoising}, $\delta$, \\
 		measured time delays, $\hat{\delta}$, and\\
 		Tikhonov regularisation constant, $\alpha$.}
 	\KwResult{Clock drifts $\Delta_i$}
@@ -431,19 +428,37 @@ The algorithm for obtaining the time delays for the measuring stations during ti
 	arrange the error matrix $\varepsilon$ to match $m$ from equation  \ref{eq:Gs=m} and call it $m$.\\
 	$\Delta = (G^TG + \alpha^2I^TI)^{-1}G^Tm,$ where $G$ comes from equation \ref{eq:Gs=m}, and $I$ is identity matrix of the size of $G^TG$. 
 	\caption{Clock drift calculation.}
-	\label{alg:delay calculation}
+	\label{alg:driftcalculation}
 \end{algorithm}
 
 \section{Results}
-\subsection{Signal denoising}
 
+The noisy time delay signal was analyzed by the graph denoising algorithm (Algorithm \ref{alg:graphdenoising}) and the clock drift was further processed by the Algorithm \ref{alg:driftcalculation}. The denoising of a signal between one station pair is depicted in the Figure \ref{fig:denoising}. For simplicity and readibility, the figure includes the signal for 10 days. The Figure \ref{fig:noisy10days} shows how the time delays between events between the pair of stations varies between roughly $[-3,3]$ seconds. The Figure \ref{fig:denoised10days} shows the denoised signal which, based on the assumptions introduced in the denoising algorithm, is the true time delay between observed events. The signal noise which includes also the clock drifts affecting this particular station pair is depicted in the Figure \ref{fig:noise10days}.  The figure \ref{fig:denoising} clearly shows how the signal and noise appear quite random and lacking trend by nature. 
 
-\subsection{Clock deviations}
+\begin{figure}[ht] 
+	\centering 
+	\subfigure[Delay signal $\bm{\hat{\delta}}$ of one connection for 10 days.]{\includegraphics[width=0.49\textwidth]{../figures/noisy-time-delay-data-10-days.png} \label{fig:noisy10days}}
+	\subfigure[Denoised signal $\bm{\delta}$ of the connection.]{\includegraphics[width=0.49\textwidth]{../figures/denoised-time-delay-data-ten-days.png}\label{fig:denoised10days}}
+	\subfigure[Signal noise $\bm{\varepsilon}$]{\includegraphics[width=\textwidth]{../figures/the-noise-ten-days.png}\label{fig:noise10days}}
+	\caption{Denoising of the time delay signal at between two stations.}
+	\label{fig:denoising}
+\end{figure}
+
+The clock drifts were obtained from the denoised signals such as the one depicted in the Figure \ref{fig:noise10days} and computed for each of the stations by using the Algorithm \ref{alg:driftcalculation}. The obtained clock drifts for each of the analyzed eight stations are shown in the Figure \ref{fig:clockdeviations}. It is evident in the figure that each of the station clocks tick at a different pace and that the pace varies. The scale of the axes are important. It shows that although an individual clock drift may account for up to 6 percent inaccuracy in timing at each time point, it may also tick at a roughly constant binary pace producing also binary deviation in the measurements, such as the clocks in the top and botton left in the Figure \ref{fig:clockdeviations}. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[height=0.9\textwidth]{../figures/results-for-eight-network.png}
+\caption{Clock drifts of the eight stations obtained by the signal denoising model. The rough maximum scale of the individual clock drift is marked in the low right  corner of each figure.}
+\label{fig:clockdeviations}
+\end{figure}
+
 
 
 \section{Conclusions and Outlook}
-By analyzing the delay data we clearly showed that it changes over time showing patterns other than only white noise. This is due to clock drift. We used a method of weighted network estimation by the use of
-topological graph metrics exploiting the relation between delay and distances to denoise the data. The method is robust to temporarily disconnected stations that are only included as they are only included in the calculations when they are active. Hence, the algorithm can be run for on larger networks. The algorithm produced denoised delays we could deduce clock drifts from. Due to missing validation data we cannot make conclusions on the quality of our estimates. The algorithm could either be run on synthetic data where the results are known or on data sets that include continuous GPS synchronized data. To get more compelling results other metrics could be used, or even a combination of multiple metrics.
+By analyzing the delay data we clearly showed that it changes over time showing patterns other than only white noise. This is due to clock drift. We used a method of weighted network estimation by the use of topological graph metrics exploiting the relation between delay and distances to denoise the data. The method is robust to temporarily disconnected stations that are only included as they are only included in the calculations when they are active. Hence, the algorithm can be run for on larger networks. The clock drifts are derived from the denoised time delay signals computed by the denoising algorithm developed in this work. 
+
+The analysis provided in this report cannot produce conclusive evidence on the quality of the clock drift estimates due to missing validation data. This could be overcome by producing a synthetic dataset to first validate the methodology and then evaluate the obtained estimates. The methodology could be further augmented by developing other graph metrics in addition to the distance metric, or apply a combination of multiple metrics. As this work only included a subset of stations, the further work would also consist of including the complete network of stations in the analysis. 
 
 %% Insert bibliography
 
@@ -459,9 +474,14 @@ to the following questions:
 \item What was beneficial or challenging about the group work?
 \end{itemize}
 
-Christophe gave us a more detailed presentation of the problem in the first group work session. After this, we asked questions and started a first discussion. From then on Christophe left the work and work distribution to us. We started by all absorbing the problem individually reading papers. The same afternoon we used the blackboard to discuss our ideas and find a feasible starting point for our work. Christophe had given us some assumptions and questions. The second day we decided to sit closer together in a circle and be closer to the blackboard that we kept using throughout the whole week to brainstorm ideas. 
-We let everyone individually decide what they wanted to work on and sometimes asked aorund what everyone was currently working on to have a good overview and avoid that anything was left aside or the same thing was done twice. One subteam works on the methods and developed the applied metrics, others analyzed the data and performed single value decomposition.
-Some team members had more experience in group works than others and everyone had different backgrounds. This was an advantage in terms of the various view points and abilities we had as a group. However, communication was sometimes difficult as we didn't know what to expect from each other.
+Christophe gave us a more detailed presentation of the problem in the first group work session. After this, we asked questions and started a first discussion. From then on Christophe left the work and work distribution to us. We started by all absorbing the problem individually reading papers. The same afternoon we used the blackboard to discuss our ideas and find a feasible starting point for our work. Christophe had given us some assumptions and questions. 
+
+The second day we decided to sit closer together in a circle and be closer to the blackboard that we kept using throughout the whole week to brainstorm ideas. 
+We let everyone individually decide what they wanted to work on and sometimes asked around what everyone was currently working on to have a good overview and avoid that anything was left aside or the same thing was done twice. One subteam worked on the methods and developed the applied metrics, others analyzed the data and performed single value decomposition. This mode of working continued for the rest of the week. 
+
+Some team members had more experience in group work than others and everyone had different backgrounds. This was an advantage in terms of the various view points and abilities we had as a group. However, communication was sometimes difficult as we didn't know what to expect from each other.
+
+We started to write the report already during the week so we only needed to finalize details and write up results after the modelling week in Novi Sad. We stored our data, results, presentation and report in a GitHub project allowing for easy access and version control to all the team members. 
 
 \section{Instructor's assessment}
 
